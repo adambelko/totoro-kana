@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar text-white">
 	<div class="container">
 		<a class="navbar-brand" href="/">Learn KANA</a>
 		<ul class="navbar-nav">
@@ -13,30 +13,33 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: var(--nav-bg-color);
 		flex-wrap: nowrap;
 		width: 100vw;
-		height: 125px;
+		height: 100px;
 	}
 
 	.container {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		max-width: 1120px;
+		max-width: 980px;
 		width: 100%;
 	}
 
 	.navbar-brand {
 		font-size: 1.3em;
 		font-weight: bold;
-		padding-right: 30px;
+		margin-right: 30px;
 	}
 
 	.navbar-nav {
 		display: flex;
 		gap: 2.2em;
-		font-size: 0.8em;
+		font-size: 1em;
 		font-weight: 600;
+	}
+
+	li {
+		cursor: pointer;
 	}
 </style>
