@@ -1,4 +1,4 @@
-<nav class="navbar text-white">
+<nav class="navbar">
 	<div class="container">
 		<a class="navbar-brand" href="/">Learn KANA</a>
 		<ul class="navbar-nav">

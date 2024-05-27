@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="499d13ed-c4aa-41c4-b7f8-4f0aa649f844" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customTheme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/customTheme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/components/Nav.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/Nav.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/+layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+layout.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../my shopping list/index.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,11 +25,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layout" />
+        <option value="+page.server" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/lib/data/hiragana.js" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/lib/data/katakana.js" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="LLMProjectSettings">
     <option name="aiignore_manually_set" value="true" />
@@ -76,7 +84,7 @@
       <workItem from="1716106616837" duration="977000" />
       <workItem from="1716119246565" duration="5149000" />
       <workItem from="1716239702325" duration="8594000" />
-      <workItem from="1716361587529" duration="7311000" />
+      <workItem from="1716361587529" duration="22562000" />
     </task>
     <servers />
   </component>

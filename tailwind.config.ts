@@ -15,7 +15,8 @@ const config = {
 	plugins: [
 		skeleton({
 			themes: {
-				custom: [customTheme]
+				preset: [{ name: "skeleton", enhancements: true }]
+				// custom: [customTheme]
 			}
 		})
 	]
