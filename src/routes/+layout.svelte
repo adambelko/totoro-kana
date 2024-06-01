@@ -1,6 +1,5 @@
 <script>
 	import "../app.css"
-	// Styles import
 	import "$lib/styles/main.css"
 
 	// Svelte component imports
