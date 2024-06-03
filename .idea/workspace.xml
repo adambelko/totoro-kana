@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="499d13ed-c4aa-41c4-b7f8-4f0aa649f844" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/lib/components/Practice.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/components/Nav.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/Nav.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/+layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+layout.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/components/KanaListBox.svelte" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+page.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../my shopping list/index.html" beforeDir="false" />
     </list>
@@ -24,6 +23,8 @@
         <option value="+page.server" />
         <option value="HiraganaListBox" />
         <option value="LandingPage" />
+        <option value="SelectCharGroupListBox" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -84,7 +85,8 @@
       <workItem from="1716239702325" duration="8594000" />
       <workItem from="1716361587529" duration="50858000" />
       <workItem from="1717141257771" duration="713000" />
-      <workItem from="1717191241068" duration="4716000" />
+      <workItem from="1717191241068" duration="16184000" />
+      <workItem from="1717376879998" duration="1979000" />
     </task>
     <servers />
   </component>
