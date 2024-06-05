@@ -1,21 +1,21 @@
 <script lang="ts">
 	import SelectKanaGroupListBox from "$lib/components/SelectKanaGroupListBox.svelte"
+	import Practice from "$lib/components/Practice.svelte"
 	import { AppBar } from "@skeletonlabs/skeleton"
 	import { hiragana } from "$lib/data/hiragana"
 	import { katakana } from "$lib/data/katakana"
-	import Practice from "$lib/components/Practice.svelte"
 
 	interface KanaGroup {
 		category: string
 		groupName: string
 		romaji: string
 		japanese: string
+		characters: { [key: string]: string[] }
 	}
 
 	let hiraganaGroups: KanaGroup[] = []
 	let katakanaGroups: KanaGroup[] = []
 	$: selectedGroups = [{ hiragana: [...hiraganaGroups] }, { katakana: [...katakanaGroups] }]
-	$: console.log(selectedGroups)
 
 	let showPractice = false
 
