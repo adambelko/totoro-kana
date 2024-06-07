@@ -15,7 +15,7 @@
 
 	let hiraganaGroups: KanaGroup[] = []
 	let katakanaGroups: KanaGroup[] = []
-	$: selectedGroups = [{ hiragana: [...hiraganaGroups] }, { katakana: [...katakanaGroups] }]
+	$: selectedGroups = [...hiraganaGroups, ...katakanaGroups]
 
 	let showPractice = false
 
