@@ -14,10 +14,10 @@ interface KanaData {
 	}
 }
 
-export function formatData(data: KanaData): KanaGroup[] {
+export function formatKanaGroups(data: KanaData): KanaGroup[] {
 	return Object.entries(data).flatMap(([category, groups]) => {
 		return Object.entries(groups).map(([groupName, groupData]) => {
-			const romajiCharacters = Object.values(groupData).flatMap((pronunciations) => pronunciations)
+			const romajiCharacters = Object.values(groupData).map((characters) => characters[0])
 			const romaji = romajiCharacters.join(" · ")
 			const japanese = Object.keys(groupData).join(" · ")
 

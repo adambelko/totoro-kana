@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SelectKanaGroupListBox from "$lib/components/SelectKanaGroupListBox.svelte"
+	import SelectKana from "$lib/components/SelectKana.svelte"
 	import Practice from "$lib/components/Practice.svelte"
 	import { AppBar } from "@skeletonlabs/skeleton"
 	import { hiragana } from "$lib/data/hiragana"
@@ -20,7 +20,7 @@
 	let showPractice = false
 
 	const togglePractice = () => {
-		showPractice = !showPractice
+		selectedGroups.length >= 1 ? (showPractice = !showPractice) : false
 	}
 </script>
 
@@ -31,14 +31,14 @@
 
 	<div class="mt-6 flex gap-4 bg-white/30 p-8 rounded-container-token dark:bg-black/30">
 		<div class="flex-1">
-			<SelectKanaGroupListBox
+			<SelectKana
 				title="Hiragana / ひらがな"
 				data={hiragana}
 				bind:selectedGroups={hiraganaGroups}
 			/>
 		</div>
 		<div class="flex-1">
-			<SelectKanaGroupListBox
+			<SelectKana
 				title="Katakana / カタカナ"
 				data={katakana}
 				bind:selectedGroups={katakanaGroups}

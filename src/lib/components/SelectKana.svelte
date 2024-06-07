@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem } from "@skeletonlabs/skeleton"
-	import { formatData } from "$lib/helpers/formatKanaCharacters.js"
+	import { formatKanaGroups } from "$lib/helpers/formatKanaCharacters.js"
 
 	interface KanaGroup {
 		category: string
@@ -22,7 +22,7 @@
 	export let title: string
 	export let data: KanaData
 
-	const listBoxData: KanaGroup[] = formatData(data)
+	const listBoxData: KanaGroup[] = formatKanaGroups(data)
 
 	let allChecked = false
 	let mainChecked = false
