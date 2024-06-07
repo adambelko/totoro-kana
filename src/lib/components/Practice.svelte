@@ -15,54 +15,65 @@
 	let currentCharacter = ""
 	let currentRomaji: string[] = []
 	let userInput = ""
-	let currentIndex = 0
+	let currentIndex: number = 0
 	let correctAnswers = 0
 	let skippedAnswers = 0
-	let showError = false
+	let inputError = ""
+	$: progress = ((correctAnswers + skippedAnswers) / allKana.length) * 100
 
-	//--------fix type
-	let allKana: any = []
-
-	selectedGroups.forEach((kanaGroup) => {
-		Object.entries(kanaGroup.characters).forEach(([japanese, romaji]) => {
-			allKana.push([japanese, romaji])
-		})
-	})
-
+	let allKana: [string, string[]][] = []
 	console.log(allKana)
 
-	// Initialize the first character
-	if (allKana.length > 0) {
+	const shuffleArray = (array: any) => {
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1))
+			;[array[i], array[j]] = [array[j], array[i]]
+		}
+		return array
+	}
+
+	const initKana = () => {
+		selectedGroups.forEach((kanaGroup) => {
+			Object.entries(kanaGroup.characters).forEach(([japanese, romaji]) => {
+				allKana.push([japanese, romaji])
+			})
+		})
+		allKana = shuffleArray(allKana)
+	}
+	const setNextKanaPair = () => {
 		;[currentCharacter, currentRomaji] = allKana[currentIndex]
 	}
 
-	$: progress = ((correctAnswers + skippedAnswers) / allKana.length) * 100
+	initKana()
+	setNextKanaPair()
 
-	function nextCharacter() {
-		if (userInput.toLowerCase() === currentRomaji.join(",").toLowerCase()) {
-			correctAnswers++
-			showError = false
-		} else {
-			showError = true
-			return // Stay on the same character if the answer is incorrect
-		}
-
+	const nextCharacter = () => {
 		currentIndex++
 		if (currentIndex < allKana.length) {
-			;[currentCharacter, currentRomaji] = allKana[currentIndex]
-			userInput = ""
+			setNextKanaPair()
 		} else {
 			console.log("Quiz completed")
 		}
 	}
 
-	function skipCharacter() {
+	const checkCharacter = () => {
+		if (currentRomaji.some((romaji) => userInput.toLowerCase() === romaji.toLowerCase())) {
+			correctAnswers++
+			userInput = ""
+			nextCharacter()
+		} else {
+			inputError = "input-error"
+			return
+		}
+	}
+
+	const skipCharacter = () => {
 		skippedAnswers++
 		currentIndex++
 		if (currentIndex < allKana.length) {
-			;[currentCharacter, currentRomaji] = allKana[currentIndex]
+			setNextKanaPair()
 			userInput = ""
-			showError = false
+			inputError = ""
 		} else {
 			console.log("Quiz completed")
 		}
@@ -73,13 +84,10 @@
 	<div class="flex justify-center">
 		<div class="flex w-1/2 flex-col gap-4 p-20">
 			<div class="flex justify-center p-8 text-6xl">{currentCharacter}</div>
-			<input class="input h-8 pl-3" type="text" bind:value={userInput} />
-			{#if showError}
-				<div class="text-red-500">Try again.</div>
-			{/if}
+			<input class="input h-8 pl-3 {inputError}" type="text" bind:value={userInput} />
 			<div class="flex justify-center gap-4">
 				<button class="variant-filled-tertiary btn" on:click={skipCharacter}>Skip</button>
-				<button class="variant-filled-primary btn" on:click={nextCharacter}>Next</button>
+				<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
 			</div>
 		</div>
 	</div>
