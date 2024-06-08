@@ -25,11 +25,12 @@
 </script>
 
 {#if showPractice === false}
-	<AppBar class="mt-6 p-6 rounded-container-token" background="variant-ghost">
+	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
 		Welcome back user!
+		<br />Select at least one of the groups, you can scroll down too!
 	</AppBar>
 
-	<div class="mt-6 flex gap-4 bg-white/30 p-8 rounded-container-token dark:bg-black/30">
+	<div class="mt-4 flex gap-4 bg-white/30 p-5 rounded-container-token dark:bg-black/30">
 		<div class="flex-1">
 			<SelectKana
 				title="Hiragana / ひらがな"

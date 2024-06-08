@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { ProgressBar } from "@skeletonlabs/skeleton"
+	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
+	import PracticeResults from "$lib/components/PracticeResults.svelte"
 
 	interface KanaGroup {
 		category: string
@@ -10,19 +11,20 @@
 	}
 
 	export let selectedGroups: KanaGroup[]
-	console.log(selectedGroups)
+	// console.log(selectedGroups)
 
 	let currentCharacter = ""
 	let currentRomaji: string[] = []
 	let userInput = ""
-	let currentIndex: number = 0
+	let currentIndex = 0
 	let correctAnswers = 0
 	let skippedAnswers = 0
 	let inputError = ""
+	let showResults = false
 	$: progress = ((correctAnswers + skippedAnswers) / allKana.length) * 100
 
 	let allKana: [string, string[]][] = []
-	console.log(allKana)
+	// console.log(allKana)
 
 	const shuffleArray = (array: any) => {
 		for (let i = array.length - 1; i > 0; i--) {
@@ -40,6 +42,7 @@
 		})
 		allKana = shuffleArray(allKana)
 	}
+
 	const setNextKanaPair = () => {
 		;[currentCharacter, currentRomaji] = allKana[currentIndex]
 	}
@@ -52,14 +55,15 @@
 		if (currentIndex < allKana.length) {
 			setNextKanaPair()
 		} else {
-			console.log("Quiz completed")
+			showResults = true
 		}
 	}
 
 	const checkCharacter = () => {
-		if (currentRomaji.some((romaji) => userInput.toLowerCase() === romaji.toLowerCase())) {
+		if (currentRomaji.some((romaji) => userInput.toLowerCase().trim() === romaji)) {
 			correctAnswers++
 			userInput = ""
+			inputError = ""
 			nextCharacter()
 		} else {
 			inputError = "input-error"
@@ -75,24 +79,31 @@
 			userInput = ""
 			inputError = ""
 		} else {
-			console.log("Quiz completed")
+			showResults = true
 		}
 	}
 </script>
 
-<div class="mt-6 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
-	<div class="flex justify-center">
-		<div class="flex w-1/2 flex-col gap-4 p-20">
-			<div class="flex justify-center p-8 text-6xl">{currentCharacter}</div>
-			<input class="input h-8 pl-3 {inputError}" type="text" bind:value={userInput} />
-			<div class="flex justify-center gap-4">
-				<button class="variant-filled-tertiary btn" on:click={skipCharacter}>Skip</button>
-				<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
+{#if showResults === false}
+	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
+		Enter the correct romaji and click "Next". If unsure, click "Skip" to move to the next character
+	</AppBar>
+	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
+		<div class="flex justify-center">
+			<div class="flex w-1/2 flex-col gap-4 p-20">
+				<div class="flex justify-center p-8 text-6xl">{currentCharacter}</div>
+				<input class="input h-8 pl-3 {inputError}" type="text" bind:value={userInput} />
+				<div class="flex justify-center gap-4">
+					<button class="variant-filled-tertiary btn" on:click={skipCharacter}>Skip</button>
+					<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
+				</div>
 			</div>
 		</div>
+		<span class="mb-1 flex justify-center">
+			{correctAnswers + skippedAnswers}/{allKana.length}
+		</span>
+		<ProgressBar value={progress} max={100} />
 	</div>
-	<span class="mb-1 flex justify-center">
-		{correctAnswers + skippedAnswers}/{allKana.length}
-	</span>
-	<ProgressBar value={progress} max={100} />
-</div>
+{:else}
+	<PracticeResults {correctAnswers} {skippedAnswers} {selectedGroups} />
+{/if}
