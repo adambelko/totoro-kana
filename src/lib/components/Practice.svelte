@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from "svelte"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import PracticeResults from "$lib/components/PracticeResults.svelte"
 
@@ -25,6 +26,22 @@
 
 	let allKana: [string, string[]][] = []
 	// console.log(allKana)
+
+	onMount(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Enter") {
+				checkCharacter()
+			} else if (event.key.toLowerCase() === "s" && event.shiftKey) {
+				event.preventDefault()
+				skipCharacter()
+			}
+		}
+		window.addEventListener("keydown", handleKeyDown)
+
+		return () => {
+			window.removeEventListener("keydown", handleKeyDown)
+		}
+	})
 
 	const shuffleArray = (array: any) => {
 		for (let i = array.length - 1; i > 0; i--) {
@@ -97,6 +114,10 @@
 					<button class="variant-filled-tertiary btn" on:click={skipCharacter}>Skip</button>
 					<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
 				</div>
+				<div class="mt-8 flex justify-center">
+					Press<kbd class="kbd">ENTER</kbd> to submit the answer
+				</div>
+				<div class="mt-8 flex justify-center">Press<kbd class="kbd">S</kbd> to skip the answer</div>
 			</div>
 		</div>
 		<span class="mb-1 flex justify-center">
