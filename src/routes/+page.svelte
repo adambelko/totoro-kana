@@ -15,12 +15,14 @@
 
 	let hiraganaGroups: KanaGroup[] = []
 	let katakanaGroups: KanaGroup[] = []
-	$: selectedGroups = [...hiraganaGroups, ...katakanaGroups]
+	$: selectedGroups = { hiragana: hiraganaGroups, katakana: katakanaGroups }
 
 	let showPractice = false
 
 	const togglePractice = () => {
-		selectedGroups.length >= 1 ? (showPractice = !showPractice) : false
+		if (selectedGroups.hiragana.length || selectedGroups.katakana.length > 0) {
+			showPractice = !showPractice
+		}
 	}
 </script>
 

@@ -11,21 +11,24 @@
 		characters: { [key: string]: string[] }
 	}
 
-	export let selectedGroups: KanaGroup[]
-	// console.log(selectedGroups)
+	interface SelectedGroups {
+		hiragana: KanaGroup[]
+		katakana: KanaGroup[]
+	}
 
-	let currentCharacter = ""
-	let currentRomaji: string[] = []
-	let userInput = ""
-	let currentIndex = 0
-	let correctAnswers = 0
-	let skippedAnswers = 0
-	let inputError = ""
+	export let selectedGroups: SelectedGroups
+
+	let currentJapaneseCharacter = ""
+	let currentRomajiCharacter: string[] = []
+	let userRomajiInput = ""
+	let currentCharacterIndex = 0
+	let correctAnswerCount = 0
+	let skippedAnswerCount = 0
+	const skippedAnswerList: string[][] = []
+	let inputErrorClass = ""
 	let showResults = false
-	$: progress = ((correctAnswers + skippedAnswers) / allKana.length) * 100
-
-	let allKana: [string, string[]][] = []
-	// console.log(allKana)
+	let shuffledKanaList: [string, string[]][] = []
+	$: progress = ((correctAnswerCount + skippedAnswerCount) / shuffledKanaList.length) * 100
 
 	onMount(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -51,25 +54,32 @@
 		return array
 	}
 
-	const initKana = () => {
-		selectedGroups.forEach((kanaGroup) => {
+	const initialiseKana = () => {
+		selectedGroups.hiragana.forEach((kanaGroup) => {
 			Object.entries(kanaGroup.characters).forEach(([japanese, romaji]) => {
-				allKana.push([japanese, romaji])
+				shuffledKanaList.push([japanese, romaji])
 			})
 		})
-		allKana = shuffleArray(allKana)
+		selectedGroups.katakana.forEach((kanaGroup) => {
+			Object.entries(kanaGroup.characters).forEach(([japanese, romaji]) => {
+				shuffledKanaList.push([japanese, romaji])
+			})
+		})
+
+		shuffledKanaList = shuffleArray(shuffledKanaList)
 	}
 
 	const setNextKanaPair = () => {
-		;[currentCharacter, currentRomaji] = allKana[currentIndex]
+		;[currentJapaneseCharacter, currentRomajiCharacter] = shuffledKanaList[currentCharacterIndex]
 	}
 
-	initKana()
+	initialiseKana()
 	setNextKanaPair()
+	console.log(shuffledKanaList)
 
 	const nextCharacter = () => {
-		currentIndex++
-		if (currentIndex < allKana.length) {
+		currentCharacterIndex++
+		if (currentCharacterIndex < shuffledKanaList.length) {
 			setNextKanaPair()
 		} else {
 			showResults = true
@@ -77,24 +87,25 @@
 	}
 
 	const checkCharacter = () => {
-		if (currentRomaji.some((romaji) => userInput.toLowerCase().trim() === romaji)) {
-			correctAnswers++
-			userInput = ""
-			inputError = ""
+		if (currentRomajiCharacter.some((romaji) => userRomajiInput.toLowerCase().trim() === romaji)) {
+			correctAnswerCount++
+			userRomajiInput = ""
+			inputErrorClass = ""
 			nextCharacter()
 		} else {
-			inputError = "input-error"
+			inputErrorClass = "input-error"
 			return
 		}
 	}
 
 	const skipCharacter = () => {
-		skippedAnswers++
-		currentIndex++
-		if (currentIndex < allKana.length) {
+		skippedAnswerCount++
+		currentCharacterIndex++
+		skippedAnswerList.push([currentJapaneseCharacter, currentRomajiCharacter[0]])
+		if (currentCharacterIndex < shuffledKanaList.length) {
 			setNextKanaPair()
-			userInput = ""
-			inputError = ""
+			userRomajiInput = ""
+			inputErrorClass = ""
 		} else {
 			showResults = true
 		}
@@ -108,8 +119,8 @@
 	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
 		<div class="flex justify-center">
 			<div class="flex w-1/2 flex-col gap-4 p-20">
-				<div class="flex justify-center p-8 text-6xl">{currentCharacter}</div>
-				<input class="input h-8 pl-3 {inputError}" type="text" bind:value={userInput} />
+				<div class="flex justify-center p-8 text-6xl">{currentJapaneseCharacter}</div>
+				<input class="input h-8 pl-3 {inputErrorClass}" type="text" bind:value={userRomajiInput} />
 				<div class="flex justify-center gap-4">
 					<button class="variant-filled-tertiary btn" on:click={skipCharacter}>Skip</button>
 					<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
@@ -121,10 +132,10 @@
 			</div>
 		</div>
 		<span class="mb-1 flex justify-center">
-			{correctAnswers + skippedAnswers}/{allKana.length}
+			{correctAnswerCount + skippedAnswerCount}/{shuffledKanaList.length}
 		</span>
 		<ProgressBar value={progress} max={100} />
 	</div>
 {:else}
-	<PracticeResults {correctAnswers} {skippedAnswers} {selectedGroups} />
+	<PracticeResults {correctAnswerCount} {skippedAnswerCount} {skippedAnswerList} {selectedGroups} />
 {/if}
