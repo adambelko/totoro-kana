@@ -55,30 +55,100 @@
 
 	const sortedHiraganaGroups = sortKanaGroups(selectedGroups.hiragana, hiraganaOrder)
 	const sortedKatakanaGroups = sortKanaGroups(selectedGroups.katakana, katakanaOrder)
+
+	const categoriseGroups = (groups: KanaGroup[]) => {
+		const categories = {
+			mainKana: [] as KanaGroup[],
+			dakutenKana: [] as KanaGroup[],
+			combinationKana: [] as KanaGroup[]
+		}
+
+		for (const group of groups) {
+			switch (group.category) {
+				case "mainKana":
+					categories.mainKana.push(group)
+					break
+				case "dakutenKana":
+					categories.dakutenKana.push(group)
+					break
+				case "combinationKana":
+					categories.combinationKana.push(group)
+					break
+			}
+		}
+
+		return categories
+	}
+
+	const categorisedHiraganaGroups = categoriseGroups(sortedHiraganaGroups)
+	const categorisedKatakanaGroups = categoriseGroups(sortedKatakanaGroups)
 </script>
 
-<div class="mt-4 bg-white/30 rounded-container-token dark:bg-black/30">
-	<div class="flex flex-col items-center p-4">
+<div class="mt-4 bg-white/30 p-8 rounded-container-token dark:bg-black/30">
+	<div class="flex flex-col items-center">
 		<h2 class="h2">Your Results</h2>
 		<h3 class="h3 mt-8">
 			Total Correct Answers: {correctAnswerCount}/{totalAnswerCount} ({successPercentage}%)
 		</h3>
 	</div>
 
-	<div class="table-container mt-8 p-8">
-		<table class="table">
-			<tbody>
-				{#each sortedHiraganaGroups as kanaGroup}
-					<tr>
-						{#each Object.entries(kanaGroup.characters) as [japanese, romaji]}
-							<td class:bg-warning-200={isCharacterSkipped(japanese, romaji)}>
-								<span class="pr-2 text-2xl">{japanese}</span>
-								{romaji[0]}
-							</td>
-						{/each}
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</div>
+	{#if categorisedHiraganaGroups.mainKana.length > 0}
+		<div class="table-container mt-8">
+			<h3 class="h3 mb-1">Main Kana</h3>
+			<table class="table">
+				<tbody>
+					{#each categorisedHiraganaGroups.mainKana as kanaGroup}
+						<tr>
+							{#each Object.entries(kanaGroup.characters) as [japanese, romaji]}
+								<td class:bg-warning-200={isCharacterSkipped(japanese, romaji)}>
+									<span class="pr-2 text-2xl">{japanese}</span>
+									{romaji[0]}
+								</td>
+							{/each}
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{/if}
+
+	{#if categorisedHiraganaGroups.dakutenKana.length > 0}
+		<div class="table-container mt-8">
+			<h3 class="h3 mb-1">Dakuten Kana</h3>
+			<table class="table">
+				<tbody>
+					{#each categorisedHiraganaGroups.dakutenKana as kanaGroup}
+						<tr>
+							{#each Object.entries(kanaGroup.characters) as [japanese, romaji]}
+								<td class:bg-warning-200={isCharacterSkipped(japanese, romaji)}>
+									<span class="pr-2 text-2xl">{japanese}</span>
+									{romaji[0]}
+								</td>
+							{/each}
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{/if}
+
+	{#if categorisedHiraganaGroups.combinationKana.length > 0}
+		<div class="table-container mt-8">
+			<h3 class="h3 mb-1">Combination Kana</h3>
+			<table class="table">
+				<tbody>
+					{#each categorisedHiraganaGroups.combinationKana as kanaGroup}
+						<tr>
+							{#each Object.entries(kanaGroup.characters) as [japanese, romaji]}
+								<td class:bg-warning-200={isCharacterSkipped(japanese, romaji)}>
+									<span class="pr-2 text-2xl">{japanese}</span>
+									{romaji[0]}
+								</td>
+							{/each}
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{/if}
 </div>
