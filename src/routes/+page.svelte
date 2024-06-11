@@ -20,7 +20,7 @@
 	let showPractice = false
 
 	const togglePractice = () => {
-		if (selectedGroups.hiragana.length || selectedGroups.katakana.length > 0) {
+		if (selectedGroups.hiragana.length || selectedGroups.katakana.length) {
 			showPractice = !showPractice
 		}
 	}

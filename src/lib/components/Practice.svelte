@@ -75,7 +75,6 @@
 
 	initialiseKana()
 	setNextKanaPair()
-	console.log(shuffledKanaList)
 
 	const nextCharacter = () => {
 		currentCharacterIndex++
