@@ -125,9 +125,11 @@
 					<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
 				</div>
 				<div class="mt-8 flex justify-center">
-					Press<kbd class="kbd">ENTER</kbd> to submit the answer
+					Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to submit the answer
 				</div>
-				<div class="mt-8 flex justify-center">Press<kbd class="kbd">S</kbd> to skip the answer</div>
+				<div class="mt-2 flex justify-center">
+					Press<kbd class="kbd ml-1.5 mr-1.5">S</kbd> to skip the answer
+				</div>
 			</div>
 		</div>
 		<span class="mb-1 flex justify-center">

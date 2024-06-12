@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { TabGroup, Tab } from "@skeletonlabs/skeleton"
 	import { hiragana } from "$lib/data/hiragana"
 	import { katakana } from "$lib/data/katakana"
+	import DisplayKanaGroups from "$lib/components/DisplayKanaGroups.svelte"
 
 	export let correctAnswerCount: number
 	export let skippedAnswerCount: number
@@ -9,6 +11,7 @@
 
 	const totalAnswerCount = correctAnswerCount + skippedAnswerCount
 	const successPercentage = ((correctAnswerCount / totalAnswerCount) * 100).toFixed(2)
+	let tabValue = selectedGroups.hiragana.length ? "hiragana" : "katakana"
 
 	interface KanaData {
 		[kanaGroup: string]: {
@@ -46,7 +49,7 @@
 	const hiraganaOrder = extractCharacterGroups(hiragana)
 	const katakanaOrder = extractCharacterGroups(katakana)
 
-	// Sort selectedGroups based on the order in the data
+	// Sort selectedGroups based on the order in the hiragana/katakana object
 	const sortKanaGroups = (groups: KanaGroup[], order: string[]): KanaGroup[] => {
 		return groups.sort((a, b) => {
 			return order.indexOf(a.groupName) - order.indexOf(b.groupName)
@@ -84,71 +87,24 @@
 	const categorisedKatakanaGroups = categoriseGroups(sortedKatakanaGroups)
 </script>
 
-<div class="mt-4 bg-white/30 p-8 rounded-container-token dark:bg-black/30">
+<div class="mt-4 bg-white/30 p-12 rounded-container-token dark:bg-black/30">
 	<div class="flex flex-col items-center">
 		<h2 class="h2">Your Results</h2>
-		<h3 class="h3 mt-8">
+		<h4 class="h4 mt-8">
 			Total Correct Answers: {correctAnswerCount}/{totalAnswerCount} ({successPercentage}%)
-		</h3>
+		</h4>
 	</div>
 
-	{#if categorisedHiraganaGroups.mainKana.length > 0}
-		<div class="table-container mt-8">
-			<h3 class="h3 mb-1">Main Kana</h3>
-			<table class="table">
-				<tbody>
-					{#each categorisedHiraganaGroups.mainKana as kanaGroup}
-						<tr>
-							{#each Object.entries(kanaGroup.characters) as [japanese, romaji]}
-								<td class:bg-warning-200={isCharacterSkipped(japanese, romaji)}>
-									<span class="pr-2 text-2xl">{japanese}</span>
-									{romaji[0]}
-								</td>
-							{/each}
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
-	{/if}
+	<TabGroup justify="justify-center mt-8">
+		<Tab bind:group={tabValue} name="hiragana" value={"hiragana"}>Hiragana</Tab>
+		<Tab bind:group={tabValue} name="katakana" value={"katakana"}>Katakana</Tab>
 
-	{#if categorisedHiraganaGroups.dakutenKana.length > 0}
-		<div class="table-container mt-8">
-			<h3 class="h3 mb-1">Dakuten Kana</h3>
-			<table class="table">
-				<tbody>
-					{#each categorisedHiraganaGroups.dakutenKana as kanaGroup}
-						<tr>
-							{#each Object.entries(kanaGroup.characters) as [japanese, romaji]}
-								<td class:bg-warning-200={isCharacterSkipped(japanese, romaji)}>
-									<span class="pr-2 text-2xl">{japanese}</span>
-									{romaji[0]}
-								</td>
-							{/each}
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
-	{/if}
-
-	{#if categorisedHiraganaGroups.combinationKana.length > 0}
-		<div class="table-container mt-8">
-			<h3 class="h3 mb-1">Combination Kana</h3>
-			<table class="table">
-				<tbody>
-					{#each categorisedHiraganaGroups.combinationKana as kanaGroup}
-						<tr>
-							{#each Object.entries(kanaGroup.characters) as [japanese, romaji]}
-								<td class:bg-warning-200={isCharacterSkipped(japanese, romaji)}>
-									<span class="pr-2 text-2xl">{japanese}</span>
-									{romaji[0]}
-								</td>
-							{/each}
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
-	{/if}
+		<svelte:fragment slot="panel">
+			{#if tabValue === "hiragana"}
+				<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedHiraganaGroups} />
+			{:else if tabValue === "katakana"}
+				<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedKatakanaGroups} />
+			{/if}
+		</svelte:fragment>
+	</TabGroup>
 </div>
