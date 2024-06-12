@@ -3,6 +3,7 @@
 	import { hiragana } from "$lib/data/hiragana"
 	import { katakana } from "$lib/data/katakana"
 	import DisplayKanaGroups from "$lib/components/DisplayKanaGroups.svelte"
+	import Practice from "$lib/components/Practice.svelte"
 
 	export let correctAnswerCount: number
 	export let skippedAnswerCount: number
@@ -85,26 +86,40 @@
 
 	const categorisedHiraganaGroups = categoriseGroups(sortedHiraganaGroups)
 	const categorisedKatakanaGroups = categoriseGroups(sortedKatakanaGroups)
+
+	let showPractice = false
+	const togglePractice = () => {
+		if (selectedGroups.hiragana.length || selectedGroups.katakana.length) {
+			showPractice = !showPractice
+		}
+	}
 </script>
 
-<div class="mt-4 bg-white/30 p-12 rounded-container-token dark:bg-black/30">
-	<div class="flex flex-col items-center">
-		<h2 class="h2">Your Results</h2>
-		<h4 class="h4 mt-8">
-			Total Correct Answers: {correctAnswerCount}/{totalAnswerCount} ({successPercentage}%)
-		</h4>
+{#if showPractice === false}
+	<div class="mt-4 bg-white/30 p-12 rounded-container-token dark:bg-black/30">
+		<div class="flex flex-col items-center">
+			<h2 class="h2">Your Results</h2>
+			<h4 class="h4 mt-8">
+				Total Correct Answers: {correctAnswerCount}/{totalAnswerCount} ({successPercentage}%)
+			</h4>
+		</div>
+
+		<TabGroup justify="justify-center mt-8">
+			<Tab bind:group={tabValue} name="hiragana" value={"hiragana"}>Hiragana</Tab>
+			<Tab bind:group={tabValue} name="katakana" value={"katakana"}>Katakana</Tab>
+
+			<svelte:fragment slot="panel">
+				{#if tabValue === "hiragana"}
+					<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedHiraganaGroups} />
+				{:else if tabValue === "katakana"}
+					<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedKatakanaGroups} />
+				{/if}
+			</svelte:fragment>
+		</TabGroup>
 	</div>
-
-	<TabGroup justify="justify-center mt-8">
-		<Tab bind:group={tabValue} name="hiragana" value={"hiragana"}>Hiragana</Tab>
-		<Tab bind:group={tabValue} name="katakana" value={"katakana"}>Katakana</Tab>
-
-		<svelte:fragment slot="panel">
-			{#if tabValue === "hiragana"}
-				<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedHiraganaGroups} />
-			{:else if tabValue === "katakana"}
-				<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedKatakanaGroups} />
-			{/if}
-		</svelte:fragment>
-	</TabGroup>
-</div>
+	<button class="variant-filled-primary btn mx-auto mb-10 mt-4 block" on:click={togglePractice}>
+		Repeat
+	</button>
+{:else}
+	<Practice {selectedGroups} />
+{/if}
