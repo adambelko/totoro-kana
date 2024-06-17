@@ -2,8 +2,8 @@
 	import { TabGroup, Tab } from "@skeletonlabs/skeleton"
 	import { hiragana } from "$lib/data/hiragana"
 	import { katakana } from "$lib/data/katakana"
-	import DisplayKanaGroups from "$lib/components/DisplayKanaGroups.svelte"
-	import Practice from "$lib/components/Practice.svelte"
+	import DisplayKanaGroups from "./DisplayKanaGroups.svelte"
+	import Practice from "./Practice.svelte"
 
 	export let correctAnswerCount: number
 	export let skippedAnswerCount: number

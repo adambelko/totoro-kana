@@ -2,7 +2,6 @@
 	import "../app.css"
 	import "$lib/styles/main.css"
 
-	// Svelte component imports
 	import Nav from "$lib/components/Nav.svelte"
 </script>
 

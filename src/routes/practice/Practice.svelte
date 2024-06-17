@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from "svelte"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
-	import PracticeResults from "$lib/components/PracticeResults.svelte"
+	import PracticeResults from "./PracticeResults.svelte"
 
 	interface KanaGroup {
 		category: string
