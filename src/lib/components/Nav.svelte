@@ -9,8 +9,8 @@
 	<div class="mx-auto flex w-full max-w-[980px] items-center justify-between">
 		<a class="mr-8 text-lg font-bold" href="/learn">Learn KANA</a>
 		<ul class="flex space-x-4">
-			<li class="btn cursor-pointer hover:variant-soft-primary {classesActive('/learn')}">
-				<a href="/learn">Learn</a>
+			<li class="btn cursor-pointer hover:variant-soft-primary {classesActive('/study')}">
+				<a href="/study">Study</a>
 			</li>
 			<li class="btn cursor-pointer hover:variant-soft-primary {classesActive('/practice')}">
 				<a href="/practice">Practice</a>
