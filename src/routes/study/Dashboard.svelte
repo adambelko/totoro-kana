@@ -28,7 +28,7 @@
 	<div class="flex-1 bg-surface-200 p-4 rounded-container-token">
 		<h4 class="h4">Review</h4>
 		<div class="flex items-center justify-center">
-			<button class="variant-filled-primary btn">Start study</button>
+			<button class="variant-filled-primary btn">Start review</button>
 		</div>
 	</div>
 </div>

@@ -2,6 +2,11 @@
 	import { AppBar, TabGroup, Tab } from "@skeletonlabs/skeleton"
 	import Dashboard from "./Dashboard.svelte"
 
+	export let data
+	let { supabase } = data
+	$: ({ supabase } = data)
+	console.log(data)
+
 	let tabValue = "hiragana"
 </script>
 
