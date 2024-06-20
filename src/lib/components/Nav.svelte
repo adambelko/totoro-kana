@@ -7,15 +7,19 @@
 
 <nav class="bg-surface-100-800-token flex h-20 shadow-2xl">
 	<div class="mx-auto flex w-full max-w-[980px] items-center justify-between">
-		<a class="mr-8 text-lg font-bold" href="/learn">Learn KANA</a>
-		<ul class="flex space-x-4">
-			<li class="btn cursor-pointer hover:variant-soft-primary {classesActive('/study')}">
-				<a href="/study">Study</a>
-			</li>
-			<li class="btn cursor-pointer hover:variant-soft-primary {classesActive('/practice')}">
-				<a href="/practice">Practice</a>
-			</li>
-		</ul>
+		<a class="mr-8 text-lg font-bold" href="/">Learn KANA</a>
+		<div class="flex space-x-4">
+			<a href="/study">
+				<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/study')}">
+					Study
+				</div>
+			</a>
+			<a href="/practice">
+				<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/practice')}">
+					Practice
+				</div>
+			</a>
+		</div>
 		<!--		<ul class="flex space-x-4">-->
 		<!--			<li class="btn cursor-pointer hover:variant-soft-primary">ABOUT</li>-->
 		<!--			<li class="btn cursor-pointer hover:variant-soft-primary">OUR METHOD</li>-->
