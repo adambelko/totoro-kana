@@ -1,10 +1,13 @@
 <script>
 	export let data
-	$: ({ countries } = data)
+	console.log(data)
 </script>
 
-<ul>
-	{#each countries as country}
-		<li>{country.name}</li>
-	{/each}
-</ul>
+{#if data.session}
+	<p>Welcome, {data.session.user.email}</p>
+{:else}
+	<p>Let's learn how to register and login users!</p>
+	<div class="auth-buttons">
+		<a href="/login" class="btn-primary btn">Login</a>
+	</div>
+{/if}
