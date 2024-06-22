@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { Avatar } from "@skeletonlabs/skeleton"
+	import { getInitials } from "$lib/helpers/accountDetails"
 
 	export let data
 	$: ({ session, supabase } = data)
@@ -26,7 +27,11 @@
 
 			{#if data.session}
 				<a href="/account">
-					<Avatar initials="JD" background="bg-primary-500" width="w-14" />
+					<Avatar
+						initials={getInitials(session)}
+						background="bg-primary-500 hover:bg-primary-400"
+						width="w-14"
+					/>
 				</a>
 			{/if}
 		</div>

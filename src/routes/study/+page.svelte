@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { AppBar, TabGroup, Tab } from "@skeletonlabs/skeleton"
 	import Dashboard from "./Dashboard.svelte"
+	import { getFullName } from "$lib/helpers/accountDetails"
 
 	export let data
 	$: ({ session, supabase } = data)
@@ -11,7 +12,7 @@
 
 <AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
 	{#if data.session}
-		<p>Welcome back, {data.session.user.email}!</p>
+		<p>Welcome back, {getFullName(data.session)}!</p>
 	{:else}
 		<p>Please <a href="/login" class="anchor">Login</a> to continue!</p>
 	{/if}

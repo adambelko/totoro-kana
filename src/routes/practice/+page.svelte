@@ -5,6 +5,10 @@
 	import { katakana } from "$lib/data/katakana"
 
 	import { AppBar } from "@skeletonlabs/skeleton"
+	import { getFullName } from "$lib/helpers/accountDetails"
+
+	export let data
+	$: ({ session, supabase } = data)
 
 	interface KanaGroup {
 		category: string
@@ -29,8 +33,10 @@
 
 {#if showPractice === false}
 	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-		Welcome back user!
-		<br />Select at least one of the groups, you can scroll down too!
+		{#if data.session}
+			Welcome back, {getFullName(data.session)}!
+		{/if}
+		<p>Select at least one of the groups, you can scroll down too!</p>
 	</AppBar>
 
 	<div class="mt-4 flex gap-4 bg-white/30 p-5 rounded-container-token dark:bg-black/30">
