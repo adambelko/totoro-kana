@@ -2,22 +2,6 @@
 	import { ListBox, ListBoxItem } from "@skeletonlabs/skeleton"
 	import { formatKanaGroups } from "$lib/helpers/formatKanaCharacters.js"
 
-	interface KanaGroup {
-		category: string
-		groupName: string
-		romaji: string
-		japanese: string
-		characters: { [key: string]: string[] }
-	}
-
-	interface KanaData {
-		[kanaGroup: string]: {
-			[characterGroup: string]: {
-				[character: string]: string[]
-			}
-		}
-	}
-
 	export let selectedGroups: KanaGroup[]
 	export let title: string
 	export let data: KanaData

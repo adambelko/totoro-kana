@@ -14,22 +14,6 @@
 	const successPercentage = ((correctAnswerCount / totalAnswerCount) * 100).toFixed(2)
 	let tabValue = selectedGroups.hiragana.length ? "hiragana" : "katakana"
 
-	interface KanaData {
-		[kanaGroup: string]: {
-			[characterGroup: string]: {
-				[character: string]: string[]
-			}
-		}
-	}
-
-	interface KanaGroup {
-		category: string
-		groupName: string
-		romaji: string
-		japanese: string
-		characters: { [key: string]: string[] }
-	}
-
 	interface SelectedGroups {
 		hiragana: KanaGroup[]
 		katakana: KanaGroup[]
@@ -111,7 +95,7 @@
 			<svelte:fragment slot="panel">
 				{#if tabValue === "hiragana"}
 					<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedHiraganaGroups} />
-				{:else if tabValue === "katakana"}
+				{:else}
 					<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedKatakanaGroups} />
 				{/if}
 			</svelte:fragment>

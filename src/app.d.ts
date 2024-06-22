@@ -12,6 +12,22 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	interface KanaGroup {
+		category: string
+		groupName: string
+		romaji: string
+		japanese: string
+		characters: { [key: string]: string[] }
+	}
+
+	interface KanaData {
+		[kanaGroup: string]: {
+			[characterGroup: string]: {
+				[character: string]: string[]
+			}
+		}
+	}
 }
 
 export {}

@@ -10,14 +10,6 @@
 	export let data
 	$: ({ session, supabase } = data)
 
-	interface KanaGroup {
-		category: string
-		groupName: string
-		romaji: string
-		japanese: string
-		characters: { [key: string]: string[] }
-	}
-
 	let hiraganaGroups: KanaGroup[] = []
 	let katakanaGroups: KanaGroup[] = []
 	$: selectedGroups = { hiragana: hiraganaGroups, katakana: katakanaGroups }

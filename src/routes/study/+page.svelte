@@ -5,7 +5,6 @@
 
 	export let data
 	$: ({ session, supabase } = data)
-	console.log(data)
 
 	let tabValue = "hiragana"
 </script>
@@ -26,7 +25,7 @@
 		<svelte:fragment slot="panel">
 			{#if tabValue === "hiragana"}
 				<Dashboard />
-			{:else if tabValue === "katakana"}
+			{:else}
 				<Dashboard />
 			{/if}
 		</svelte:fragment>

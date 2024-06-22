@@ -2,7 +2,7 @@
 	export let data
 	$: ({ session, supabase } = data)
 
-	async function signInWithGithub() {
+	const signInWithGithub = async () => {
 		const { data, error } = await supabase.auth.signInWithOAuth({
 			provider: "github",
 			options: {

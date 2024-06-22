@@ -5,14 +5,6 @@
 		dakutenKana: KanaGroup[]
 		combinationKana: KanaGroup[]
 	}
-
-	interface KanaGroup {
-		category: string
-		groupName: string
-		romaji: string
-		japanese: string
-		characters: { [key: string]: string[] }
-	}
 </script>
 
 {#if kanaGroups.mainKana.length > 0}

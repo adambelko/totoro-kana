@@ -3,14 +3,6 @@
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import PracticeResults from "./PracticeResults.svelte"
 
-	interface KanaGroup {
-		category: string
-		groupName: string
-		romaji: string
-		japanese: string
-		characters: { [key: string]: string[] }
-	}
-
 	interface SelectedGroups {
 		hiragana: KanaGroup[]
 		katakana: KanaGroup[]
