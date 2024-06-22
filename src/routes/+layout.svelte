@@ -29,7 +29,7 @@
 	})
 </script>
 
-<Nav />
+<Nav {data} />
 
 <main>
 	<slot />

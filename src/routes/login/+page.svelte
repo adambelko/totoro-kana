@@ -4,7 +4,10 @@
 
 	async function signInWithGithub() {
 		const { data, error } = await supabase.auth.signInWithOAuth({
-			provider: "github"
+			provider: "github",
+			options: {
+				redirectTo: "http://localhost:5173/study"
+			}
 		})
 	}
 </script>

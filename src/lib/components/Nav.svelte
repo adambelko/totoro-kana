@@ -1,5 +1,9 @@
 <script lang="ts">
 	import { page } from "$app/stores"
+	import { Avatar } from "@skeletonlabs/skeleton"
+
+	export let data
+	$: ({ session, supabase } = data)
 
 	$: classesActive = (href: string) =>
 		href === $page.url.pathname ? "!variant-filled-primary" : ""
@@ -8,7 +12,7 @@
 <nav class="bg-surface-100-800-token flex h-20 shadow-2xl">
 	<div class="mx-auto flex w-full max-w-[980px] items-center justify-between">
 		<a class="mr-8 text-lg font-bold" href="/">Learn KANA</a>
-		<div class="flex space-x-4">
+		<div class="flex items-center space-x-4">
 			<a href="/study">
 				<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/study')}">
 					Study
@@ -19,6 +23,12 @@
 					Practice
 				</div>
 			</a>
+
+			{#if data.session}
+				<a href="/account">
+					<Avatar initials="JD" background="bg-primary-500" width="w-14" />
+				</a>
+			{/if}
 		</div>
 		<!--		<ul class="flex space-x-4">-->
 		<!--			<li class="btn cursor-pointer hover:variant-soft-primary">ABOUT</li>-->
