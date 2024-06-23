@@ -4,14 +4,14 @@
 	import { getFullName } from "$lib/helpers/accountDetails"
 
 	export let data
-	$: ({ session, supabase } = data)
+	$: ({ user } = data)
 
 	let tabValue = "hiragana"
 </script>
 
 <AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-	{#if data.session}
-		<p>Welcome back, {getFullName(data.session)}!</p>
+	{#if data.user}
+		<p>Welcome back, {getFullName(data.user)}!</p>
 	{:else}
 		<p>Please <a href="/login" class="anchor">Login</a> to continue!</p>
 	{/if}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let data
-	$: ({ session, supabase } = data)
+	$: ({ supabase } = data)
 
 	const signInWithGithub = async () => {
 		const { data, error } = await supabase.auth.signInWithOAuth({

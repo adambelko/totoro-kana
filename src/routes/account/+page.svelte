@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let data
-	$: ({ session, supabase } = data)
+	$: ({ supabase } = data)
 
 	async function signOut() {
 		const { error } = await supabase.auth.signOut()

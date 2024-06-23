@@ -4,7 +4,6 @@
 	import { getInitials } from "$lib/helpers/accountDetails"
 
 	export let data
-	$: ({ session, supabase } = data)
 
 	$: classesActive = (href: string) =>
 		href === $page.url.pathname ? "!variant-filled-primary" : ""
@@ -25,10 +24,10 @@
 				</div>
 			</a>
 
-			{#if data.session}
+			{#if data}
 				<a href="/account">
 					<Avatar
-						initials={getInitials(session)}
+						initials={getInitials(data.user)}
 						background="bg-primary-500 hover:bg-primary-400"
 						width="w-14"
 					/>

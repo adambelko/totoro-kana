@@ -1,8 +1,8 @@
 const getInitials = (data: any): string => {
-	let fullName = data.user.user_metadata.full_name
+	let fullName = data.user_metadata.full_name
 
 	if (!fullName || fullName.trim() === "") {
-		fullName = data.user.user_metadata.name
+		fullName = data.user_metadata.name
 	}
 
 	const nameParts = fullName.split(" ")
@@ -11,10 +11,10 @@ const getInitials = (data: any): string => {
 }
 
 const getFullName = (data: any): string => {
-	let fullName = data.user.user_metadata.full_name
+	let fullName = data.user_metadata.full_name
 
 	if (!fullName || fullName.trim() === "") {
-		fullName = data.user.user_metadata.name
+		fullName = data.user_metadata.name
 	}
 
 	return fullName

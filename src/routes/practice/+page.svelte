@@ -8,7 +8,7 @@
 	import { getFullName } from "$lib/helpers/accountDetails"
 
 	export let data
-	$: ({ session, supabase } = data)
+	$: ({ user } = data)
 
 	let hiraganaGroups: KanaGroup[] = []
 	let katakanaGroups: KanaGroup[] = []
@@ -25,8 +25,8 @@
 
 {#if showPractice === false}
 	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-		{#if data.session}
-			Welcome back, {getFullName(data.session)}!
+		{#if data.user}
+			Welcome back, {getFullName(data.user)}!
 		{/if}
 		<p>Select at least one of the groups, you can scroll down too!</p>
 	</AppBar>
