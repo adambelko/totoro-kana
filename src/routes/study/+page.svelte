@@ -5,6 +5,7 @@
 
 	export let data
 	$: ({ user } = data)
+	console.log(data)
 
 	let tabValue = "hiragana"
 </script>
