@@ -4,12 +4,10 @@
 	import { getFullName } from "$lib/helpers/accountDetails"
 
 	export let data
-	$: ({ user } = data)
+	$: ({ user, hiragana } = data)
 	// console.log(user)
 
 	let tabValue = "hiragana"
-
-	const getGroup = () => {}
 </script>
 
 <AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
@@ -27,9 +25,9 @@
 
 		<svelte:fragment slot="panel">
 			{#if tabValue === "hiragana"}
-				<Dashboard />
+				<Dashboard {hiragana} />
 			{:else}
-				<Dashboard />
+				<Dashboard {hiragana} />
 			{/if}
 		</svelte:fragment>
 	</TabGroup>

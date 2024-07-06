@@ -1,7 +1,7 @@
 import type { ServerLoad } from "@sveltejs/kit"
 import type { Session } from "@supabase/supabase-js"
 import { db } from "$lib/db"
-import { users, hiraganaProgress } from "$lib/db/schema"
+import { users } from "$lib/db/schema"
 import { eq } from "drizzle-orm"
 
 export const load: ServerLoad = async ({ locals }) => {
@@ -16,7 +16,6 @@ export const load: ServerLoad = async ({ locals }) => {
 	}
 
 	const hiragana = await db.query.hiragana.findMany()
-	console.log(hiragana)
 	return { hiragana }
 }
 
