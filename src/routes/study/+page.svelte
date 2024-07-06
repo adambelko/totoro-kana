@@ -5,9 +5,11 @@
 
 	export let data
 	$: ({ user } = data)
-	console.log(data)
+	// console.log(user)
 
 	let tabValue = "hiragana"
+
+	const getGroup = () => {}
 </script>
 
 <AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">

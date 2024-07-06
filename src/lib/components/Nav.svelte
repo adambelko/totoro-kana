@@ -24,7 +24,7 @@
 				</div>
 			</a>
 
-			{#if data}
+			{#if data.user}
 				<a href="/account">
 					<Avatar
 						initials={getInitials(data.user)}
