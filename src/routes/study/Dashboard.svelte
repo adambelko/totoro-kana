@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
 	import { ProgressRadial, ProgressBar } from "@skeletonlabs/skeleton"
+	import { createEventDispatcher } from "svelte"
+
+	const dispatch = createEventDispatcher()
 
 	export let hiragana
-	console.log(hiragana)
 
 	const groupNames = hiragana.map((item) => item.groupName)
 	const uniqueGroupNames = [...new Set(groupNames)]
@@ -13,6 +15,10 @@
 
 	const getFirstRomaji = (romaji) => {
 		return romaji.split(",")[0].trim()
+	}
+
+	const startLesson = (groupName) => {
+		dispatch("startLesson", { groupName })
 	}
 </script>
 
@@ -35,7 +41,7 @@
 					</ProgressRadial>
 				</div>
 				<div class="flex flex-col justify-center">
-					<button class="variant-filled-primary btn">Start study</button>
+					<button class="variant-filled-primary btn">Start lesson</button>
 				</div>
 			</div>
 		</div>
@@ -51,21 +57,9 @@
 	<div class="flex-1 bg-surface-200 p-4 rounded-container-token">
 		<div class="flex flex-col gap-4">
 			{#each uniqueGroupNames as kanaGroup, index}
-				<div class="flex flex-col gap-4 bg-surface-100 p-4 rounded-container-token">
-					<div class="flex justify-between">
-						<h4 class="h4">Lesson {index + 1} - {kanaGroup}</h4>
-						<h5 class="h5 flex items-center">2/5 kana completed</h5>
-					</div>
-					<div>
-						<ProgressBar
-							value={40}
-							max={100}
-							height="h-4"
-							meter="variant-filled-primary"
-							track="bg-primary-500/30"
-						/>
-					</div>
-					<div class="flex flex-col gap-4 p-4 rounded-container-token">
+				<div class="flex flex-col bg-surface-100 p-4 rounded-container-token">
+					<h4 class="h4 mb-4">Lesson {index + 1} - {kanaGroup}</h4>
+					<div class="flex flex-col gap-4 rounded-container-token">
 						<div class="flex justify-between">
 							<div class="flex flex-wrap gap-4">
 								{#each filterHiragana(kanaGroup) as { japanese, romaji }}
@@ -77,7 +71,9 @@
 								{/each}
 							</div>
 							<div>
-								<button class="variant-filled-primary btn">Start study</button>
+								<button class="variant-filled-primary btn" on:click={() => startLesson(kanaGroup)}
+									>Start lesson</button
+								>
 							</div>
 						</div>
 					</div>
