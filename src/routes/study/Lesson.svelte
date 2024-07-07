@@ -26,28 +26,27 @@
 
 	let practice = false
 	let currentIndex = 0
-	let currentJapaneseCharacter = selectedGroup[0].japanese
-	let currentRomajiCharacter = selectedGroup[0].romaji
+	let currentJapaneseCharacter = selectedGroup[currentIndex].japanese
+	let currentRomajiCharacter = selectedGroup[currentIndex].romaji
 	let inputErrorClass = ""
 	let userRomajiInput = ""
 	let progress = 0
 
 	const setCurrentCharacter = (index: number) => {
-		currentJapaneseCharacter = selectedGroup[index].japanese
-		currentRomajiCharacter = selectedGroup[index].romaji
+		currentIndex = index
+		currentJapaneseCharacter = selectedGroup[currentIndex].japanese
+		currentRomajiCharacter = selectedGroup[currentIndex].romaji
 	}
 
 	const goLeft = () => {
 		if (currentIndex > 0) {
-			currentIndex--
-			setCurrentCharacter(currentIndex)
+			setCurrentCharacter(currentIndex - 1)
 		}
 	}
 
 	const goRight = () => {
 		if (currentIndex < selectedGroup.length - 1) {
-			currentIndex++
-			setCurrentCharacter(currentIndex)
+			setCurrentCharacter(currentIndex + 1)
 		}
 	}
 </script>
@@ -60,11 +59,13 @@
 		<div class="flex justify-center gap-4 p-6">
 			{#each selectedGroup as groupItem, index}
 				<button
-					class="flex justify-center bg-surface-300 p-4 rounded-container-token {currentJapaneseCharacter ===
-					groupItem.japanese
+					class="flex justify-center bg-surface-300 p-4 rounded-container-token {currentIndex ===
+					index
 						? 'border-2 border-blue-500'
 						: ''}"
-					on:click={() => setCurrentCharacter(index)}
+					on:click={() => {
+						setCurrentCharacter(index)
+					}}
 				>
 					{groupItem.japanese}
 				</button>
@@ -74,7 +75,7 @@
 		<div class="mb-10 flex justify-center gap-4 p-6 text-4xl">{currentRomajiCharacter}</div>
 		<div class="flex flex-col gap-4">
 			<div class="flex justify-center">
-				Press<kbd class="kbd ml-1.5 mr-1.5">←</kbd> and
+				Press<kbd class="kbd ml-1.5 mr-1.5">←</kbd> or
 				<kbd class="kbd ml-1.5 mr-1.5">→</kbd> to navigate
 			</div>
 			<div class="flex justify-center">
@@ -106,3 +107,9 @@
 		<ProgressBar value={progress} max={100} />
 	</div>
 {/if}
+
+<style>
+	*:focus {
+		outline: 0 !important;
+	}
+</style>
