@@ -4,11 +4,11 @@
 	export let hiragana
 	console.log(hiragana)
 
-	const groupNames = hiragana.map((item) => item.group_name)
+	const groupNames = hiragana.map((item) => item.groupName)
 	const uniqueGroupNames = [...new Set(groupNames)]
 
 	const filterHiragana = (groupName) => {
-		return hiragana.filter((item) => item.group_name === groupName)
+		return hiragana.filter((item) => item.groupName === groupName)
 	}
 
 	const getFirstRomaji = (romaji) => {
@@ -70,13 +70,15 @@
 							<div class="flex flex-wrap gap-4">
 								{#each filterHiragana(kanaGroup) as { japanese, romaji }}
 									<div
-										class="flex min-w-16 justify-center bg-primary-500 p-3 rounded-container-token"
+										class="flex min-w-16 justify-center bg-surface-300 p-3 rounded-container-token"
 									>
 										{japanese} / {getFirstRomaji(romaji)}
 									</div>
 								{/each}
 							</div>
-							<button class="variant-filled-primary btn">Start study</button>
+							<div>
+								<button class="variant-filled-primary btn">Start study</button>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -2,8 +2,8 @@ import { pgTable, uuid, varchar, integer, serial } from "drizzle-orm/pg-core"
 
 export const hiragana = pgTable("hiragana", {
 	id: serial("id").primaryKey(),
-	kana: varchar("kana").notNull(),
-	group_name: varchar("group_name").notNull(),
+	kanaCategory: varchar("kana_category").notNull(),
+	groupName: varchar("group_name").notNull(),
 	japanese: varchar("japanese").notNull(),
 	romaji: varchar("romaji").notNull(),
 	order: integer("order").notNull()
