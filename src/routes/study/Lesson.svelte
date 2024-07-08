@@ -2,8 +2,12 @@
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import { onMount } from "svelte"
 
+	interface Kana {
+		japanese: string
+		romaji: string
+	}
+
 	export let selectedGroup
-	console.log(selectedGroup)
 
 	onMount(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -11,10 +15,10 @@
 				practice = true
 			} else if (event.key === "ArrowLeft") {
 				event.preventDefault()
-				goLeft()
+				navigateLeft()
 			} else if (event.key === "ArrowRight") {
 				event.preventDefault()
-				goRight()
+				navigateRight()
 			}
 		}
 		window.addEventListener("keydown", handleKeyDown)
@@ -32,21 +36,76 @@
 	let userRomajiInput = ""
 	let progress = 0
 
+	let shuffledKanaList: Kana[] = []
+
 	const setCurrentCharacter = (index: number) => {
 		currentIndex = index
 		currentJapaneseCharacter = selectedGroup[currentIndex].japanese
 		currentRomajiCharacter = selectedGroup[currentIndex].romaji
 	}
 
-	const goLeft = () => {
+	const navigateLeft = () => {
 		if (currentIndex > 0) {
 			setCurrentCharacter(currentIndex - 1)
 		}
 	}
 
-	const goRight = () => {
+	const navigateRight = () => {
 		if (currentIndex < selectedGroup.length - 1) {
 			setCurrentCharacter(currentIndex + 1)
+		}
+	}
+
+	const startPractice = () => {
+		practice = true
+		initialiseKana()
+		setNextKanaPair()
+	}
+
+	const shuffleArray = (array: any) => {
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1))
+			;[array[i], array[j]] = [array[j], array[i]]
+		}
+		return array
+	}
+
+	const initialiseKana = () => {
+		const kanaList = selectedGroup.map((kana: Kana) => ({
+			japanese: kana.japanese,
+			romaji: kana.romaji
+		}))
+
+		return (shuffledKanaList = shuffleArray(kanaList))
+	}
+
+	const setNextKanaPair = () => {
+		const { japanese, romaji } = shuffledKanaList[currentIndex]
+		currentJapaneseCharacter = japanese
+		currentRomajiCharacter = romaji
+		currentIndex++
+	}
+
+	const nextCharacter = () => {
+		if (currentIndex < shuffledKanaList.length) {
+			setNextKanaPair()
+		} else {
+			console.log("finished")
+		}
+	}
+
+	const checkCharacter = () => {
+		const romajiOptions = currentRomajiCharacter
+			.split(", ")
+			.map((romaji: string) => romaji.trim().toLowerCase())
+		if (romajiOptions.includes(userRomajiInput.toLowerCase().trim())) {
+			// correctAnswerCount++
+			userRomajiInput = ""
+			inputErrorClass = ""
+			nextCharacter()
+		} else {
+			inputErrorClass = "input-error"
+			return
 		}
 	}
 </script>
@@ -83,21 +142,26 @@
 			</div>
 		</div>
 		<div class="flex justify-center">
-			<button class="variant-filled-primary btn mb-4 mt-10" on:click={() => (practice = true)}
+			<button class="variant-filled-primary btn mb-4 mt-10" on:click={startPractice}
 				>Practice</button
 			>
 		</div>
 		<ProgressBar value={progress} max={100} />
 	</div>
 {:else}
+	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
+		Correctly answer each character 4 times in order to pass the lesson
+	</AppBar>
 	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
 		<div class="flex justify-center">
 			<div class="flex w-1/2 flex-col gap-4 p-20">
 				<div class="flex justify-center p-8 text-6xl">{currentJapaneseCharacter}</div>
 				<input class="input h-8 pl-3 {inputErrorClass}" type="text" bind:value={userRomajiInput} />
 				<div class="flex justify-center gap-4">
-					<!--				<button class="variant-filled-tertiary btn" on:click={skipCharacter}>Skip</button>-->
-					<!--				<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>-->
+					<button class="variant-filled-tertiary btn" on:click={() => (practice = false)}
+						>Restudy</button
+					>
+					<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
 				</div>
 			</div>
 		</div>
