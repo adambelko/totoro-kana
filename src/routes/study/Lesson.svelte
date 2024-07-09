@@ -1,13 +1,29 @@
 <script lang="ts">
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import { onMount } from "svelte"
+	import { users } from "$lib/db/schema"
+
+	interface KanaGroup {
+		id: number
+		kanaCategory: string
+		groupName: string
+		japanese: string
+		romaji: string
+		order: number
+		progress: number
+	}
 
 	interface Kana {
 		japanese: string
 		romaji: string
 	}
 
-	export let selectedGroup
+	interface UserProgress {
+		id: number
+		progress: number
+	}
+
+	export let selectedGroup: KanaGroup[]
 
 	onMount(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -34,9 +50,10 @@
 	let currentRomajiCharacter = selectedGroup[currentIndex].romaji
 	let inputErrorClass = ""
 	let userRomajiInput = ""
-	let progress = 0
-
 	let shuffledKanaList: Kana[] = []
+	let userProgress: UserProgress[] = []
+	let correctAnswerCount = 0
+	$: progressBarValue = (correctAnswerCount / shuffledKanaList.length) * 100
 
 	const setCurrentCharacter = (index: number) => {
 		currentIndex = index
@@ -57,9 +74,9 @@
 	}
 
 	const startPractice = () => {
-		practice = true
 		initialiseKana()
 		setNextKanaPair()
+		practice = true
 	}
 
 	const shuffleArray = (array: any) => {
@@ -71,6 +88,12 @@
 	}
 
 	const initialiseKana = () => {
+		// init an object for saving user progress
+		selectedGroup.map((kana) => {
+			userProgress.push({ id: kana.id, progress: 0 })
+		})
+
+		// init an array with shuffled kana
 		const kanaList = selectedGroup.map((kana: Kana) => ({
 			japanese: kana.japanese,
 			romaji: kana.romaji
@@ -94,19 +117,35 @@
 		}
 	}
 
+	const saveProgress = () => {
+		const filteredGroup = selectedGroup.filter((kana) => kana.japanese === currentJapaneseCharacter)
+		const kanaId = filteredGroup[0].id
+		const progressedKana = userProgress.filter((kana) => kana.id === kanaId)
+		progressedKana[0].progress += 1
+		correctAnswerCount += 1
+	}
+
 	const checkCharacter = () => {
 		const romajiOptions = currentRomajiCharacter
 			.split(", ")
 			.map((romaji: string) => romaji.trim().toLowerCase())
 		if (romajiOptions.includes(userRomajiInput.toLowerCase().trim())) {
-			// correctAnswerCount++
 			userRomajiInput = ""
 			inputErrorClass = ""
+			saveProgress()
 			nextCharacter()
 		} else {
 			inputErrorClass = "input-error"
 			return
 		}
+	}
+
+	const handleRestudy = () => {
+		userRomajiInput = ""
+		inputErrorClass = ""
+		correctAnswerCount = 0
+		userProgress = []
+		practice = false
 	}
 </script>
 
@@ -146,7 +185,7 @@
 				>Practice</button
 			>
 		</div>
-		<ProgressBar value={progress} max={100} />
+		<ProgressBar value={0} max={100} />
 	</div>
 {:else}
 	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
@@ -158,9 +197,7 @@
 				<div class="flex justify-center p-8 text-6xl">{currentJapaneseCharacter}</div>
 				<input class="input h-8 pl-3 {inputErrorClass}" type="text" bind:value={userRomajiInput} />
 				<div class="flex justify-center gap-4">
-					<button class="variant-filled-tertiary btn" on:click={() => (practice = false)}
-						>Restudy</button
-					>
+					<button class="variant-filled-tertiary btn" on:click={handleRestudy}>Restudy</button>
 					<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
 				</div>
 			</div>
@@ -168,7 +205,7 @@
 		<span class="mb-1 flex justify-center">
 			<!--{correctAnswerCount + skippedAnswerCount}/{shuffledKanaList.length}-->
 		</span>
-		<ProgressBar value={progress} max={100} />
+		<ProgressBar value={progressBarValue} max={100} />
 	</div>
 {/if}
 
