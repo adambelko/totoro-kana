@@ -7,14 +7,14 @@
 	export let data
 	const { user, hiragana, katakana } = data
 
-	let hiraganaGroups: KanaData[] = []
-	let katakanaGroups: KanaData[] = []
-	$: selectedGroups = { hiragana: hiraganaGroups, katakana: katakanaGroups }
+	let hiraganaCharacters: KanaData[] = []
+	let katakanaCharacters: KanaData[] = []
+	$: selectedKana = { hiragana: hiraganaCharacters, katakana: katakanaCharacters }
 
 	let showPractice = false
 
 	const togglePractice = () => {
-		if (selectedGroups.hiragana.length || selectedGroups.katakana.length) {
+		if (selectedKana.hiragana.length || selectedKana.katakana.length) {
 			showPractice = true
 		}
 	}
@@ -33,14 +33,14 @@
 			<SelectKana
 				title="Hiragana / ひらがな"
 				data={hiragana}
-				bind:selectedGroups={hiraganaGroups}
+				bind:selectedKana={hiraganaCharacters}
 			/>
 		</div>
 		<div class="flex-1">
 			<SelectKana
 				title="Katakana / カタカナ"
 				data={katakana}
-				bind:selectedGroups={katakanaGroups}
+				bind:selectedKana={katakanaCharacters}
 			/>
 		</div>
 	</div>
@@ -48,5 +48,5 @@
 		Start practice
 	</button>
 {:else}
-	<Practice {selectedGroups} {hiragana} {katakana} />
+	<Practice {selectedKana} hiraganaData={hiragana} katakanaData={katakana} />
 {/if}

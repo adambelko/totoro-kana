@@ -1,36 +1,36 @@
 <script lang="ts">
 	import { TabGroup, Tab } from "@skeletonlabs/skeleton"
-	import DisplayKanaGroups from "./DisplayKanaGroups.svelte"
+	import DisplayKana from "./DisplayKana.svelte"
 	import Practice from "./Practice.svelte"
 
-	export let hiragana
-	export let katakana
-	export let correctAnswerCount: number
-	export let skippedAnswerCount: number
-	export let skippedAnswerList: string[][]
-	export let selectedGroups: SelectedGroups
+	export let hiraganaData
+	export let katakanaData
+	export let correctKanaCount: number
+	export let skippedKanaCount: number
+	export let skippedKanaList: string[][]
+	export let selectedKana: SelectedKana
 
-	const totalAnswerCount = correctAnswerCount + skippedAnswerCount
-	const successPercentage = ((correctAnswerCount / totalAnswerCount) * 100).toFixed(2)
-	let tabValue = selectedGroups.hiragana.length ? "hiragana" : "katakana"
+	const totalKanaCount = correctKanaCount + skippedKanaCount
+	const successPercentage = ((correctKanaCount / totalKanaCount) * 100).toFixed(2)
+	let tabValue = selectedKana.hiragana.length ? "hiragana" : "katakana"
 
-	interface SelectedGroups {
+	interface SelectedKana {
 		hiragana: KanaData[]
 		katakana: KanaData[]
 	}
 
 	const isCharacterSkipped = (japanese: string, romaji: string[]): boolean => {
-		return skippedAnswerList.some(([skipJapanese, skipRomaji]) => {
+		return skippedKanaList.some(([skipJapanese, skipRomaji]) => {
 			return skipJapanese === japanese && romaji.includes(skipRomaji)
 		})
 	}
 
-	const extractCharacterGroups = (data: Kana[]): string[] => {
+	const getKanaOrder = (data: Kana[]): string[] => {
 		return Array.from(new Set(data.map((kana) => kana.groupName)))
 	}
 
-	const hiraganaOrder = extractCharacterGroups(hiragana)
-	const katakanaOrder = extractCharacterGroups(katakana)
+	const hiraganaOrder = getKanaOrder(hiraganaData)
+	const katakanaOrder = getKanaOrder(katakanaData)
 
 	const sortKanaGroups = (groups: KanaData[], order: string[]) => {
 		return groups.sort((a, b) => {
@@ -38,26 +38,26 @@
 		})
 	}
 
-	const sortedHiraganaGroups = sortKanaGroups(selectedGroups.hiragana, hiraganaOrder)
-	const sortedKatakanaGroups = sortKanaGroups(selectedGroups.katakana, katakanaOrder)
+	const sortedHiragana = sortKanaGroups(selectedKana.hiragana, hiraganaOrder)
+	const sortedKatakana = sortKanaGroups(selectedKana.katakana, katakanaOrder)
 
-	const categoriseGroups = (groups: KanaData[]) => {
+	const categoriseKana = (characters: KanaData[]) => {
 		const categories = {
 			main: [] as KanaData[],
 			dakuten: [] as KanaData[],
 			combination: [] as KanaData[]
 		}
 
-		for (const group of groups) {
-			switch (group.category) {
+		for (const kana of characters) {
+			switch (kana.category) {
 				case "main":
-					categories.main.push(group)
+					categories.main.push(kana)
 					break
 				case "dakuten":
-					categories.dakuten.push(group)
+					categories.dakuten.push(kana)
 					break
 				case "combination":
-					categories.combination.push(group)
+					categories.combination.push(kana)
 					break
 			}
 		}
@@ -65,12 +65,12 @@
 		return categories
 	}
 
-	const categorisedHiraganaGroups = categoriseGroups(sortedHiraganaGroups)
-	const categorisedKatakanaGroups = categoriseGroups(sortedKatakanaGroups)
+	const categorisedHiragana = categoriseKana(sortedHiragana)
+	const categorisedKatakana = categoriseKana(sortedKatakana)
 
 	let showPractice = false
 	const togglePractice = () => {
-		if (selectedGroups.hiragana.length || selectedGroups.katakana.length) {
+		if (selectedKana.hiragana.length || selectedKana.katakana.length) {
 			showPractice = !showPractice
 		}
 	}
@@ -81,7 +81,7 @@
 		<div class="flex flex-col items-center">
 			<h2 class="h2">Your Results</h2>
 			<h4 class="h4 mt-8">
-				Total Correct Answers: {correctAnswerCount}/{totalAnswerCount} ({successPercentage}%)
+				Total Correct Answers: {correctKanaCount}/{totalKanaCount} ({successPercentage}%)
 			</h4>
 		</div>
 
@@ -91,9 +91,9 @@
 
 			<svelte:fragment slot="panel">
 				{#if tabValue === "hiragana"}
-					<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedHiraganaGroups} />
+					<DisplayKana {isCharacterSkipped} kanaGroups={categorisedHiragana} />
 				{:else}
-					<DisplayKanaGroups {isCharacterSkipped} kanaGroups={categorisedKatakanaGroups} />
+					<DisplayKana {isCharacterSkipped} kanaGroups={categorisedKatakana} />
 				{/if}
 			</svelte:fragment>
 		</TabGroup>
@@ -102,5 +102,5 @@
 		Repeat
 	</button>
 {:else}
-	<Practice {selectedGroups} />
+	<Practice {selectedKana} />
 {/if}

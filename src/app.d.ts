@@ -29,14 +29,6 @@ declare global {
 		japanese: string
 		characters: { [character: string]: string[] }
 	}
-
-	// interface KanaData {
-	// 	[kanaGroup: string]: {
-	// 		[characterGroup: string]: {
-	// 			[character: string]: string[]
-	// 		}
-	// 	}
-	// }
 }
 
 export {}

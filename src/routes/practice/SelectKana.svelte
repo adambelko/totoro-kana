@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem } from "@skeletonlabs/skeleton"
 
-	export let selectedGroups: KanaData[]
+	export let selectedKana: KanaData[]
 	export let title: string
 	export let data: Kana[]
 
@@ -59,43 +59,41 @@
 			mainChecked = true
 			dakutenChecked = true
 			combinationChecked = true
-			selectedGroups = listBoxData.slice()
+			selectedKana = listBoxData.slice()
 		} else {
 			mainChecked = false
 			dakutenChecked = false
 			combinationChecked = false
-			selectedGroups = []
+			selectedKana = []
 		}
 	}
 
 	const handleMainChecked = () => {
-		const mainGroups = listBoxData.filter((kanaGroup) => kanaGroup.category === "main")
+		const mainKana = listBoxData.filter((kana) => kana.category === "main")
 		if (mainChecked) {
-			selectedGroups = Array.from(new Set([...selectedGroups, ...mainGroups]))
+			selectedKana = Array.from(new Set([...selectedKana, ...mainKana]))
 		} else {
-			selectedGroups = selectedGroups.filter((group) => !mainGroups.includes(group))
+			selectedKana = selectedKana.filter((kana) => !mainKana.includes(kana))
 		}
 		updateAllChecked()
 	}
 
 	const handleDakutenChecked = () => {
-		const dakutenGroups = listBoxData.filter((kanaGroup) => kanaGroup.category === "dakuten")
+		const dakutenKana = listBoxData.filter((kana) => kana.category === "dakuten")
 		if (dakutenChecked) {
-			selectedGroups = Array.from(new Set([...selectedGroups, ...dakutenGroups]))
+			selectedKana = Array.from(new Set([...selectedKana, ...dakutenKana]))
 		} else {
-			selectedGroups = selectedGroups.filter((group) => !dakutenGroups.includes(group))
+			selectedKana = selectedKana.filter((kana) => !dakutenKana.includes(kana))
 		}
 		updateAllChecked()
 	}
 
 	const handleCombinationChecked = () => {
-		const combinationGroups = listBoxData.filter(
-			(kanaGroup) => kanaGroup.category === "combination"
-		)
+		const combinationKana = listBoxData.filter((kana) => kana.category === "combination")
 		if (combinationChecked) {
-			selectedGroups = Array.from(new Set([...selectedGroups, ...combinationGroups]))
+			selectedKana = Array.from(new Set([...selectedKana, ...combinationKana]))
 		} else {
-			selectedGroups = selectedGroups.filter((group) => !combinationGroups.includes(group))
+			selectedKana = selectedKana.filter((kana) => !combinationKana.includes(kana))
 		}
 		updateAllChecked()
 	}
@@ -115,9 +113,9 @@
 		hover="hover:variant-soft-primary"
 		class="flex-1 bg-surface-200"
 	>
-		{#each listBoxData as kanaGroup}
-			<ListBoxItem bind:group={selectedGroups} name="medium" value={kanaGroup}>
-				{kanaGroup.romaji} / {kanaGroup.japanese}
+		{#each listBoxData as kana}
+			<ListBoxItem bind:group={selectedKana} name="medium" value={kana}>
+				{kana.romaji} / {kana.japanese}
 			</ListBoxItem>
 		{/each}
 	</ListBox>

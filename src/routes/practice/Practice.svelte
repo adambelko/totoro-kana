@@ -3,27 +3,27 @@
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import PracticeResults from "./PracticeResults.svelte"
 
-	export let hiragana: Kana[]
-	export let katakana: Kana[]
+	export let hiraganaData: Kana[] = []
+	export let katakanaData: Kana[] = []
 
-	interface SelectedGroups {
+	interface SelectedKana {
 		hiragana: KanaData[]
 		katakana: KanaData[]
 	}
 
-	export let selectedGroups: SelectedGroups
+	export let selectedKana: SelectedKana
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter: string[] = []
 	let userRomajiInput = ""
 	let currentCharacterIndex = 0
-	let correctAnswerCount = 0
-	let skippedAnswerCount = 0
-	const skippedAnswerList: string[][] = []
+	let correctKanaCount = 0
+	let skippedKanaCount = 0
+	const skippedKanaList: string[][] = []
 	let inputErrorClass = ""
 	let showResults = false
 	let shuffledKanaList: [string, string[]][] = []
-	$: progress = ((correctAnswerCount + skippedAnswerCount) / shuffledKanaList.length) * 100
+	$: progress = ((correctKanaCount + skippedKanaCount) / shuffledKanaList.length) * 100
 
 	onMount(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -50,12 +50,12 @@
 	}
 
 	const initialiseKana = () => {
-		selectedGroups.hiragana.forEach((kana) => {
+		selectedKana.hiragana.forEach((kana) => {
 			Object.entries(kana.characters).forEach(([japanese, romaji]) => {
 				shuffledKanaList.push([japanese, romaji])
 			})
 		})
-		selectedGroups.katakana.forEach((kana) => {
+		selectedKana.katakana.forEach((kana) => {
 			Object.entries(kana.characters).forEach(([japanese, romaji]) => {
 				shuffledKanaList.push([japanese, romaji])
 			})
@@ -82,7 +82,7 @@
 
 	const checkCharacter = () => {
 		if (currentRomajiCharacter.some((romaji) => userRomajiInput.toLowerCase().trim() === romaji)) {
-			correctAnswerCount++
+			correctKanaCount++
 			userRomajiInput = ""
 			inputErrorClass = ""
 			nextCharacter()
@@ -93,9 +93,9 @@
 	}
 
 	const skipCharacter = () => {
-		skippedAnswerCount++
+		skippedKanaCount++
 		currentCharacterIndex++
-		skippedAnswerList.push([currentJapaneseCharacter, currentRomajiCharacter[0]])
+		skippedKanaList.push([currentJapaneseCharacter, currentRomajiCharacter[0]])
 		if (currentCharacterIndex < shuffledKanaList.length) {
 			setNextKanaPair()
 			userRomajiInput = ""
@@ -128,17 +128,17 @@
 			</div>
 		</div>
 		<span class="mb-1 flex justify-center">
-			{correctAnswerCount + skippedAnswerCount}/{shuffledKanaList.length}
+			{correctKanaCount + skippedKanaCount}/{shuffledKanaList.length}
 		</span>
 		<ProgressBar value={progress} max={100} />
 	</div>
 {:else}
 	<PracticeResults
-		{correctAnswerCount}
-		{skippedAnswerCount}
-		{skippedAnswerList}
-		{selectedGroups}
-		{hiragana}
-		{katakana}
+		{correctKanaCount}
+		{skippedKanaCount}
+		{skippedKanaList}
+		{selectedKana}
+		{hiraganaData}
+		{katakanaData}
 	/>
 {/if}
