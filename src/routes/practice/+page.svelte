@@ -1,34 +1,31 @@
 <script lang="ts">
 	import SelectKana from "./SelectKana.svelte"
 	import Practice from "./Practice.svelte"
-	import { hiragana } from "$lib/data/hiragana"
-	import { katakana } from "$lib/data/katakana"
-
 	import { AppBar } from "@skeletonlabs/skeleton"
 	import { getFullName } from "$lib/helpers/accountDetails"
 
 	export let data
-	$: ({ user } = data)
+	const { user, hiragana, katakana } = data
 
-	let hiraganaGroups: KanaGroup[] = []
-	let katakanaGroups: KanaGroup[] = []
+	let hiraganaGroups: KanaData[] = []
+	let katakanaGroups: KanaData[] = []
 	$: selectedGroups = { hiragana: hiraganaGroups, katakana: katakanaGroups }
 
 	let showPractice = false
 
 	const togglePractice = () => {
 		if (selectedGroups.hiragana.length || selectedGroups.katakana.length) {
-			showPractice = !showPractice
+			showPractice = true
 		}
 	}
 </script>
 
 {#if showPractice === false}
 	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-		{#if data.user}
-			Welcome back, {getFullName(data.user)}!
+		{#if user}
+			Welcome back, {getFullName(user)}!
 		{/if}
-		<p>Select at least one of the groups, you can scroll down too!</p>
+		<p>Select at least one of the groups to start the practice.</p>
 	</AppBar>
 
 	<div class="mt-4 flex gap-4 bg-white/30 p-5 rounded-container-token dark:bg-black/30">

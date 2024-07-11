@@ -5,28 +5,29 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			supabase: SupabaseClient
-			safeGetSession: () => Promise<{ session: Session | null; user: User | null }>
-			session: Session | null
+			safeGetSession: () => Promise<{ session: Session; user: User }>
+			session: Session
 		}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
 	}
 
-	interface KanaGroup {
+	interface KanaData {
 		category: string
 		groupName: string
 		romaji: string
 		japanese: string
-		characters: { [key: string]: string[] }
+		characters: { [character: string]: string[] }
 	}
 
-	interface KanaData {
-		[kanaGroup: string]: {
-			[characterGroup: string]: {
-				[character: string]: string[]
-			}
-		}
+	interface Kana {
+		id: number
+		kanaCategory: string
+		groupName: string
+		japanese: string
+		romaji: string
+		order: number
 	}
 }
 

@@ -1,12 +1,54 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem } from "@skeletonlabs/skeleton"
-	import { formatKanaGroups } from "$lib/helpers/formatKanaCharacters.js"
 
-	export let selectedGroups: KanaGroup[]
+	export let selectedGroups: KanaData[]
 	export let title: string
-	export let data: KanaData
+	export let data: Kana[]
 
-	const listBoxData: KanaGroup[] = formatKanaGroups(data)
+	const formatKana = (data: Kana[]): KanaData[] => {
+		const groups = new Map<
+			string,
+			{
+				romaji: string[]
+				japanese: string[]
+				category: string
+				characters: { [character: string]: string[] }
+			}
+		>()
+
+		data.forEach((kana) => {
+			if (!groups.has(kana.groupName)) {
+				groups.set(kana.groupName, {
+					romaji: [],
+					japanese: [],
+					category: kana.kanaCategory,
+					characters: {}
+				})
+			}
+
+			const group = groups.get(kana.groupName)
+			const firstRomaji = kana.romaji.split(",")[0].trim()
+			group!.romaji.push(firstRomaji)
+			group!.japanese.push(kana.japanese)
+			if (!group!.characters[kana.japanese]) {
+				group!.characters[kana.japanese] = []
+			}
+			group!.characters[kana.japanese].push(firstRomaji)
+		})
+
+		return Array.from(groups.entries()).map(
+			([groupName, { romaji, japanese, category, characters }]) => ({
+				groupName,
+				romaji: romaji.join(" · "),
+				japanese: japanese.join(" · "),
+				category,
+				characters
+			})
+		)
+	}
+
+	const listBoxData = formatKana(data)
+	console.log(listBoxData)
 
 	let allChecked = false
 	let mainChecked = false
@@ -28,7 +70,7 @@
 	}
 
 	const handleMainChecked = () => {
-		const mainGroups = listBoxData.filter((kanaGroup) => kanaGroup.category === "mainKana")
+		const mainGroups = listBoxData.filter((kanaGroup) => kanaGroup.category === "main")
 		if (mainChecked) {
 			selectedGroups = Array.from(new Set([...selectedGroups, ...mainGroups]))
 		} else {
@@ -38,7 +80,7 @@
 	}
 
 	const handleDakutenChecked = () => {
-		const dakutenGroups = listBoxData.filter((kanaGroup) => kanaGroup.category === "dakutenKana")
+		const dakutenGroups = listBoxData.filter((kanaGroup) => kanaGroup.category === "dakuten")
 		if (dakutenChecked) {
 			selectedGroups = Array.from(new Set([...selectedGroups, ...dakutenGroups]))
 		} else {
@@ -49,7 +91,7 @@
 
 	const handleCombinationChecked = () => {
 		const combinationGroups = listBoxData.filter(
-			(kanaGroup) => kanaGroup.category === "combinationKana"
+			(kanaGroup) => kanaGroup.category === "combination"
 		)
 		if (combinationChecked) {
 			selectedGroups = Array.from(new Set([...selectedGroups, ...combinationGroups]))

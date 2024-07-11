@@ -121,8 +121,5 @@
 			</div>
 		</div>
 	</div>
-	<span class="mb-1 flex justify-center">
-		<!--{correctAnswerCount + skippedAnswerCount}/{shuffledKanaList.length}-->
-	</span>
 	<ProgressBar value={progressBarValue} max={100} />
 </div>

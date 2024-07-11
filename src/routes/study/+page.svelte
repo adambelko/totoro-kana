@@ -4,15 +4,6 @@
 	import Dashboard from "./Dashboard.svelte"
 	import Lesson from "./Lesson.svelte"
 
-	interface Kana {
-		id: number
-		kanaCategory: string
-		groupName: string
-		japanese: string
-		romaji: string
-		order: number
-	}
-
 	export let data
 	const hiragana = data?.hiragana ?? []
 

@@ -4,8 +4,8 @@
 	import PracticeResults from "./PracticeResults.svelte"
 
 	interface SelectedGroups {
-		hiragana: KanaGroup[]
-		katakana: KanaGroup[]
+		hiragana: KanaData[]
+		katakana: KanaData[]
 	}
 
 	export let selectedGroups: SelectedGroups

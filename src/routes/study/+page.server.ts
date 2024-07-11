@@ -16,10 +16,11 @@ export const load: ServerLoad = async ({ locals }) => {
 	}
 
 	const hiragana = await db.query.hiragana.findMany()
-	return { hiragana }
+	const katakana = await db.query.katakana.findMany()
+	return { hiragana, katakana }
 }
 
-const saveUser = async (session: Session | null) => {
+const saveUser = async (session: Session) => {
 	const email = session?.user?.email
 
 	if (!email) {
