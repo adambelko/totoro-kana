@@ -48,5 +48,5 @@
 		Start practice
 	</button>
 {:else}
-	<Practice {selectedGroups} />
+	<Practice {selectedGroups} {hiragana} {katakana} />
 {/if}

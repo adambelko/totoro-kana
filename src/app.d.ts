@@ -13,14 +13,6 @@ declare global {
 		// interface Platform {}
 	}
 
-	interface KanaData {
-		category: string
-		groupName: string
-		romaji: string
-		japanese: string
-		characters: { [character: string]: string[] }
-	}
-
 	interface Kana {
 		id: number
 		kanaCategory: string
@@ -29,6 +21,22 @@ declare global {
 		romaji: string
 		order: number
 	}
+
+	interface KanaData {
+		category: string
+		groupName: string
+		romaji: string
+		japanese: string
+		characters: { [character: string]: string[] }
+	}
+
+	// interface KanaData {
+	// 	[kanaGroup: string]: {
+	// 		[characterGroup: string]: {
+	// 			[character: string]: string[]
+	// 		}
+	// 	}
+	// }
 }
 
 export {}

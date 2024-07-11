@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { TabGroup, Tab } from "@skeletonlabs/skeleton"
-	import { hiragana } from "$lib/data/hiragana"
-	import { katakana } from "$lib/data/katakana"
 	import DisplayKanaGroups from "./DisplayKanaGroups.svelte"
 	import Practice from "./Practice.svelte"
 
+	export let hiragana
+	export let katakana
 	export let correctAnswerCount: number
 	export let skippedAnswerCount: number
 	export let skippedAnswerList: string[][]
@@ -15,11 +15,9 @@
 	let tabValue = selectedGroups.hiragana.length ? "hiragana" : "katakana"
 
 	interface SelectedGroups {
-		hiragana: KanaGroup[]
-		katakana: KanaGroup[]
+		hiragana: KanaData[]
+		katakana: KanaData[]
 	}
-
-	console.log(selectedGroups)
 
 	const isCharacterSkipped = (japanese: string, romaji: string[]): boolean => {
 		return skippedAnswerList.some(([skipJapanese, skipRomaji]) => {
@@ -27,15 +25,14 @@
 		})
 	}
 
-	const extractCharacterGroups = (data: KanaData): string[] => {
-		return Object.keys(data).flatMap((kanaGroup) => Object.keys(data[kanaGroup]))
+	const extractCharacterGroups = (data: Kana[]): string[] => {
+		return Array.from(new Set(data.map((kana) => kana.groupName)))
 	}
 
 	const hiraganaOrder = extractCharacterGroups(hiragana)
 	const katakanaOrder = extractCharacterGroups(katakana)
 
-	// Sort selectedGroups based on the order in the hiragana/katakana object
-	const sortKanaGroups = (groups: KanaGroup[], order: string[]): KanaGroup[] => {
+	const sortKanaGroups = (groups: KanaData[], order: string[]) => {
 		return groups.sort((a, b) => {
 			return order.indexOf(a.groupName) - order.indexOf(b.groupName)
 		})
@@ -44,23 +41,23 @@
 	const sortedHiraganaGroups = sortKanaGroups(selectedGroups.hiragana, hiraganaOrder)
 	const sortedKatakanaGroups = sortKanaGroups(selectedGroups.katakana, katakanaOrder)
 
-	const categoriseGroups = (groups: KanaGroup[]) => {
+	const categoriseGroups = (groups: KanaData[]) => {
 		const categories = {
-			mainKana: [] as KanaGroup[],
-			dakutenKana: [] as KanaGroup[],
-			combinationKana: [] as KanaGroup[]
+			main: [] as KanaData[],
+			dakuten: [] as KanaData[],
+			combination: [] as KanaData[]
 		}
 
 		for (const group of groups) {
 			switch (group.category) {
-				case "mainKana":
-					categories.mainKana.push(group)
+				case "main":
+					categories.main.push(group)
 					break
-				case "dakutenKana":
-					categories.dakutenKana.push(group)
+				case "dakuten":
+					categories.dakuten.push(group)
 					break
-				case "combinationKana":
-					categories.combinationKana.push(group)
+				case "combination":
+					categories.combination.push(group)
 					break
 			}
 		}

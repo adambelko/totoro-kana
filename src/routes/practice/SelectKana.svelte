@@ -48,7 +48,6 @@
 	}
 
 	const listBoxData = formatKana(data)
-	console.log(listBoxData)
 
 	let allChecked = false
 	let mainChecked = false

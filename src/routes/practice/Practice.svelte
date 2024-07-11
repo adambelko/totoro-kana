@@ -3,6 +3,9 @@
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import PracticeResults from "./PracticeResults.svelte"
 
+	export let hiragana: Kana[]
+	export let katakana: Kana[]
+
 	interface SelectedGroups {
 		hiragana: KanaData[]
 		katakana: KanaData[]
@@ -47,13 +50,13 @@
 	}
 
 	const initialiseKana = () => {
-		selectedGroups.hiragana.forEach((kanaGroup) => {
-			Object.entries(kanaGroup.characters).forEach(([japanese, romaji]) => {
+		selectedGroups.hiragana.forEach((kana) => {
+			Object.entries(kana.characters).forEach(([japanese, romaji]) => {
 				shuffledKanaList.push([japanese, romaji])
 			})
 		})
-		selectedGroups.katakana.forEach((kanaGroup) => {
-			Object.entries(kanaGroup.characters).forEach(([japanese, romaji]) => {
+		selectedGroups.katakana.forEach((kana) => {
+			Object.entries(kana.characters).forEach(([japanese, romaji]) => {
 				shuffledKanaList.push([japanese, romaji])
 			})
 		})
@@ -130,5 +133,12 @@
 		<ProgressBar value={progress} max={100} />
 	</div>
 {:else}
-	<PracticeResults {correctAnswerCount} {skippedAnswerCount} {skippedAnswerList} {selectedGroups} />
+	<PracticeResults
+		{correctAnswerCount}
+		{skippedAnswerCount}
+		{skippedAnswerList}
+		{selectedGroups}
+		{hiragana}
+		{katakana}
+	/>
 {/if}
