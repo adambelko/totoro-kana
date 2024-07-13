@@ -3,14 +3,13 @@
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import PracticeResults from "./PracticeResults.svelte"
 
-	export let hiraganaData: Kana[] = []
-	export let katakanaData: Kana[] = []
-
 	interface SelectedKana {
 		hiragana: KanaData[]
 		katakana: KanaData[]
 	}
 
+	export let hiraganaData: Kana[] = []
+	export let katakanaData: Kana[] = []
 	export let selectedKana: SelectedKana
 
 	let currentJapaneseCharacter = ""
@@ -123,7 +122,8 @@
 					Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to submit the answer
 				</div>
 				<div class="mt-2 flex justify-center">
-					Press<kbd class="kbd ml-1.5 mr-1.5">S</kbd> to skip the answer
+					Press<kbd class="kbd ml-1.5 mr-1.5">SHIFT</kbd>+<kbd class="kbd ml-1.5 mr-1.5">S</kbd> to skip
+					the answer
 				</div>
 			</div>
 		</div>

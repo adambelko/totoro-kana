@@ -3,8 +3,13 @@
 	import DisplayKana from "./DisplayKana.svelte"
 	import Practice from "./Practice.svelte"
 
-	export let hiraganaData
-	export let katakanaData
+	interface SelectedKana {
+		hiragana: KanaData[]
+		katakana: KanaData[]
+	}
+
+	export let hiraganaData: Kana[]
+	export let katakanaData: Kana[]
 	export let correctKanaCount: number
 	export let skippedKanaCount: number
 	export let skippedKanaList: string[][]
@@ -13,11 +18,7 @@
 	const totalKanaCount = correctKanaCount + skippedKanaCount
 	const successPercentage = ((correctKanaCount / totalKanaCount) * 100).toFixed(2)
 	let tabValue = selectedKana.hiragana.length ? "hiragana" : "katakana"
-
-	interface SelectedKana {
-		hiragana: KanaData[]
-		katakana: KanaData[]
-	}
+	let showPractice = false
 
 	const isCharacterSkipped = (japanese: string, romaji: string[]): boolean => {
 		return skippedKanaList.some(([skipJapanese, skipRomaji]) => {
@@ -67,13 +68,6 @@
 
 	const categorisedHiragana = categoriseKana(sortedHiragana)
 	const categorisedKatakana = categoriseKana(sortedKatakana)
-
-	let showPractice = false
-	const togglePractice = () => {
-		if (selectedKana.hiragana.length || selectedKana.katakana.length) {
-			showPractice = !showPractice
-		}
-	}
 </script>
 
 {#if showPractice === false}
@@ -98,7 +92,10 @@
 			</svelte:fragment>
 		</TabGroup>
 	</div>
-	<button class="variant-filled-primary btn mx-auto mb-10 mt-4 block" on:click={togglePractice}>
+	<button
+		class="variant-filled-primary btn mx-auto mb-10 mt-4 block"
+		on:click={() => (showPractice = true)}
+	>
 		Repeat
 	</button>
 {:else}
