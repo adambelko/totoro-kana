@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
-	import KanaNavigation from "../../KanaNavigation.svelte"
-	import LessonPractice from "../../LessonPractice.svelte"
+	import DisplayGroup from "./DisplayGroup.svelte"
+	import LessonPractice from "./LessonPractice.svelte"
 
 	export let data
 	const hiragana = $page.url.pathname.includes("hiragana")
@@ -46,7 +46,7 @@
 		Navigate in between characters and memorise them
 	</AppBar>
 	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
-		<KanaNavigation {selectedGroup} {currentIndex} {setCurrentCharacter} {startPractice} />
+		<DisplayGroup {selectedGroup} {currentIndex} {setCurrentCharacter} {startPractice} />
 		<div class="mt-4 flex justify-center gap-4 text-6xl">{currentJapaneseCharacter}</div>
 		<div class="mb-10 flex justify-center gap-4 p-6 text-4xl">{currentRomajiCharacter}</div>
 		<div class="flex flex-col gap-4">
