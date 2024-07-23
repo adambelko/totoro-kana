@@ -22,6 +22,10 @@ declare global {
 		order: number
 	}
 
+	interface KanaGroup extends Kana {
+		progress?: number
+	}
+
 	interface KanaData {
 		category: string
 		groupName: string

@@ -1,19 +1,31 @@
 <script lang="ts">
+	import { page } from "$app/stores"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
-	import KanaNavigation from "./KanaNavigation.svelte"
-	import LessonPractice from "./LessonPractice.svelte"
+	import KanaNavigation from "../../KanaNavigation.svelte"
+	import LessonPractice from "../../LessonPractice.svelte"
 
-	interface KanaGroup {
-		id: number
-		kanaCategory: string
-		groupName: string
-		japanese: string
-		romaji: string
-		order: number
-		progress: number
+	export let data
+	const hiragana = $page.url.pathname.includes("hiragana")
+	let selectedGroup: KanaGroup[] = []
+
+	const formatParam = (param: string): string => {
+		return param
+			.split("_")
+			.map((section) => section.charAt(0).toUpperCase() + section.slice(1))
+			.join(" ")
 	}
 
-	export let selectedGroup: KanaGroup[]
+	const lastParam = $page.url.pathname.split("/").pop()
+
+	if (lastParam) {
+		const groupName = formatParam(lastParam)
+
+		if (hiragana && data?.hiragana) {
+			selectedGroup = data.hiragana.filter((kana) => kana.groupName === groupName)
+		} else if (!hiragana && data?.katakana) {
+			selectedGroup = data?.katakana.filter((kana) => kana.groupName === groupName)
+		}
+	}
 
 	let practice = false
 	let currentIndex = 0

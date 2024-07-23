@@ -2,16 +2,6 @@
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import { createEventDispatcher, onMount } from "svelte"
 
-	interface KanaGroup {
-		id: number
-		kanaCategory: string
-		groupName: string
-		japanese: string
-		romaji: string
-		order: number
-		progress: number
-	}
-
 	interface Kana {
 		japanese: string
 		romaji: string
