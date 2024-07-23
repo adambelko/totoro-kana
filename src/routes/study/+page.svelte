@@ -6,13 +6,18 @@
 
 	export let data
 	const hiragana = data?.hiragana ?? []
+	const katakana = data?.katakana ?? []
 
 	let tabValue = "hiragana"
 	let showLesson = false
 	let selectedGroup: Kana[] = []
 
 	const startLesson = (groupName: string) => {
-		selectedGroup = hiragana.filter((item) => item.groupName === groupName)
+		if (tabValue === "hiragana") {
+			selectedGroup = hiragana.filter((kana) => kana.groupName === groupName)
+		} else {
+			selectedGroup = katakana.filter((kana) => kana.groupName === groupName)
+		}
 		showLesson = !showLesson
 	}
 </script>
@@ -33,9 +38,9 @@
 
 			<svelte:fragment slot="panel">
 				{#if tabValue === "hiragana"}
-					<Dashboard {hiragana} on:startLesson={(e) => startLesson(e.detail.groupName)} />
+					<Dashboard data={hiragana} on:startLesson={(e) => startLesson(e.detail.groupName)} />
 				{:else}
-					<Dashboard {hiragana} on:startLesson={(e) => startLesson(e.detail.groupName)} />
+					<Dashboard data={katakana} on:startLesson={(e) => startLesson(e.detail.groupName)} />
 				{/if}
 			</svelte:fragment>
 		</TabGroup>

@@ -1,23 +1,22 @@
 <script lang="ts">
-	import { ProgressRadial, ProgressBar } from "@skeletonlabs/skeleton"
 	import { createEventDispatcher } from "svelte"
+	import { ProgressRadial } from "@skeletonlabs/skeleton"
 
 	const dispatch = createEventDispatcher()
+	export let data: Kana[]
 
-	export let hiragana
-
-	const groupNames = hiragana.map((item) => item.groupName)
+	const groupNames = data.map((item) => item.groupName)
 	const uniqueGroupNames = [...new Set(groupNames)]
 
-	const filterHiragana = (groupName) => {
-		return hiragana.filter((item) => item.groupName === groupName)
+	const filterHiragana = (groupName: string) => {
+		return data.filter((item) => item.groupName === groupName)
 	}
 
-	const getFirstRomaji = (romaji) => {
+	const getFirstRomaji = (romaji: string) => {
 		return romaji.split(",")[0].trim()
 	}
 
-	const startLesson = (groupName) => {
+	const startLesson = (groupName: string) => {
 		dispatch("startLesson", { groupName })
 	}
 </script>
@@ -28,7 +27,7 @@
 			<h4 class="h4">Study</h4>
 			<div class="mt-2 flex justify-between">
 				<div class="flex flex-col items-center">
-					<span>0/{hiragana.length} kana completed</span>
+					<span>0/{data.length} kana completed</span>
 					<ProgressRadial
 						value={0}
 						stroke={90}
