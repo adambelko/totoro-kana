@@ -41,19 +41,22 @@
 		}
 	})
 
-	const initialiseKana = () => {
-		selectedKana.hiragana.forEach((kana) => {
-			Object.entries(kana.characters).forEach(([japanese, romaji]) => {
-				shuffledKanaList.push([japanese, romaji])
-			})
-		})
-		selectedKana.katakana.forEach((kana) => {
-			Object.entries(kana.characters).forEach(([japanese, romaji]) => {
-				shuffledKanaList.push([japanese, romaji])
-			})
-		})
+	type KanaCharacter = { [key: string]: string[] }
+	type KanaWriting = { characters: KanaCharacter }
 
-		shuffledKanaList = shuffleArray(shuffledKanaList)
+	const populateKanaList = (kanaWriting: KanaWriting[], kanaList: [string, string[]][]) => {
+		kanaWriting.forEach((kana) => {
+			Object.entries(kana.characters).forEach(([japanese, romajiArray]) => {
+				kanaList.push([japanese, romajiArray])
+			})
+		})
+	}
+
+	const initialiseKana = () => {
+		let kanaList: [string, string[]][] = []
+		populateKanaList(selectedKana.hiragana, kanaList)
+		populateKanaList(selectedKana.katakana, kanaList)
+		shuffledKanaList = shuffleArray(kanaList)
 	}
 
 	const setNextKanaPair = () => {
@@ -69,15 +72,18 @@
 		}
 	}
 
+	const cleanupInput = () => {
+		userRomajiInput = ""
+		inputErrorClass = ""
+	}
+
 	const checkCharacter = () => {
 		if (currentRomajiCharacter.some((romaji) => userRomajiInput.toLowerCase().trim() === romaji)) {
 			correctKanaCount++
-			userRomajiInput = ""
-			inputErrorClass = ""
+			cleanupInput()
 			nextCharacter()
 		} else {
 			inputErrorClass = "input-error"
-			return
 		}
 	}
 
@@ -87,8 +93,7 @@
 		skippedKanaList.push([currentJapaneseCharacter, currentRomajiCharacter[0]])
 		if (currentCharacterIndex < shuffledKanaList.length) {
 			setNextKanaPair()
-			userRomajiInput = ""
-			inputErrorClass = ""
+			cleanupInput()
 		} else {
 			showResults = true
 		}
