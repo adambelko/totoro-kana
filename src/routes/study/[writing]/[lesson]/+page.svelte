@@ -2,11 +2,13 @@
 	import { page } from "$app/stores"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import DisplayGroup from "./DisplayGroup.svelte"
-	import LessonPractice from "./LessonPractice.svelte"
+	import Quiz from "./Quiz.svelte"
 
 	export let data
-	const hiragana = $page.url.pathname.includes("hiragana")
 	let selectedGroup: KanaGroup[] = []
+
+	const hiragana = $page.url.pathname.includes("hiragana")
+	const lastParam = $page.url.pathname.split("/").pop()
 
 	const formatParam = (param: string): string => {
 		return param
@@ -14,8 +16,6 @@
 			.map((section) => section.charAt(0).toUpperCase() + section.slice(1))
 			.join(" ")
 	}
-
-	const lastParam = $page.url.pathname.split("/").pop()
 
 	if (lastParam) {
 		const groupName = formatParam(lastParam)
@@ -66,5 +66,5 @@
 		<ProgressBar value={0} max={100} />
 	</div>
 {:else}
-	<LessonPractice {selectedGroup} {currentIndex} on:resetPractice={() => (practice = false)} />
+	<Quiz {selectedGroup} on:resetQuiz={() => (practice = false)} />
 {/if}

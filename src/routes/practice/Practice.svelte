@@ -2,6 +2,7 @@
 	import { onMount } from "svelte"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import PracticeResults from "./PracticeResults.svelte"
+	import { shuffleArray } from "$lib/helpers/shuffleArray"
 
 	interface SelectedKana {
 		hiragana: KanaData[]
@@ -14,15 +15,15 @@
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter: string[] = []
-	let userRomajiInput = ""
 	let currentCharacterIndex = 0
 	let correctKanaCount = 0
 	let skippedKanaCount = 0
-	const skippedKanaList: string[][] = []
+	let userRomajiInput = ""
 	let inputErrorClass = ""
-	let showResults = false
+	const skippedKanaList: string[][] = []
 	let shuffledKanaList: [string, string[]][] = []
-	$: progress = ((correctKanaCount + skippedKanaCount) / shuffledKanaList.length) * 100
+	$: progressBarValue = ((correctKanaCount + skippedKanaCount) / shuffledKanaList.length) * 100
+	let showResults = false
 
 	onMount(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -39,14 +40,6 @@
 			window.removeEventListener("keydown", handleKeyDown)
 		}
 	})
-
-	const shuffleArray = (array: any) => {
-		for (let i = array.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1))
-			;[array[i], array[j]] = [array[j], array[i]]
-		}
-		return array
-	}
 
 	const initialiseKana = () => {
 		selectedKana.hiragana.forEach((kana) => {
@@ -66,9 +59,6 @@
 	const setNextKanaPair = () => {
 		;[currentJapaneseCharacter, currentRomajiCharacter] = shuffledKanaList[currentCharacterIndex]
 	}
-
-	initialiseKana()
-	setNextKanaPair()
 
 	const nextCharacter = () => {
 		currentCharacterIndex++
@@ -103,6 +93,9 @@
 			showResults = true
 		}
 	}
+
+	initialiseKana()
+	setNextKanaPair()
 </script>
 
 {#if showResults === false}
@@ -130,7 +123,7 @@
 		<span class="mb-1 flex justify-center">
 			{correctKanaCount + skippedKanaCount}/{shuffledKanaList.length}
 		</span>
-		<ProgressBar value={progress} max={100} />
+		<ProgressBar value={progressBarValue} max={100} />
 	</div>
 {:else}
 	<PracticeResults

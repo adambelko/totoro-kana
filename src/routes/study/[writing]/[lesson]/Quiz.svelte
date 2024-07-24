@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { createEventDispatcher } from "svelte"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
-	import { createEventDispatcher, onMount } from "svelte"
+	import { shuffleArray } from "$lib/helpers/shuffleArray"
 
 	interface Kana {
 		japanese: string
@@ -8,40 +9,33 @@
 	}
 
 	interface UserProgress {
-		id: number
-		progress: number
+		kanaId: number
+		kanaProgress: number
 	}
 
 	export let selectedGroup: KanaGroup[]
-	export let currentIndex: number
 	const dispatch = createEventDispatcher()
 
-	let currentJapaneseCharacter = selectedGroup[currentIndex].japanese
-	let currentRomajiCharacter = selectedGroup[currentIndex].romaji
-	let inputErrorClass = ""
+	let currentJapaneseCharacter = ""
+	let currentRomajiCharacter = ""
 	let userRomajiInput = ""
+	let inputErrorClass = ""
+	let currentIndex = 0
+	let correctAnswerCount = 0
 	let shuffledKanaList: Kana[] = []
 	let userProgress: UserProgress[] = []
-	let correctAnswerCount = 0
 	$: progressBarValue = (correctAnswerCount / shuffledKanaList.length) * 100
-
-	const shuffleArray = (array: Kana[]) => {
-		for (let i = array.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1))
-			;[array[i], array[j]] = [array[j], array[i]]
-		}
-		return array
-	}
 
 	const initialiseKana = () => {
 		selectedGroup.map((kana) => {
-			userProgress.push({ id: kana.id, progress: 0 })
+			userProgress.push({ kanaId: kana.id, kanaProgress: 0 })
 		})
 
 		const kanaList = selectedGroup.map((kana) => ({
 			japanese: kana.japanese,
 			romaji: kana.romaji
 		}))
+
 		shuffledKanaList = shuffleArray(kanaList)
 	}
 
@@ -61,17 +55,15 @@
 	}
 
 	const saveProgress = () => {
-		const filteredGroup = selectedGroup.filter((kana) => kana.japanese === currentJapaneseCharacter)
-		const kanaId = filteredGroup[0].id
-		const progressedKana = userProgress.filter((kana) => kana.id === kanaId)
-		progressedKana[0].progress += 1
+		const correctKana = selectedGroup.filter((kana) => kana.japanese === currentJapaneseCharacter)
+		const kanaId = correctKana[0].id
+		const progressedKana = userProgress.filter((kana) => kana.kanaId === kanaId)
+		progressedKana[0].kanaProgress += 1
 		correctAnswerCount += 1
 	}
 
 	const checkCharacter = () => {
-		const romajiOptions = currentRomajiCharacter
-			.split(", ")
-			.map((romaji) => romaji.trim().toLowerCase())
+		const romajiOptions = currentRomajiCharacter.split(", ").map((romaji) => romaji.trim())
 		if (romajiOptions.includes(userRomajiInput.toLowerCase().trim())) {
 			userRomajiInput = ""
 			inputErrorClass = ""
@@ -88,13 +80,11 @@
 		inputErrorClass = ""
 		correctAnswerCount = 0
 		userProgress = []
-		dispatch("resetPractice")
+		dispatch("resetQuiz")
 	}
 
-	onMount(() => {
-		initialiseKana()
-		setNextKanaPair()
-	})
+	initialiseKana()
+	setNextKanaPair()
 </script>
 
 <AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
