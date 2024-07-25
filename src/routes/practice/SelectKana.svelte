@@ -5,37 +5,46 @@
 	export let title: string
 	export let data: Kana[]
 
-	const formatKana = (data: Kana[]): KanaData[] => {
-		const groups = new Map<
-			string,
-			{
-				romaji: string[]
-				japanese: string[]
-				category: string
-				characters: { [character: string]: string[] }
-			}
-		>()
+	interface KanaDataGroup {
+		romaji: string[]
+		japanese: string[]
+		category: string
+		characters: { [character: string]: string[] }
+	}
 
+	const createKanaGroup = (kana: Kana): KanaDataGroup => {
+		return {
+			romaji: [],
+			japanese: [],
+			category: kana.kanaCategory,
+			characters: {}
+		}
+	}
+
+	const updateKanaGroup = (group: KanaDataGroup, kana: Kana) => {
+		const firstRomaji = kana.romaji.split(",")[0].trim()
+		group.romaji.push(firstRomaji)
+		group.japanese.push(kana.japanese)
+		if (!group.characters[kana.japanese]) {
+			group.characters[kana.japanese] = []
+		}
+		group.characters[kana.japanese].push(firstRomaji)
+	}
+
+	const mapKanaGroups = (data: Kana[]): Map<string, KanaDataGroup> => {
+		const groups = new Map<string, KanaDataGroup>()
 		data.forEach((kana) => {
 			if (!groups.has(kana.groupName)) {
-				groups.set(kana.groupName, {
-					romaji: [],
-					japanese: [],
-					category: kana.kanaCategory,
-					characters: {}
-				})
+				groups.set(kana.groupName, createKanaGroup(kana))
 			}
-
 			const group = groups.get(kana.groupName)
-			const firstRomaji = kana.romaji.split(",")[0].trim()
-			group!.romaji.push(firstRomaji)
-			group!.japanese.push(kana.japanese)
-			if (!group!.characters[kana.japanese]) {
-				group!.characters[kana.japanese] = []
-			}
-			group!.characters[kana.japanese].push(firstRomaji)
+			updateKanaGroup(group!, kana)
 		})
+		return groups
+	}
 
+	const formatKana = (data: Kana[]): KanaData[] => {
+		const groups = mapKanaGroups(data)
 		return Array.from(groups.entries()).map(
 			([groupName, { romaji, japanese, category, characters }]) => ({
 				groupName,
