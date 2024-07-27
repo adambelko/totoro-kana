@@ -42,7 +42,8 @@
 <div class="flex justify-center gap-4 p-6">
 	{#each selectedGroup as groupItem, index}
 		<button
-			class="flex justify-center bg-surface-300 p-4 rounded-container-token {currentIndex === index
+			class="flex min-w-16 justify-center bg-surface-300 p-3 text-2xl rounded-container-token {currentIndex ===
+			index
 				? 'border-2 border-blue-500'
 				: ''}"
 			on:click={() => {

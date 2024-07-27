@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores"
-	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
+	import { AppBar } from "@skeletonlabs/skeleton"
 	import DisplayGroup from "./DisplayGroup.svelte"
 	import Quiz from "./Quiz.svelte"
 
@@ -39,6 +39,10 @@
 	}
 
 	const startPractice = () => (practice = true)
+
+	const handleRestudy = (event: CustomEvent<boolean>) => {
+		practice = event.detail
+	}
 </script>
 
 {#if practice === false}
@@ -63,8 +67,7 @@
 				>Practice</button
 			>
 		</div>
-		<ProgressBar value={0} max={100} />
 	</div>
 {:else}
-	<Quiz {selectedGroup} on:resetQuiz={() => (practice = false)} />
+	<Quiz {selectedGroup} on:restudy={handleRestudy} />
 {/if}

@@ -12,7 +12,6 @@
 	export let hiraganaData: Kana[] = []
 	export let katakanaData: Kana[] = []
 	export let selectedKana: SelectedKana
-	console.log(selectedKana)
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter: string[] = []
