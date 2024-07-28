@@ -15,7 +15,7 @@
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter: string[] = []
-	let currentCharacterIndex = 0
+	let currentIndex = 0
 	let correctKanaCount = 0
 	let skippedKanaCount = 0
 	let userRomajiInput = ""
@@ -52,20 +52,21 @@
 		})
 	}
 
-	const initialiseKana = () => {
+	const init = () => {
 		let kanaList: [string, string[]][] = []
 		populateKanaList(selectedKana.hiragana, kanaList)
 		populateKanaList(selectedKana.katakana, kanaList)
 		shuffledKanaList = shuffleArray(kanaList)
+		setNextKanaPair()
 	}
 
 	const setNextKanaPair = () => {
-		;[currentJapaneseCharacter, currentRomajiCharacter] = shuffledKanaList[currentCharacterIndex]
+		;[currentJapaneseCharacter, currentRomajiCharacter] = shuffledKanaList[currentIndex]
 	}
 
-	const nextCharacter = () => {
-		currentCharacterIndex++
-		if (currentCharacterIndex < shuffledKanaList.length) {
+	const checkProgress = () => {
+		currentIndex++
+		if (currentIndex < shuffledKanaList.length) {
 			setNextKanaPair()
 		} else {
 			showResults = true
@@ -81,7 +82,7 @@
 		if (currentRomajiCharacter.some((romaji) => userRomajiInput.toLowerCase().trim() === romaji)) {
 			correctKanaCount++
 			cleanupInput()
-			nextCharacter()
+			checkProgress()
 		} else {
 			inputErrorClass = "input-error"
 		}
@@ -89,9 +90,9 @@
 
 	const skipCharacter = () => {
 		skippedKanaCount++
-		currentCharacterIndex++
+		currentIndex++
 		skippedKanaList.push([currentJapaneseCharacter, currentRomajiCharacter[0]])
-		if (currentCharacterIndex < shuffledKanaList.length) {
+		if (currentIndex < shuffledKanaList.length) {
 			setNextKanaPair()
 			cleanupInput()
 		} else {
@@ -99,8 +100,7 @@
 		}
 	}
 
-	initialiseKana()
-	setNextKanaPair()
+	init()
 </script>
 
 {#if showResults === false}

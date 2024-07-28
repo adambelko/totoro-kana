@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import { shuffleArray } from "$lib/helpers/shuffleArray"
 	import QuizInput from "./QuizInput.svelte"
@@ -15,19 +14,19 @@
 		kanaProgress: number
 	}
 
+	export let quiz: boolean
 	export let selectedGroup: KanaGroup[]
-	const dispatch = createEventDispatcher()
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
-	let quizPart = 2
+	let quizStage = 1
 	let currentIndex = 0
-	let correctKanaCount = 5
+	let correctKanaCount = 0
 	let shuffledKanaList: Kana[] = []
 	let userProgress: UserProgress[] = []
 	$: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
 
-	const initialiseKana = () => {
+	const init = () => {
 		selectedGroup.map((kana) => {
 			userProgress.push({ kanaId: kana.id, kanaProgress: 0 })
 		})
@@ -40,12 +39,6 @@
 		shuffledKanaList = shuffleArray(kanaList)
 	}
 
-	const handleRestudy = () => {
-		correctKanaCount = 0
-		userProgress = []
-		dispatch("restudy", false)
-	}
-
 	const saveUserProgress = () => {
 		const correctKana = selectedGroup.find((kana) => kana.japanese === currentJapaneseCharacter)
 		const userProgressIndex = userProgress.findIndex((kana) => kana.kanaId === correctKana?.id)
@@ -53,7 +46,13 @@
 		correctKanaCount += 1
 	}
 
-	initialiseKana()
+	const handleRestudy = () => {
+		correctKanaCount = 0
+		userProgress = []
+		quiz = false
+	}
+
+	init()
 </script>
 
 <AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
@@ -62,23 +61,23 @@
 <div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
 	<div class="flex justify-center">
 		<div class="flex w-1/2 flex-col gap-4 p-20">
-			{#if quizPart === 1}
+			{#if quizStage === 1}
 				<QuizInput
 					bind:currentJapaneseCharacter
 					{currentRomajiCharacter}
 					{currentIndex}
 					{shuffledKanaList}
-					bind:quizPart
+					bind:quizStage
 					{handleRestudy}
 					{saveUserProgress}
 				/>
-			{:else if quizPart === 2}
+			{:else if quizStage === 2}
 				<QuizButton
 					bind:currentJapaneseCharacter
 					{currentRomajiCharacter}
 					{shuffledKanaList}
 					{currentIndex}
-					bind:quizPart
+					bind:quizStage
 					{handleRestudy}
 					{saveUserProgress}
 				/>

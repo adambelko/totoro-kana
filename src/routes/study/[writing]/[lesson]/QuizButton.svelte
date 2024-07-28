@@ -4,25 +4,25 @@
 	interface Kana {
 		japanese: string
 		romaji: string
-		errorClass: boolean
+		errorClass?: boolean
 	}
 
 	export let currentRomajiCharacter: string
 	export let currentJapaneseCharacter: string
 	export let currentIndex: number
-	export let quizPart: number
+	export let quizStage: number
 	export let shuffledKanaList: Kana[]
 	export let handleRestudy: () => void
 	export let saveUserProgress: () => void
 
 	let currentKanaButtonOptions: Kana[] = []
 
-	const nextCharacter = () => {
+	const nextKana = () => {
 		if (currentIndex < shuffledKanaList.length) {
 			populateButtonOptions()
 			setNextKanaPair()
 		} else {
-			quizPart += 1
+			quizStage += 1
 		}
 	}
 
@@ -39,6 +39,15 @@
 		currentKanaButtonOptions.map((button) => (button.errorClass = false))
 	}
 
+	const checkButtonCharacter = (japaneseCharacter: string) => {
+		if (japaneseCharacter === currentJapaneseCharacter) {
+			saveUserProgress()
+			nextKana()
+		} else {
+			showIncorrectButtonOutline(japaneseCharacter)
+		}
+	}
+
 	const showIncorrectButtonOutline = (japaneseCharacter: string) => {
 		const incorrectKanaIndex = currentKanaButtonOptions.findIndex(
 			(kana) => kana.japanese === japaneseCharacter
@@ -50,18 +59,9 @@
 		}, 500)
 	}
 
-	const checkButtonCharacter = (japaneseCharacter: string) => {
-		if (japaneseCharacter === currentJapaneseCharacter) {
-			saveUserProgress()
-			nextCharacter()
-		} else {
-			showIncorrectButtonOutline(japaneseCharacter)
-		}
-	}
-
 	const init = () => {
 		shuffledKanaList = shuffleArray(shuffledKanaList)
-		nextCharacter()
+		nextKana()
 	}
 
 	init()

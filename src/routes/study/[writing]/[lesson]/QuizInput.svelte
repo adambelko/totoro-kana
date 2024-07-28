@@ -7,7 +7,7 @@
 	export let currentJapaneseCharacter: string
 	export let currentRomajiCharacter: string
 	export let currentIndex: number
-	export let quizPart: number
+	export let quizStage: number
 	export let shuffledKanaList: Kana[]
 	export let handleRestudy: () => void
 	export let saveUserProgress: () => void
@@ -27,12 +27,12 @@
 		currentIndex++
 	}
 
-	const nextCharacter = () => {
+	const nextKana = () => {
 		if (currentIndex < shuffledKanaList.length) {
 			setNextKanaPair()
 		} else {
 			cleanupInput()
-			quizPart += 1
+			quizStage += 1
 		}
 	}
 
@@ -42,7 +42,7 @@
 		if (romajiOptions.includes(userRomajiInput.toLowerCase().trim())) {
 			cleanupInput()
 			saveUserProgress()
-			nextCharacter()
+			nextKana()
 		} else {
 			inputErrorClass = "input-error"
 		}

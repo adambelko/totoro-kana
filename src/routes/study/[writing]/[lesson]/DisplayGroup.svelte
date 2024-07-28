@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { onMount } from "svelte"
 
-	export let selectedGroup
-	export let currentIndex
-	export let setCurrentCharacter
-	export let startPractice
+	export let selectedGroup: KanaGroup[]
+	export let currentIndex: number
+	export let setCurrentCharacters: (index: number) => void
+	export let startQuiz: () => void
 
 	onMount(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "Enter") {
 				event.preventDefault()
-				startPractice()
+				startQuiz()
 			} else if (event.key === "ArrowLeft") {
 				event.preventDefault()
 				navigateLeft()
@@ -28,13 +28,13 @@
 
 	const navigateLeft = () => {
 		if (currentIndex > 0) {
-			setCurrentCharacter(currentIndex - 1)
+			setCurrentCharacters(currentIndex - 1)
 		}
 	}
 
 	const navigateRight = () => {
 		if (currentIndex < selectedGroup.length - 1) {
-			setCurrentCharacter(currentIndex + 1)
+			setCurrentCharacters(currentIndex + 1)
 		}
 	}
 </script>
@@ -47,7 +47,7 @@
 				? 'border-2 border-blue-500'
 				: ''}"
 			on:click={() => {
-				setCurrentCharacter(index)
+				setCurrentCharacters(index)
 			}}
 		>
 			{groupItem.japanese}

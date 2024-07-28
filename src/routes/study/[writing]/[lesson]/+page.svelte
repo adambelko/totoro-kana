@@ -5,10 +5,14 @@
 	import Quiz from "./Quiz.svelte"
 
 	export let data
-	let selectedGroup: KanaGroup[] = []
 
+	let selectedGroup: KanaGroup[] = []
+	let quiz = false
+	let currentIndex = 0
+	let currentJapaneseCharacter: string
+	let currentRomajiCharacter: string
 	const hiragana = $page.url.pathname.includes("hiragana")
-	const lastParam = $page.url.pathname.split("/").pop()
+	const lastUrlParam = $page.url.pathname.split("/").pop()
 
 	const formatParam = (param: string): string => {
 		return param
@@ -17,40 +21,41 @@
 			.join(" ")
 	}
 
-	if (lastParam) {
-		const groupName = formatParam(lastParam)
+	const getSelectedGroup = (): KanaGroup[] => {
+		if (!lastUrlParam) return []
+		const groupName = formatParam(lastUrlParam)
 
 		if (hiragana && data?.hiragana) {
-			selectedGroup = data.hiragana.filter((kana) => kana.groupName === groupName)
+			return data.hiragana.filter((kana) => kana.groupName === groupName)
 		} else if (!hiragana && data?.katakana) {
-			selectedGroup = data?.katakana.filter((kana) => kana.groupName === groupName)
+			return data.katakana.filter((kana) => kana.groupName === groupName)
 		}
+
+		return []
 	}
 
-	let practice = false
-	let currentIndex = 0
-	let currentJapaneseCharacter = selectedGroup[currentIndex].japanese
-	let currentRomajiCharacter = selectedGroup[currentIndex].romaji
+	const init = () => {
+		selectedGroup = getSelectedGroup()
+		setCurrentCharacters(currentIndex)
+	}
 
-	const setCurrentCharacter = (index: number) => {
+	const setCurrentCharacters = (index: number) => {
 		currentIndex = index
 		currentJapaneseCharacter = selectedGroup[currentIndex].japanese
 		currentRomajiCharacter = selectedGroup[currentIndex].romaji
 	}
 
-	const startPractice = () => (practice = true)
+	const startQuiz = () => (quiz = true)
 
-	const handleRestudy = (event: CustomEvent<boolean>) => {
-		practice = event.detail
-	}
+	init()
 </script>
 
-{#if practice === false}
+{#if quiz === false}
 	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
 		Navigate in between characters and memorise them
 	</AppBar>
 	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
-		<DisplayGroup {selectedGroup} {currentIndex} {setCurrentCharacter} {startPractice} />
+		<DisplayGroup {selectedGroup} {currentIndex} {setCurrentCharacters} {startQuiz} />
 		<div class="mt-4 flex justify-center gap-4 text-6xl">{currentJapaneseCharacter}</div>
 		<div class="mb-10 flex justify-center gap-4 p-6 text-4xl">{currentRomajiCharacter}</div>
 		<div class="flex flex-col gap-4">
@@ -59,15 +64,13 @@
 				<kbd class="kbd ml-1.5 mr-1.5">→</kbd> to navigate
 			</div>
 			<div class="flex justify-center">
-				Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to start practice
+				Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to start the quiz
 			</div>
 		</div>
 		<div class="flex justify-center">
-			<button class="variant-filled-primary btn mb-4 mt-10" on:click={startPractice}
-				>Practice</button
-			>
+			<button class="variant-filled-primary btn mb-4 mt-10" on:click={startQuiz}>Start Quiz</button>
 		</div>
 	</div>
 {:else}
-	<Quiz {selectedGroup} on:restudy={handleRestudy} />
+	<Quiz {selectedGroup} bind:quiz />
 {/if}
