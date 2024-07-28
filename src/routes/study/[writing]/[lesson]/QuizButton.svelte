@@ -4,6 +4,7 @@
 	interface Kana {
 		japanese: string
 		romaji: string
+		errorClass: boolean
 	}
 
 	export let currentRomajiCharacter: string
@@ -18,8 +19,8 @@
 
 	const nextCharacter = () => {
 		if (currentIndex < shuffledKanaList.length) {
-			setNextKanaPair()
 			populateButtonOptions()
+			setNextKanaPair()
 		} else {
 			quizPart += 1
 		}
@@ -33,7 +34,20 @@
 	}
 
 	const populateButtonOptions = () => {
-		currentKanaButtonOptions = shuffleArray(shuffledKanaList)
+		const buttonOptions = [...shuffledKanaList]
+		currentKanaButtonOptions = shuffleArray(buttonOptions)
+		currentKanaButtonOptions.map((button) => (button.errorClass = false))
+	}
+
+	const showIncorrectButtonOutline = (japaneseCharacter: string) => {
+		const incorrectKanaIndex = currentKanaButtonOptions.findIndex(
+			(kana) => kana.japanese === japaneseCharacter
+		)
+
+		currentKanaButtonOptions[incorrectKanaIndex].errorClass = true
+		setTimeout(() => {
+			currentKanaButtonOptions[incorrectKanaIndex].errorClass = false
+		}, 500)
 	}
 
 	const checkButtonCharacter = (japaneseCharacter: string) => {
@@ -41,14 +55,13 @@
 			saveUserProgress()
 			nextCharacter()
 		} else {
-			console.log("incorrect")
+			showIncorrectButtonOutline(japaneseCharacter)
 		}
 	}
 
 	const init = () => {
 		shuffledKanaList = shuffleArray(shuffledKanaList)
-		populateButtonOptions()
-		setNextKanaPair()
+		nextCharacter()
 	}
 
 	init()
@@ -59,7 +72,9 @@
 	{#each currentKanaButtonOptions as kana}
 		<button
 			on:click={() => checkButtonCharacter(kana.japanese)}
-			class="flex min-w-16 justify-center bg-surface-300 p-3 text-2xl rounded-container-token"
+			class="flex min-w-16 justify-center bg-surface-300 p-3 text-2xl rounded-container-token {kana.errorClass
+				? 'error-outline'
+				: ''}"
 		>
 			{kana.japanese}
 		</button>
@@ -68,3 +83,10 @@
 <div class="flex justify-center gap-4">
 	<button class="variant-filled-tertiary btn" on:click={handleRestudy}>Restudy</button>
 </div>
+
+<style>
+	.error-outline {
+		outline: 2px solid red;
+		transition: border 100ms ease-in-out;
+	}
+</style>

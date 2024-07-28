@@ -27,10 +27,6 @@
 	let userProgress: UserProgress[] = []
 	$: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
 
-	$: {
-		console.log(userProgress)
-	}
-
 	const initialiseKana = () => {
 		selectedGroup.map((kana) => {
 			userProgress.push({ kanaId: kana.id, kanaProgress: 0 })
