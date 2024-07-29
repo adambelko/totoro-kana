@@ -19,7 +19,7 @@
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
-	let quizStage = 2
+	let quizStage = 1
 	let currentIndex = 0
 	let correctKanaCount = 0
 	let shuffledKanaList: Kana[] = []
@@ -62,6 +62,17 @@
 	<div class="flex justify-center">
 		<div class="flex w-1/2 flex-col gap-4 p-20">
 			{#if quizStage === 1}
+				<QuizButton
+					romajiToJapanese={false}
+					bind:currentJapaneseCharacter
+					bind:currentRomajiCharacter
+					bind:quizStage
+					{shuffledKanaList}
+					{currentIndex}
+					{handleRestudy}
+					{saveUserProgress}
+				/>
+			{:else if quizStage === 2}
 				<QuizInput
 					bind:currentJapaneseCharacter
 					{currentRomajiCharacter}
@@ -71,13 +82,14 @@
 					{handleRestudy}
 					{saveUserProgress}
 				/>
-			{:else if quizStage === 2}
+			{:else if quizStage === 3}
 				<QuizButton
+					romajiToJapanese={true}
 					bind:currentJapaneseCharacter
-					{currentRomajiCharacter}
+					bind:currentRomajiCharacter
+					bind:quizStage
 					{shuffledKanaList}
 					{currentIndex}
-					bind:quizStage
 					{handleRestudy}
 					{saveUserProgress}
 				/>

@@ -7,6 +7,7 @@
 		errorClass?: boolean
 	}
 
+	export let romajiToJapanese: boolean
 	export let currentRomajiCharacter: string
 	export let currentJapaneseCharacter: string
 	export let currentIndex: number
@@ -36,22 +37,29 @@
 	const populateButtonOptions = () => {
 		const buttonOptions = [...shuffledKanaList]
 		currentKanaButtonOptions = shuffleArray(buttonOptions)
-		currentKanaButtonOptions.map((button) => (button.errorClass = false))
+		currentKanaButtonOptions.forEach((button) => (button.errorClass = false))
 	}
 
-	const checkButtonCharacter = (japaneseCharacter: string) => {
-		if (japaneseCharacter === currentJapaneseCharacter) {
+	const checkButtonCharacter = (character: string) => {
+		if (
+			(romajiToJapanese && character === currentJapaneseCharacter) ||
+			(!romajiToJapanese && character === currentRomajiCharacter)
+		) {
 			saveUserProgress()
 			nextKana()
 		} else {
-			showIncorrectButtonOutline(japaneseCharacter)
+			showIncorrectButtonOutline(character)
 		}
 	}
 
-	const showIncorrectButtonOutline = (japaneseCharacter: string) => {
-		const incorrectKanaIndex = currentKanaButtonOptions.findIndex(
-			(kana) => kana.japanese === japaneseCharacter
-		)
+	const showIncorrectButtonOutline = (character: string) => {
+		let incorrectKanaIndex: number
+		if (romajiToJapanese) {
+			incorrectKanaIndex = currentKanaButtonOptions.findIndex((kana) => kana.japanese === character)
+		} else {
+			console.log(currentKanaButtonOptions)
+			incorrectKanaIndex = currentKanaButtonOptions.findIndex((kana) => kana.romaji === character)
+		}
 
 		currentKanaButtonOptions[incorrectKanaIndex].errorClass = true
 		setTimeout(() => {
@@ -67,16 +75,18 @@
 	init()
 </script>
 
-<div class="flex justify-center p-8 text-6xl">{currentRomajiCharacter}</div>
+<div class="flex justify-center p-8 text-6xl">
+	{romajiToJapanese ? currentRomajiCharacter : currentJapaneseCharacter}
+</div>
 <div class="flex justify-center gap-4">
 	{#each currentKanaButtonOptions as kana}
 		<button
-			on:click={() => checkButtonCharacter(kana.japanese)}
+			on:click={() => checkButtonCharacter(romajiToJapanese ? kana.japanese : kana.romaji)}
 			class="flex min-w-16 justify-center bg-surface-300 p-3 text-2xl rounded-container-token {kana.errorClass
 				? 'error-outline'
 				: ''}"
 		>
-			{kana.japanese}
+			{romajiToJapanese ? kana.japanese : kana.romaji}
 		</button>
 	{/each}
 </div>
