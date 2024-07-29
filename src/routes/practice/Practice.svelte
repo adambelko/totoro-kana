@@ -2,7 +2,7 @@
 	import { onMount } from "svelte"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import PracticeResults from "./PracticeResults.svelte"
-	import { shuffleArray } from "$lib/helpers/shuffleArray"
+	import { shuffleArray } from "$lib/helpers/Kana"
 
 	interface SelectedKana {
 		hiragana: KanaData[]

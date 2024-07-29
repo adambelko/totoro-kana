@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte"
 	import { ProgressRadial } from "@skeletonlabs/skeleton"
+	import { getFirstRomaji } from "$lib/helpers/Kana"
 
 	const dispatch = createEventDispatcher()
 	export let data: Kana[]
@@ -10,10 +11,6 @@
 
 	const filterHiragana = (groupName: string) => {
 		return data.filter((item) => item.groupName === groupName)
-	}
-
-	const getFirstRomaji = (romaji: string) => {
-		return romaji.split(",")[0].trim()
 	}
 
 	const startLesson = (groupName: string) => {

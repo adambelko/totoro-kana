@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
-	import { shuffleArray } from "$lib/helpers/shuffleArray"
+	import { shuffleArray } from "$lib/helpers/Kana"
 	import QuizInput from "./QuizInput.svelte"
 	import QuizButton from "./QuizButton.svelte"
 

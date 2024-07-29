@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { AppBar } from "@skeletonlabs/skeleton"
+	import { getFirstRomaji } from "$lib/helpers/Kana"
 	import DisplayGroup from "./DisplayGroup.svelte"
 	import Quiz from "./Quiz.svelte"
 
@@ -37,7 +38,7 @@
 	const setCurrentCharacters = (index: number) => {
 		currentIndex = index
 		currentJapaneseCharacter = selectedGroup[currentIndex].japanese
-		currentRomajiCharacter = selectedGroup[currentIndex].romaji
+		currentRomajiCharacter = getFirstRomaji(selectedGroup[currentIndex].romaji)
 	}
 
 	const init = () => {

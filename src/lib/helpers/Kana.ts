@@ -5,3 +5,7 @@ export const shuffleArray = (array: any) => {
 	}
 	return array
 }
+
+export const getFirstRomaji = (romaji: string) => {
+	return romaji.split(",")[0].trim()
+}
