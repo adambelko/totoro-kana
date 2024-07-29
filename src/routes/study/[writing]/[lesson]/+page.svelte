@@ -6,11 +6,11 @@
 
 	export let data
 
-	let selectedGroup: KanaGroup[] = []
 	let quiz = false
 	let currentIndex = 0
 	let currentJapaneseCharacter: string
 	let currentRomajiCharacter: string
+	let selectedGroup: KanaGroup[] = []
 	const hiragana = $page.url.pathname.includes("hiragana")
 	const lastUrlParam = $page.url.pathname.split("/").pop()
 
@@ -34,15 +34,15 @@
 		return []
 	}
 
-	const init = () => {
-		selectedGroup = getSelectedGroup()
-		setCurrentCharacters(currentIndex)
-	}
-
 	const setCurrentCharacters = (index: number) => {
 		currentIndex = index
 		currentJapaneseCharacter = selectedGroup[currentIndex].japanese
 		currentRomajiCharacter = selectedGroup[currentIndex].romaji
+	}
+
+	const init = () => {
+		selectedGroup = getSelectedGroup()
+		setCurrentCharacters(currentIndex)
 	}
 
 	const startQuiz = () => (quiz = true)

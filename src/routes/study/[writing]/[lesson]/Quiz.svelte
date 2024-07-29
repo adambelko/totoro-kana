@@ -19,7 +19,7 @@
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
-	let quizStage = 1
+	let quizStage = 2
 	let currentIndex = 0
 	let correctKanaCount = 0
 	let shuffledKanaList: Kana[] = []

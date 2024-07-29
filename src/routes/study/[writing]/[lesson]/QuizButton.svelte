@@ -86,7 +86,7 @@
 
 <style>
 	.error-outline {
-		outline: 2px solid red;
+		outline: 3px solid #d41976;
 		transition: border 100ms ease-in-out;
 	}
 </style>

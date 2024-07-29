@@ -45,6 +45,9 @@
 			nextKana()
 		} else {
 			inputErrorClass = "input-error"
+			setTimeout(() => {
+				inputErrorClass = ""
+			}, 500)
 		}
 	}
 
