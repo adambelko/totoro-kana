@@ -11,6 +11,7 @@
 	export let currentRomajiCharacter: string
 	export let currentJapaneseCharacter: string
 	export let currentIndex: number
+	export let incorrectKanaCount: number
 	export let quizStage: number
 	export let shuffledKanaList: Kana[]
 	export let handleRestudy: () => void
@@ -23,7 +24,7 @@
 			populateButtonOptions()
 			setNextKanaPair()
 		} else {
-			quizStage += 1
+			quizStage++
 		}
 	}
 
@@ -48,6 +49,7 @@
 			saveUserProgress()
 			nextKana()
 		} else {
+			incorrectKanaCount++
 			showIncorrectButtonOutline(character)
 		}
 	}
@@ -57,7 +59,6 @@
 		if (romajiToJapanese) {
 			incorrectKanaIndex = currentKanaButtonOptions.findIndex((kana) => kana.japanese === character)
 		} else {
-			console.log(currentKanaButtonOptions)
 			incorrectKanaIndex = currentKanaButtonOptions.findIndex((kana) => kana.romaji === character)
 		}
 

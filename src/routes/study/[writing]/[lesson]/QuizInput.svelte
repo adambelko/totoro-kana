@@ -7,6 +7,7 @@
 	export let currentJapaneseCharacter: string
 	export let currentRomajiCharacter: string
 	export let currentIndex: number
+	export let incorrectKanaCount: number
 	export let quizStage: number
 	export let shuffledKanaList: Kana[]
 	export let handleRestudy: () => void
@@ -32,7 +33,7 @@
 			setNextKanaPair()
 		} else {
 			cleanupInput()
-			quizStage += 1
+			quizStage++
 		}
 	}
 
@@ -44,9 +45,11 @@
 			saveUserProgress()
 			nextKana()
 		} else {
+			incorrectKanaCount++
 			inputErrorClass = "input-error"
 			setTimeout(() => {
 				inputErrorClass = ""
+				userRomajiInput = ""
 			}, 500)
 		}
 	}

@@ -22,6 +22,7 @@
 	let quizStage = 1
 	let currentIndex = 0
 	let correctKanaCount = 0
+	let incorrectKanaCount = 0
 	let shuffledKanaList: Kana[] = []
 	let userProgress: UserProgress[] = []
 	$: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
@@ -65,10 +66,11 @@
 				<QuizButton
 					romajiToJapanese={false}
 					bind:currentJapaneseCharacter
-					bind:currentRomajiCharacter
+					{currentRomajiCharacter}
 					bind:quizStage
 					{shuffledKanaList}
 					{currentIndex}
+					bind:incorrectKanaCount
 					{handleRestudy}
 					{saveUserProgress}
 				/>
@@ -79,20 +81,40 @@
 					{currentIndex}
 					{shuffledKanaList}
 					bind:quizStage
+					bind:incorrectKanaCount
 					{handleRestudy}
 					{saveUserProgress}
 				/>
 			{:else if quizStage === 3}
 				<QuizButton
 					romajiToJapanese={true}
-					bind:currentJapaneseCharacter
+					{currentJapaneseCharacter}
 					bind:currentRomajiCharacter
 					bind:quizStage
 					{shuffledKanaList}
 					{currentIndex}
+					bind:incorrectKanaCount
 					{handleRestudy}
 					{saveUserProgress}
 				/>
+			{:else}
+				<div class="flex justify-center gap-4">
+					{#if incorrectKanaCount <= 1}
+						<div class="flex flex-col gap-4 text-center">
+							<span class="text-4xl font-bold">Good news!</span>
+							<span class="text-2xl font-bold">You passed the lesson</span>
+						</div>
+					{:else}
+						<div class="flex flex-col gap-4 text-center">
+							<span class="text-4xl font-bold">Lesson not passed</span>
+							<span class="text-2xl font-bold">You made {incorrectKanaCount} mistakes</span>
+							<div>
+								<button class="variant-filled-tertiary btn" on:click={handleRestudy}>Restudy</button
+								>
+							</div>
+						</div>
+					{/if}
+				</div>
 			{/if}
 		</div>
 	</div>

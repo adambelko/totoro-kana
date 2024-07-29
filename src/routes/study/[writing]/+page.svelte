@@ -8,7 +8,6 @@
 	export let data
 	const hiragana = data?.hiragana ?? []
 	const katakana = data?.katakana ?? []
-
 	let tabValue = $page.url.pathname.includes("hiragana") ? "hiragana" : "katakana"
 
 	const startLesson = (groupName: string) => {
