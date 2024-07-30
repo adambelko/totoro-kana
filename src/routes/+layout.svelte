@@ -7,7 +7,7 @@
 	import Nav from "$lib/components/Nav.svelte"
 
 	export let data
-	$: ({ session, supabase, user } = data)
+	$: ({ session, supabase } = data)
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {

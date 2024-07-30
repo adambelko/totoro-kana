@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, integer, serial } from "drizzle-orm/pg-core"
+import { pgTable, uuid, varchar, integer, serial, date } from "drizzle-orm/pg-core"
 
 export const users = pgTable("users", {
 	id: uuid("id").primaryKey(),
@@ -10,15 +10,14 @@ export const hiragana = pgTable("hiragana", {
 	kanaCategory: varchar("kana_category").notNull(),
 	groupName: varchar("group_name").notNull(),
 	japanese: varchar("japanese").notNull(),
-	romaji: varchar("romaji").notNull(),
-	order: integer("order").notNull()
+	romaji: varchar("romaji").notNull()
 })
 
 export const hiraganaProgress = pgTable("hiragana_progress", {
 	id: uuid("id").primaryKey(),
 	userId: uuid("user_id").references(() => users.id),
-	hiraganaId: integer("hiragana_id").references(() => hiragana.id),
-	progress: integer("progress")
+	completedGroup: varchar("completed_group").notNull(),
+	completionDate: date("completion_date").defaultNow().notNull()
 })
 
 export const katakana = pgTable("katakana", {
@@ -26,13 +25,12 @@ export const katakana = pgTable("katakana", {
 	kanaCategory: varchar("kana_category").notNull(),
 	groupName: varchar("group_name").notNull(),
 	japanese: varchar("japanese").notNull(),
-	romaji: varchar("romaji").notNull(),
-	order: integer("order").notNull()
+	romaji: varchar("romaji").notNull()
 })
 
 export const katakanaProgress = pgTable("katakana_progress", {
 	id: uuid("id").primaryKey(),
 	userId: uuid("user_id").references(() => users.id),
-	katakanaId: integer("katakana_id").references(() => katakana.id),
-	progress: integer("progress")
+	completedGroup: varchar("completed_group").notNull(),
+	completionDate: date("completion_date").defaultNow().notNull()
 })

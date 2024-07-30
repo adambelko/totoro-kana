@@ -1,37 +1,32 @@
 <script lang="ts">
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
-	import { shuffleArray } from "$lib/helpers/Kana"
+	import { shuffleArray } from "$lib/helpers/kana"
 	import QuizInput from "./QuizInput.svelte"
 	import QuizButton from "./QuizButton.svelte"
+	import { post } from "$lib/utils/api"
 
 	interface Kana {
 		japanese: string
 		romaji: string
 	}
 
-	interface UserProgress {
-		kanaId: number
-		kanaProgress: number
-	}
-
+	export let data
+	console.log(data.user.id)
 	export let quiz: boolean
+	export let hiragana: boolean
+	export let groupName: string
 	export let selectedGroup: KanaGroup[]
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
-	let quizStage = 1
+	let quizStage = 3
 	let currentIndex = 0
 	let correctKanaCount = 0
 	let incorrectKanaCount = 0
 	let shuffledKanaList: Kana[] = []
-	let userProgress: UserProgress[] = []
 	$: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
 
 	const init = () => {
-		selectedGroup.map((kana) => {
-			userProgress.push({ kanaId: kana.id, kanaProgress: 0 })
-		})
-
 		const kanaList = selectedGroup.map((kana) => ({
 			japanese: kana.japanese,
 			romaji: kana.romaji
@@ -41,15 +36,21 @@
 	}
 
 	const saveUserProgress = () => {
-		const correctKana = selectedGroup.find((kana) => kana.japanese === currentJapaneseCharacter)
-		const userProgressIndex = userProgress.findIndex((kana) => kana.kanaId === correctKana?.id)
-		userProgress[userProgressIndex].kanaProgress += 1
-		correctKanaCount += 1
+		if (quizStage <= 3) {
+			correctKanaCount++
+		} else {
+			const requestData = {
+				userId: data.user.id,
+				groupName,
+				hiragana
+			}
+			console.log(requestData)
+			post("/study", requestData)
+		}
 	}
 
 	const handleRestudy = () => {
 		correctKanaCount = 0
-		userProgress = []
 		quiz = false
 	}
 
@@ -67,10 +68,10 @@
 					romajiToJapanese={false}
 					bind:currentJapaneseCharacter
 					{currentRomajiCharacter}
-					bind:quizStage
-					{shuffledKanaList}
 					{currentIndex}
 					bind:incorrectKanaCount
+					bind:quizStage
+					{shuffledKanaList}
 					{handleRestudy}
 					{saveUserProgress}
 				/>
@@ -79,9 +80,9 @@
 					bind:currentJapaneseCharacter
 					{currentRomajiCharacter}
 					{currentIndex}
-					{shuffledKanaList}
-					bind:quizStage
 					bind:incorrectKanaCount
+					bind:quizStage
+					{shuffledKanaList}
 					{handleRestudy}
 					{saveUserProgress}
 				/>
@@ -90,10 +91,10 @@
 					romajiToJapanese={true}
 					{currentJapaneseCharacter}
 					bind:currentRomajiCharacter
-					bind:quizStage
-					{shuffledKanaList}
 					{currentIndex}
 					bind:incorrectKanaCount
+					bind:quizStage
+					{shuffledKanaList}
 					{handleRestudy}
 					{saveUserProgress}
 				/>

@@ -124,7 +124,7 @@
 	>
 		{#each listBoxData as kana}
 			<ListBoxItem bind:group={selectedKana} name="medium" value={kana}>
-				{kana.romaji} / {kana.japanese}
+				{kana.japanese} / {kana.romaji}
 			</ListBoxItem>
 		{/each}
 	</ListBox>

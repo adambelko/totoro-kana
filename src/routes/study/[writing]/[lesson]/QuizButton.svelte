@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { shuffleArray } from "$lib/helpers/Kana"
+	import { shuffleArray } from "$lib/helpers/kana"
 
 	interface Kana {
 		japanese: string
@@ -46,8 +46,8 @@
 			(romajiToJapanese && character === currentJapaneseCharacter) ||
 			(!romajiToJapanese && character === currentRomajiCharacter)
 		) {
-			saveUserProgress()
 			nextKana()
+			saveUserProgress()
 		} else {
 			incorrectKanaCount++
 			showIncorrectButtonOutline(character)

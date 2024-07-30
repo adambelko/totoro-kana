@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { AppBar } from "@skeletonlabs/skeleton"
-	import { getFirstRomaji } from "$lib/helpers/Kana"
+	import { getFirstRomaji } from "$lib/helpers/kana"
 	import DisplayGroup from "./DisplayGroup.svelte"
 	import Quiz from "./Quiz.svelte"
 
@@ -14,6 +14,7 @@
 	let selectedGroup: KanaGroup[] = []
 	const hiragana = $page.url.pathname.includes("hiragana")
 	const lastUrlParam = $page.url.pathname.split("/").pop()
+	let groupName = ""
 
 	const formatParam = (param: string): string => {
 		return param
@@ -24,7 +25,7 @@
 
 	const getSelectedGroup = (): KanaGroup[] => {
 		if (!lastUrlParam) return []
-		const groupName = formatParam(lastUrlParam)
+		groupName = formatParam(lastUrlParam)
 
 		if (hiragana && data?.hiragana) {
 			return data.hiragana.filter((kana) => kana.groupName === groupName)
@@ -73,5 +74,5 @@
 		</div>
 	</div>
 {:else}
-	<Quiz {selectedGroup} bind:quiz />
+	<Quiz {data} {selectedGroup} {groupName} {hiragana} bind:quiz />
 {/if}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte"
 	import { ProgressRadial } from "@skeletonlabs/skeleton"
-	import { getFirstRomaji } from "$lib/helpers/Kana"
+	import { getFirstRomaji } from "$lib/helpers/kana"
 
 	const dispatch = createEventDispatcher()
 	export let data: Kana[]

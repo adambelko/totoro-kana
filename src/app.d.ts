@@ -19,7 +19,6 @@ declare global {
 		groupName: string
 		japanese: string
 		romaji: string
-		order: number
 	}
 
 	interface KanaGroup extends Kana {

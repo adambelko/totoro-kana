@@ -1,14 +1,21 @@
 import { db } from "$lib/db"
 import { json } from "@sveltejs/kit"
-import { hiraganaProgress } from "$lib/db/schema"
+import { hiraganaProgress, katakanaProgress } from "$lib/db/schema"
 
-export const POST = async (event) => {
-	const { userId, hiraganaId } = await event.request.json()
-	console.log(userId)
+export const POST = async ({ request }) => {
+	const { userId, groupName, hiragana } = await request.json()
 
-	const add = await db
-		.insert(hiraganaProgress)
-		.values({ id: crypto.randomUUID(), userId, hiraganaId, progress: 1 })
+	const table = hiragana ? hiraganaProgress : katakanaProgress
+	const completionDate = new Date().toISOString().split("T")[0]
+
+	const userProgress = await db
+		.insert(table)
+		.values({
+			id: crypto.randomUUID(),
+			userId,
+			completedGroup: groupName,
+			completionDate
+		})
 		.returning()
-	return json(add)
+	return json(userProgress)
 }
