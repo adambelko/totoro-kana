@@ -43,5 +43,5 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
 
 	const { hiragana, katakana } = data
 
-	return { session, supabase, user, session, hiragana, katakana }
+	return { session, supabase, user, hiragana, katakana }
 }

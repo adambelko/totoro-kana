@@ -10,7 +10,7 @@
 	const hiragana = data.hiragana
 	const katakana = data.katakana
 	const hiraganaProgress = data.hiraganaProgress
-	const katakanaProgress = data.hiraganaProgress
+	const katakanaProgress = data.katakanaProgress
 	let tabValue = $page.url.pathname.includes("hiragana") ? "hiragana" : "katakana"
 
 	const startLesson = (groupName: string) => {
@@ -21,6 +21,11 @@
 		} else {
 			goto(`/learn/katakana/${param}`)
 		}
+	}
+
+	const handleTabClick = (tab: string) => {
+		goto(`/learn/${tab}`)
+		tabValue = tab
 	}
 </script>
 
@@ -38,13 +43,13 @@
 			bind:group={tabValue}
 			name="hiragana"
 			value={"hiragana"}
-			on:click={() => goto("/learn/hiragana")}>Hiragana</Tab
+			on:click={() => handleTabClick("hiragana")}>Hiragana</Tab
 		>
 		<Tab
 			bind:group={tabValue}
 			name="katakana"
 			value={"katakana"}
-			on:click={() => goto("/learn/katakana")}>Katakana</Tab
+			on:click={() => handleTabClick("katakana")}>Katakana</Tab
 		>
 
 		<svelte:fragment slot="panel">
