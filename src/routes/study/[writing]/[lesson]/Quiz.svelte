@@ -5,13 +5,12 @@
 	import QuizButton from "./QuizButton.svelte"
 	import { post } from "$lib/utils/api"
 
-	interface Kana {
+	interface KanaList {
 		japanese: string
 		romaji: string
 	}
 
 	export let data
-	console.log(data.user.id)
 	export let quiz: boolean
 	export let hiragana: boolean
 	export let groupName: string
@@ -19,11 +18,11 @@
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
-	let quizStage = 3
+	let quizStage = 1
 	let currentIndex = 0
 	let correctKanaCount = 0
 	let incorrectKanaCount = 0
-	let shuffledKanaList: Kana[] = []
+	let shuffledKanaList: KanaList[] = []
 	$: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
 
 	const init = () => {
@@ -35,24 +34,17 @@
 		shuffledKanaList = shuffleArray(kanaList)
 	}
 
-	const saveUserProgress = () => {
-		if (quizStage <= 3) {
-			correctKanaCount++
-		} else {
-			const requestData = {
-				userId: data.user.id,
-				groupName,
-				hiragana
-			}
-			console.log(requestData)
-			post("/study", requestData)
+	const submitProgress = () => {
+		const requestData = {
+			userId: data.user.id,
+			groupName,
+			hiragana
 		}
+		post("/study", requestData)
 	}
 
-	const handleRestudy = () => {
-		correctKanaCount = 0
-		quiz = false
-	}
+	const saveUserProgress = () => (quizStage <= 3 ? correctKanaCount++ : submitProgress())
+	const handleRestudy = () => (quiz = false)
 
 	init()
 </script>
