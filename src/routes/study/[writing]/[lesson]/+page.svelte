@@ -74,5 +74,5 @@
 		</div>
 	</div>
 {:else}
-	<Quiz {data} {selectedGroup} {groupName} {hiragana} bind:quiz />
+	<Quiz userId={data?.user?.id} {selectedGroup} {groupName} {hiragana} bind:quiz />
 {/if}

@@ -7,8 +7,10 @@
 
 	export let data
 
-	const hiragana = data?.hiragana ?? []
-	const katakana = data?.katakana ?? []
+	const hiragana = data.hiragana
+	const katakana = data.katakana
+	const hiraganaProgress = data.hiraganaProgress
+	const katakanaProgress = data.hiraganaProgress
 	let tabValue = $page.url.pathname.includes("hiragana") ? "hiragana" : "katakana"
 
 	const startLesson = (groupName: string) => {
@@ -47,9 +49,19 @@
 
 		<svelte:fragment slot="panel">
 			{#if tabValue === "hiragana"}
-				<Dashboard data={hiragana} on:startLesson={(e) => startLesson(e.detail.groupName)} />
+				<Dashboard
+					userId={data?.user?.id}
+					writingData={hiragana}
+					writingProgressData={hiraganaProgress}
+					on:startLesson={(e) => startLesson(e.detail.groupName)}
+				/>
 			{:else}
-				<Dashboard data={katakana} on:startLesson={(e) => startLesson(e.detail.groupName)} />
+				<Dashboard
+					userId={data?.user?.id}
+					writingData={katakana}
+					writingProgressData={katakanaProgress}
+					on:startLesson={(e) => startLesson(e.detail.groupName)}
+				/>
 			{/if}
 		</svelte:fragment>
 	</TabGroup>

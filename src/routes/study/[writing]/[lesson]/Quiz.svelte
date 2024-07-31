@@ -10,7 +10,7 @@
 		romaji: string
 	}
 
-	export let data
+	export let userId: string | undefined
 	export let quiz: boolean
 	export let hiragana: boolean
 	export let groupName: string
@@ -18,7 +18,7 @@
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
-	let quizStage = 1
+	let quizStage = 4
 	let currentIndex = 0
 	let correctKanaCount = 0
 	let incorrectKanaCount = 0
@@ -36,15 +36,20 @@
 
 	const submitProgress = () => {
 		const requestData = {
-			userId: data.user.id,
+			userId,
 			groupName,
 			hiragana
 		}
 		post("/study", requestData)
 	}
 
-	const saveUserProgress = () => (quizStage <= 3 ? correctKanaCount++ : submitProgress())
-	const handleRestudy = () => (quiz = false)
+	const saveUserProgress = () => {
+		quizStage <= 3 ? correctKanaCount++ : submitProgress()
+	}
+
+	const handleRestudy = () => {
+		quiz = false
+	}
 
 	init()
 </script>

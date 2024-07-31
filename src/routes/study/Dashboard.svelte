@@ -1,16 +1,25 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte"
-	import { ProgressRadial } from "@skeletonlabs/skeleton"
 	import { getFirstRomaji } from "$lib/helpers/kana"
+	import Stats from "./[writing]/Stats.svelte"
+
+	interface WritingProgress {
+		id: string
+		userId: string | null
+		completedGroup: string
+		completionDate: string
+	}
+
+	export let userId: string | undefined
+	export let writingData: Kana[]
+	export let writingProgressData: WritingProgress[]
 
 	const dispatch = createEventDispatcher()
-	export let data: Kana[]
-
-	const groupNames = data.map((item) => item.groupName)
+	const groupNames = writingData.map((item) => item.groupName)
 	const uniqueGroupNames = [...new Set(groupNames)]
 
-	const filterHiragana = (groupName: string) => {
-		return data.filter((item) => item.groupName === groupName)
+	const getGroupData = (groupName: string) => {
+		return writingData.filter((item) => item.groupName === groupName)
 	}
 
 	const startLesson = (groupName: string) => {
@@ -20,27 +29,7 @@
 
 <div class="flex flex-col gap-4">
 	<div class="flex gap-4">
-		<div class="flex-1 bg-surface-200 p-4 rounded-container-token">
-			<h4 class="h4">Study</h4>
-			<div class="mt-2 flex justify-between">
-				<div class="flex flex-col items-center">
-					<span>0/{data.length} kana completed</span>
-					<ProgressRadial
-						value={0}
-						stroke={90}
-						font={60}
-						meter="stroke-primary-500"
-						track="stroke-primary-500/30"
-						strokeLinecap="round"
-						class="mt-2"
-						>0%
-					</ProgressRadial>
-				</div>
-				<div class="flex flex-col justify-center">
-					<button class="variant-filled-primary btn">Start lesson</button>
-				</div>
-			</div>
-		</div>
+		<Stats {userId} {writingData} {writingProgressData} />
 
 		<div class="flex-1 bg-surface-200 p-4 rounded-container-token">
 			<h4 class="h4">Review</h4>
@@ -58,7 +47,7 @@
 					<div class="flex flex-col gap-4 rounded-container-token">
 						<div class="flex justify-between">
 							<div class="flex flex-wrap gap-4">
-								{#each filterHiragana(kanaGroup) as { japanese, romaji }}
+								{#each getGroupData(kanaGroup) as { japanese, romaji }}
 									<div
 										class="flex min-w-16 justify-center bg-surface-300 p-3 rounded-container-token"
 									>
