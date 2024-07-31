@@ -13,9 +13,9 @@
 	<div class="mx-auto flex w-full max-w-[980px] items-center justify-between">
 		<a class="mr-8 text-lg font-bold" href="/">Learn KANA</a>
 		<div class="flex items-center space-x-4">
-			<a href="/study/hiragana">
-				<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/study')}">
-					Study
+			<a href="/learn/hiragana">
+				<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/learn')}">
+					Learn
 				</div>
 			</a>
 			<a href="/practice">

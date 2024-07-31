@@ -17,9 +17,9 @@
 		const param = groupName.toLowerCase().split(" ").join("_")
 
 		if (tabValue === "hiragana") {
-			goto(`/study/hiragana/${param}`)
+			goto(`/learn/hiragana/${param}`)
 		} else {
-			goto(`/study/katakana/${param}`)
+			goto(`/learn/katakana/${param}`)
 		}
 	}
 </script>
@@ -38,13 +38,13 @@
 			bind:group={tabValue}
 			name="hiragana"
 			value={"hiragana"}
-			on:click={() => goto("/study/hiragana")}>Hiragana</Tab
+			on:click={() => goto("/learn/hiragana")}>Hiragana</Tab
 		>
 		<Tab
 			bind:group={tabValue}
 			name="katakana"
 			value={"katakana"}
-			on:click={() => goto("/study/katakana")}>Katakana</Tab
+			on:click={() => goto("/learn/katakana")}>Katakana</Tab
 		>
 
 		<svelte:fragment slot="panel">

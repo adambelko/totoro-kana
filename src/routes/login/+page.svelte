@@ -6,7 +6,7 @@
 		const { data, error } = await supabase.auth.signInWithOAuth({
 			provider: "github",
 			options: {
-				redirectTo: "http://localhost:5173/study/hiragana"
+				redirectTo: "http://localhost:5173/learn/hiragana"
 			}
 		})
 	}

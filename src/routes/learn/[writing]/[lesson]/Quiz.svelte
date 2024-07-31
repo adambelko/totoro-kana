@@ -40,7 +40,7 @@
 			groupName,
 			hiragana
 		}
-		post("/study", requestData)
+		post("/learn", requestData)
 	}
 
 	const saveUserProgress = () => {
