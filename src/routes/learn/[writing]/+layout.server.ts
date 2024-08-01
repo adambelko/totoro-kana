@@ -1,9 +1,8 @@
-import type { LayoutServerLoad } from "./$types"
 import { db } from "$lib/db"
 import { eq } from "drizzle-orm"
 import { users } from "$lib/db/schema"
 
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load = async ({ locals }) => {
 	const { session } = await locals.safeGetSession()
 	if (!session) return
 

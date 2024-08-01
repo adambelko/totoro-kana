@@ -5,7 +5,7 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			supabase: SupabaseClient
-			safeGetSession: () => Promise<{ session: Session; user: User }>
+			safeGetSession: () => Promise<{ session: Session | null; user: User | null }>
 			session: Session
 		}
 		// interface PageData {}
@@ -19,10 +19,6 @@ declare global {
 		groupName: string
 		japanese: string
 		romaji: string
-	}
-
-	interface KanaGroup extends Kana {
-		progress?: number
 	}
 
 	interface KanaData {
