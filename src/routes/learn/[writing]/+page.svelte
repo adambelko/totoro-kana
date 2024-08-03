@@ -3,16 +3,11 @@
 	import { page } from "$app/stores"
 	import { AppBar, TabGroup, Tab } from "@skeletonlabs/skeleton"
 	import { getFullName } from "$lib/helpers/accountDetails"
-	import Dashboard from "../Dashboard.svelte"
+	import Dashboard from "./Dashboard.svelte"
 
 	export let data
 	const { hiragana, katakana, hiraganaProgress, katakanaProgress, user } = data
 	let tabValue = $page.url.pathname.includes("hiragana") ? "hiragana" : "katakana"
-
-	const startLesson = (groupName: string) => {
-		const param = groupName.toLowerCase().split(" ").join("_")
-		goto(`/learn/${tabValue}/${param}`)
-	}
 
 	const handleTabClick = (tab: string) => {
 		tabValue = tab
@@ -46,17 +41,17 @@
 		<svelte:fragment slot="panel">
 			{#if tabValue === "hiragana"}
 				<Dashboard
+					{tabValue}
 					userId={data?.user?.id}
 					writingData={hiragana}
 					writingProgressData={hiraganaProgress}
-					on:startLesson={(e) => startLesson(e.detail.groupName)}
 				/>
 			{:else}
 				<Dashboard
+					{tabValue}
 					userId={data?.user?.id}
 					writingData={katakana}
 					writingProgressData={katakanaProgress}
-					on:startLesson={(e) => startLesson(e.detail.groupName)}
 				/>
 			{/if}
 		</svelte:fragment>
