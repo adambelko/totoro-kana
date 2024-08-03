@@ -11,8 +11,7 @@ const send = async (method: string, path: string, data?: any): Promise<any> => {
 		throw new Error(`HTTP error! Status: ${response.status}`)
 	}
 
-	const result = await response.json()
-	return result
+	return await response.json()
 }
 
 export const get = (path: string): Promise<any> => {

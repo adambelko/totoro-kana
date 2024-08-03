@@ -9,3 +9,7 @@ export const shuffleArray = (array: any) => {
 export const getFirstRomaji = (romaji: string) => {
 	return romaji.split(",")[0].trim()
 }
+
+export const getKanaOrder = (data: Kana[]): string[] => {
+	return Array.from(new Set(data.map((kana) => kana.groupName)))
+}

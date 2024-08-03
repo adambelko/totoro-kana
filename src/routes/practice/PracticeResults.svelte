@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { TabGroup, Tab } from "@skeletonlabs/skeleton"
+	import { getKanaOrder } from "$lib/helpers/kana"
 	import DisplayKana from "./DisplayKana.svelte"
 	import Practice from "./Practice.svelte"
 
@@ -24,10 +25,6 @@
 		return skippedKanaList.some(([skipJapanese, skipRomaji]) => {
 			return skipJapanese === japanese && romaji.includes(skipRomaji)
 		})
-	}
-
-	const getKanaOrder = (data: Kana[]): string[] => {
-		return Array.from(new Set(data.map((kana) => kana.groupName)))
 	}
 
 	const hiraganaOrder = getKanaOrder(hiraganaData)

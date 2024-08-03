@@ -11,7 +11,7 @@
 	let currentIndex = 0
 	let currentJapaneseCharacter: string
 	let currentRomajiCharacter: string
-	let selectedGroup: KanaGroup[] = []
+	let selectedGroup: Kana[] = []
 	const hiragana = $page.url.pathname.includes("hiragana")
 	const lastUrlParam = $page.url.pathname.split("/").pop()
 	let groupName = ""
@@ -23,10 +23,7 @@
 			.join(" ")
 	}
 
-	const getSelectedGroup = (): KanaGroup[] => {
-		if (!lastUrlParam) return []
-		groupName = formatParam(lastUrlParam)
-
+	const getSelectedGroup = (): Kana[] => {
 		if (hiragana && data?.hiragana) {
 			return data.hiragana.filter((kana) => kana.groupName === groupName)
 		} else if (!hiragana && data?.katakana) {
@@ -43,6 +40,8 @@
 	}
 
 	const init = () => {
+		if (!lastUrlParam) return
+		groupName = formatParam(lastUrlParam)
 		selectedGroup = getSelectedGroup()
 		setCurrentCharacters(currentIndex)
 	}
@@ -57,7 +56,7 @@
 		Navigate in between characters and memorise them
 	</AppBar>
 	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
-		<DisplayGroup {selectedGroup} {currentIndex} {setCurrentCharacters} {startQuiz} />
+		<DisplayGroup {selectedGroup} {groupName} {currentIndex} {setCurrentCharacters} {startQuiz} />
 		<div class="mt-4 flex justify-center gap-4 text-6xl">{currentJapaneseCharacter}</div>
 		<div class="mb-10 flex justify-center gap-4 p-6 text-4xl">{currentRomajiCharacter}</div>
 		<div class="flex flex-col gap-4">
@@ -74,5 +73,5 @@
 		</div>
 	</div>
 {:else}
-	<Quiz userId={data?.user?.id} {selectedGroup} {groupName} {hiragana} bind:quiz />
+	<Quiz {data} {selectedGroup} {groupName} {hiragana} bind:quiz />
 {/if}

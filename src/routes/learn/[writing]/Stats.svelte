@@ -11,8 +11,6 @@
 	export let userId: string | undefined
 	export let writingData: Kana[]
 	export let writingProgressData: WritingProgress[]
-	// console.log({ writingData })
-	// console.log({ writingProgressData })
 
 	const userCompletedGroups = writingProgressData
 		.filter((item) => item.userId === userId)

@@ -86,8 +86,7 @@
 		} else {
 			inputErrorClass = "input-error"
 			setTimeout(() => {
-				userRomajiInput = ""
-				inputErrorClass = ""
+				cleanupInput()
 			}, 500)
 		}
 	}

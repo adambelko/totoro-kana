@@ -33,7 +33,7 @@ INSERT INTO hiragana (kana_category, group_name, japanese, romaji) VALUES
 INSERT INTO hiragana (kana_category, group_name, japanese, romaji) VALUES
                                                                        ('main', 'N Group', 'な', 'na'),
                                                                        ('main', 'N Group', 'に', 'ni'),
-                                                                       ('main', 'N Group','に', 'nu'),
+                                                                       ('main', 'N Group','ぬ', 'nu'),
                                                                        ('main', 'N Group', 'ね', 'ne'),
                                                                        ('main', 'N Group', 'の', 'no');
 

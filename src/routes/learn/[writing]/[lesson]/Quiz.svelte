@@ -3,6 +3,7 @@
 	import { shuffleArray } from "$lib/helpers/kana"
 	import QuizInput from "./QuizInput.svelte"
 	import QuizButton from "./QuizButton.svelte"
+	import QuizResults from "./QuizResults.svelte"
 	import { post } from "$lib/utils/api"
 
 	interface KanaList {
@@ -10,11 +11,11 @@
 		romaji: string
 	}
 
-	export let userId: string | undefined
+	export let data
 	export let quiz: boolean
 	export let hiragana: boolean
 	export let groupName: string
-	export let selectedGroup: KanaGroup[]
+	export let selectedGroup: Kana[]
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
@@ -36,7 +37,7 @@
 
 	const submitProgress = () => {
 		const requestData = {
-			userId,
+			userId: data.user.id,
 			groupName,
 			hiragana
 		}
@@ -96,23 +97,7 @@
 					{saveUserProgress}
 				/>
 			{:else}
-				<div class="flex justify-center gap-4">
-					{#if incorrectKanaCount <= 1}
-						<div class="flex flex-col gap-4 text-center">
-							<span class="text-4xl font-bold">Good news!</span>
-							<span class="text-2xl font-bold">You passed the lesson</span>
-						</div>
-					{:else}
-						<div class="flex flex-col gap-4 text-center">
-							<span class="text-4xl font-bold">Lesson not passed</span>
-							<span class="text-2xl font-bold">You made {incorrectKanaCount} mistakes</span>
-							<div>
-								<button class="variant-filled-tertiary btn" on:click={handleRestudy}>Restudy</button
-								>
-							</div>
-						</div>
-					{/if}
-				</div>
+				<QuizResults {data} {hiragana} {incorrectKanaCount} {groupName} {handleRestudy} />
 			{/if}
 		</div>
 	</div>
