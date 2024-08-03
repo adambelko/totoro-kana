@@ -19,7 +19,7 @@
 	const formatParam = (param: string): string => {
 		return param
 			.split("_")
-			.map((section) => section.charAt(0).toUpperCase() + section.slice(1))
+			.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
 			.join(" ")
 	}
 
@@ -46,7 +46,9 @@
 		setCurrentCharacters(currentIndex)
 	}
 
-	const startQuiz = () => (quiz = true)
+	const startQuiz = () => {
+		quiz = true
+	}
 
 	init()
 </script>

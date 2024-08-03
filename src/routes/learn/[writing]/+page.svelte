@@ -6,26 +6,17 @@
 	import Dashboard from "../Dashboard.svelte"
 
 	export let data
-
-	const hiragana = data.hiragana
-	const katakana = data.katakana
-	const hiraganaProgress = data.hiraganaProgress
-	const katakanaProgress = data.katakanaProgress
+	const { hiragana, katakana, hiraganaProgress, katakanaProgress, user } = data
 	let tabValue = $page.url.pathname.includes("hiragana") ? "hiragana" : "katakana"
 
 	const startLesson = (groupName: string) => {
 		const param = groupName.toLowerCase().split(" ").join("_")
-
-		if (tabValue === "hiragana") {
-			goto(`/learn/hiragana/${param}`)
-		} else {
-			goto(`/learn/katakana/${param}`)
-		}
+		goto(`/learn/${tabValue}/${param}`)
 	}
 
 	const handleTabClick = (tab: string) => {
-		goto(`/learn/${tab}`)
 		tabValue = tab
+		goto(`/learn/${tab}`)
 	}
 </script>
 

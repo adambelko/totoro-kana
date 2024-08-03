@@ -31,14 +31,14 @@
 </script>
 
 <div class="flex justify-center gap-4">
-	{#if lastLesson === true}
+	{#if lastLesson}
 		<div class="flex flex-col gap-4 text-center">
 			<span class="text-4xl font-bold">Woohoo!</span>
 			<span class="text-2xl font-bold">You passed the last lesson</span>
 		</div>
 	{:else if incorrectKanaCount <= 1}
 		<div class="flex flex-col gap-4 text-center">
-			<span class="text-4xl font-bold">Good news!</span>
+			<span class="text-4xl font-bold">Well done!</span>
 			<span class="text-2xl font-bold">You passed the lesson</span>
 			<div>
 				<button class="variant-filled-tertiary btn" on:click={startNextLesson}>Next Lesson</button>
