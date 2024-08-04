@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { getFirstRomaji, getKanaOrder } from "$lib/helpers/kana.js"
 	import { goto } from "$app/navigation"
+	import { getFirstRomaji, getKanaOrder } from "$lib/utils/kana.js"
 
-	export let writingData: Kana[]
+	export let user: string | undefined
 	export let tabValue: string
+	export let writingData: Kana[]
+
 	const groupNames = getKanaOrder(writingData)
 
 	const getGroupCharacters = (groupName: string) => {
@@ -33,8 +35,10 @@
 							{/each}
 						</div>
 						<div>
-							<button class="variant-filled-primary btn" on:click={() => startLesson(groupName)}
-								>Start lesson</button
+							<button
+								class="variant-filled-primary btn"
+								disabled={!user}
+								on:click={() => startLesson(groupName)}>Start lesson</button
 							>
 						</div>
 					</div>

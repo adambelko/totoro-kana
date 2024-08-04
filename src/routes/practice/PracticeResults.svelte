@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { TabGroup, Tab } from "@skeletonlabs/skeleton"
-	import { getKanaOrder } from "$lib/helpers/kana"
+	import { getKanaOrder } from "$lib/utils/kana"
 	import DisplayKana from "./DisplayKana.svelte"
 	import Practice from "./Practice.svelte"
 

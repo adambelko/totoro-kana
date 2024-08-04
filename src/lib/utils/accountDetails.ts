@@ -1,4 +1,4 @@
-const getInitials = (data: any): string => {
+export const getInitials = (data: any): string => {
 	let fullName = data.user_metadata.full_name
 
 	if (!fullName || fullName.trim() === "") {
@@ -10,7 +10,7 @@ const getInitials = (data: any): string => {
 	return nameParts.map((part: string) => part.charAt(0).toUpperCase()).join("")
 }
 
-const getFullName = (data: any): string => {
+export const getFullName = (data: any): string => {
 	let fullName = data.user_metadata.full_name
 
 	if (!fullName || fullName.trim() === "") {
@@ -19,5 +19,3 @@ const getFullName = (data: any): string => {
 
 	return fullName
 }
-
-export { getInitials, getFullName }

@@ -8,13 +8,10 @@
 		completionDate: string
 	}
 
-	export let userId: string | undefined
 	export let writingData: Kana[]
 	export let writingProgressData: WritingProgress[]
 
-	const userCompletedGroups = writingProgressData
-		.filter((item) => item.userId === userId)
-		.map((item) => item.completedGroup)
+	const userCompletedGroups = writingProgressData.map((item) => item.completedGroup)
 
 	const learnedKana = userCompletedGroups.flatMap((groupName) =>
 		writingData.filter((item) => item.groupName === groupName)

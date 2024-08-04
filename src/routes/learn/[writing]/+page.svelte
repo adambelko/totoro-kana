@@ -2,11 +2,11 @@
 	import { goto } from "$app/navigation"
 	import { page } from "$app/stores"
 	import { AppBar, TabGroup, Tab } from "@skeletonlabs/skeleton"
-	import { getFullName } from "$lib/helpers/accountDetails"
+	import { getFullName } from "$lib/utils/accountDetails"
 	import Dashboard from "./Dashboard.svelte"
 
 	export let data
-	const { hiragana, katakana, hiraganaProgress, katakanaProgress, user } = data
+	const { hiragana, katakana, hiraganaUserProgress = [], katakanaUserProgress = [], user } = data
 	let tabValue = $page.url.pathname.includes("hiragana") ? "hiragana" : "katakana"
 
 	const handleTabClick = (tab: string) => {
@@ -44,14 +44,14 @@
 					{tabValue}
 					userId={data?.user?.id}
 					writingData={hiragana}
-					writingProgressData={hiraganaProgress}
+					writingProgressData={hiraganaUserProgress}
 				/>
 			{:else}
 				<Dashboard
 					{tabValue}
 					userId={data?.user?.id}
 					writingData={katakana}
-					writingProgressData={katakanaProgress}
+					writingProgressData={katakanaUserProgress}
 				/>
 			{/if}
 		</svelte:fragment>

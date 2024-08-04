@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { shuffleArray } from "$lib/helpers/kana"
+	import { shuffleArray } from "$lib/utils/kana"
 
 	interface Kana {
 		japanese: string

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getKanaOrder } from "$lib/helpers/kana"
+	import { getKanaOrder } from "$lib/utils/kana"
 
 	export let data
 	export let hiragana: boolean

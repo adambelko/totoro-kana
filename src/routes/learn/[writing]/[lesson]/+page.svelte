@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { AppBar } from "@skeletonlabs/skeleton"
-	import { getFirstRomaji } from "$lib/helpers/kana"
+	import { getFirstRomaji } from "$lib/utils/kana"
 	import DisplayGroup from "./DisplayGroup.svelte"
 	import Quiz from "./Quiz.svelte"
 

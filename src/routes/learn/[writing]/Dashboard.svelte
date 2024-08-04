@@ -17,7 +17,7 @@
 
 <div class="flex flex-col gap-4">
 	<div class="flex gap-4">
-		<Stats {userId} {writingData} {writingProgressData} />
+		<Stats {writingData} {writingProgressData} />
 
 		<div class="flex-1 bg-surface-200 p-4 rounded-container-token">
 			<h4 class="h4">Review</h4>
@@ -27,5 +27,5 @@
 		</div>
 	</div>
 
-	<GroupList {tabValue} {writingData} />
+	<GroupList user={userId} {tabValue} {writingData} />
 </div>

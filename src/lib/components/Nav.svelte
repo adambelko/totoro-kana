@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { Avatar } from "@skeletonlabs/skeleton"
-	import { getInitials } from "$lib/helpers/accountDetails"
+	import { getInitials } from "$lib/utils/accountDetails"
 
 	export let data
 
