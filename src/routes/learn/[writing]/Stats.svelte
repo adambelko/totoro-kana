@@ -1,13 +1,6 @@
 <script lang="ts">
 	import { ProgressRadial } from "@skeletonlabs/skeleton"
 
-	interface WritingProgress {
-		id: string
-		userId: string | null
-		completedGroup: string
-		completionDate: string
-	}
-
 	export let writingData: Kana[]
 	export let writingProgressData: WritingProgress[]
 

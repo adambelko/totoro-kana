@@ -17,6 +17,8 @@
 	export let groupName: string
 	export let selectedGroup: Kana[]
 
+	console.log(data.user.id)
+
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
 	let quizStage = 4

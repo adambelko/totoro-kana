@@ -5,11 +5,21 @@
 	export let user: string | undefined
 	export let tabValue: string
 	export let writingData: Kana[]
+	export let writingProgressData: WritingProgress[]
 
 	const groupNames = getKanaOrder(writingData)
 
 	const getGroupCharacters = (groupName: string) => {
 		return writingData.filter((kana) => kana.groupName === groupName)
+	}
+
+	const isCompleted = (groupName: string): boolean => {
+		return writingProgressData.some((progress) => progress.completedGroup === groupName)
+	}
+
+	const isNextToLearn = (groupName: string): boolean => {
+		const firstIncompleteGroup = groupNames.find((group) => !isCompleted(group))
+		return firstIncompleteGroup === groupName
 	}
 
 	const startLesson = (groupName: string) => {
@@ -35,11 +45,19 @@
 							{/each}
 						</div>
 						<div>
-							<button
-								class="variant-filled-primary btn"
-								disabled={!user}
-								on:click={() => startLesson(groupName)}>Start lesson</button
-							>
+							{#if isCompleted(groupName)}
+								<button
+									class="variant-filled-tertiary btn"
+									disabled={!user}
+									on:click={() => startLesson(groupName)}>Review</button
+								>
+							{:else if isNextToLearn(groupName)}
+								<button
+									class="variant-filled-primary btn"
+									disabled={!user}
+									on:click={() => startLesson(groupName)}>Start lesson</button
+								>
+							{/if}
 						</div>
 					</div>
 				</div>

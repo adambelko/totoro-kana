@@ -2,13 +2,6 @@
 	import Stats from "./Stats.svelte"
 	import GroupList from "./GroupList.svelte"
 
-	interface WritingProgress {
-		id: string
-		userId: string | null
-		completedGroup: string
-		completionDate: string
-	}
-
 	export let tabValue: string
 	export let userId: string | undefined
 	export let writingData: Kana[]
@@ -27,5 +20,5 @@
 		</div>
 	</div>
 
-	<GroupList user={userId} {tabValue} {writingData} />
+	<GroupList user={userId} {tabValue} {writingData} {writingProgressData} />
 </div>

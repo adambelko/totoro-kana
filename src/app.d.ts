@@ -28,6 +28,13 @@ declare global {
 		japanese: string
 		characters: { [character: string]: string[] }
 	}
+
+	interface WritingProgress {
+		id: string
+		userId: string | null
+		completedGroup: string
+		completionDate: string
+	}
 }
 
 export {}
