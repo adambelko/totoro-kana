@@ -1,18 +1,6 @@
-<script lang="ts">
-	export let data
-	$: ({ supabase } = data)
-
-	const signInWithGithub = async () => {
-		const { data, error } = await supabase.auth.signInWithOAuth({
-			provider: "github",
-			options: {
-				redirectTo: "http://localhost:5173/learn/hiragana"
-			}
-		})
-	}
-</script>
-
 <main>
 	<h3 class="h3 p-4">Login</h3>
-	<button class="variant-filled-primary btn" on:click={signInWithGithub}>Github</button>
+	<a href="/auth/login/github">
+		<button class="variant-filled-primary btn">Github</button>
+	</a>
 </main>

@@ -1,22 +1,20 @@
-import { db } from "$lib/db"
 import { hiraganaProgress, katakanaProgress } from "$lib/db/schema"
 import { eq } from "drizzle-orm"
+import { db } from "$lib/db"
+
+type UserProgressTable = typeof hiraganaProgress | typeof katakanaProgress
 
 export const load = async ({ locals }) => {
 	const { session } = await locals.safeGetSession()
 	if (!session) return
 
 	const userId = session.user.id
-
-	const hiraganaUserProgress = await db
-		.select()
-		.from(hiraganaProgress)
-		.where(eq(hiraganaProgress.userId, userId))
-
-	const katakanaUserProgress = await db
-		.select()
-		.from(katakanaProgress)
-		.where(eq(katakanaProgress.userId, userId))
+	const hiraganaUserProgress = await loadUserProgress(hiraganaProgress, userId)
+	const katakanaUserProgress = await loadUserProgress(katakanaProgress, userId)
 
 	return { hiraganaUserProgress, katakanaUserProgress }
+}
+
+const loadUserProgress = (table: UserProgressTable, userId: string) => {
+	return db.select().from(table).where(eq(table.userId, userId))
 }

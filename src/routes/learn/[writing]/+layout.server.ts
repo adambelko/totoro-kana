@@ -1,6 +1,6 @@
-import { db } from "$lib/db"
-import { eq } from "drizzle-orm"
 import { users } from "$lib/db/schema"
+import { eq } from "drizzle-orm"
+import { db } from "$lib/db"
 
 export const load = async ({ locals }) => {
 	const { session } = await locals.safeGetSession()

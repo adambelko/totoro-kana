@@ -183,11 +183,11 @@ INSERT INTO hiragana (kana_category, group_name, japanese, romaji) VALUES
 -- KATAKANA DATA
 -- Main Kana: Basic Vowels
 INSERT INTO katakana (kana_category, group_name, japanese, romaji) VALUES
-                                                                                ('main', 'Basic Vowels', 'ア', 'a'),
-                                                                                ('main', 'Basic Vowels', 'イ', 'i'),
-                                                                                ('main', 'Basic Vowels', 'ウ', 'u'),
-                                                                                ('main', 'Basic Vowels', 'エ', 'e'),
-                                                                                ('main', 'Basic Vowels', 'オ', 'o');
+                                                                                ('main', 'Basic Syllables', 'ア', 'a'),
+                                                                                ('main', 'Basic Syllables', 'イ', 'i'),
+                                                                                ('main', 'Basic Syllables', 'ウ', 'u'),
+                                                                                ('main', 'Basic Syllables', 'エ', 'e'),
+                                                                                ('main', 'Basic Syllables', 'オ', 'o');
 
 -- Main Kana: K Group
 INSERT INTO katakana (kana_category, group_name, japanese, romaji) VALUES

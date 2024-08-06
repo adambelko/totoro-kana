@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { goto } from "$app/navigation"
+
 	export let data
 	$: ({ supabase } = data)
 
-	async function signOut() {
-		const { error } = await supabase.auth.signOut()
+	const signOut = async () => {
+		await supabase.auth.signOut()
 	}
 </script>
 
