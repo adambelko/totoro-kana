@@ -1,12 +1,19 @@
 <script lang="ts">
 	import { page } from "$app/stores"
-	import { Avatar } from "@skeletonlabs/skeleton"
+	import { Avatar, popup, type PopupSettings } from "@skeletonlabs/skeleton"
 	import { getInitials } from "$lib/utils/accountDetails"
+	import ProfileModal from "$lib/components/ProfileModal.svelte"
 
 	export let data
 
 	$: classesActive = (href: string) =>
 		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : ""
+
+	const popupProfile: PopupSettings = {
+		event: "click",
+		target: "popupProfile",
+		placement: "bottom"
+	}
 </script>
 
 <nav class="bg-surface-100-800-token flex h-20 shadow-2xl">
@@ -25,13 +32,14 @@
 			</a>
 
 			{#if data.user}
-				<a href="/account">
+				<button use:popup={popupProfile}>
 					<Avatar
 						initials={getInitials(data.user)}
 						background="bg-primary-500 hover:bg-primary-400"
 						width="w-14"
 					/>
-				</a>
+					<ProfileModal {data} {popupProfile} />
+				</button>
 			{/if}
 		</div>
 		<!--		<ul class="flex space-x-4">-->

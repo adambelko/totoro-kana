@@ -29,8 +29,5 @@
 				>{progressRadialValue.toFixed(0)}%
 			</ProgressRadial>
 		</div>
-		<div class="flex flex-col justify-center">
-			<button class="variant-filled-primary btn">Start lesson</button>
-		</div>
 	</div>
 </div>

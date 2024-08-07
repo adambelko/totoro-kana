@@ -2,7 +2,8 @@ import { pgTable, uuid, varchar, serial, date } from "drizzle-orm/pg-core"
 
 export const users = pgTable("users", {
 	id: uuid("id").primaryKey(),
-	email: varchar("email").unique().notNull()
+	email: varchar("email").unique().notNull(),
+	joinDate: date("join_date").defaultNow().notNull()
 })
 
 export const hiragana = pgTable("hiragana", {

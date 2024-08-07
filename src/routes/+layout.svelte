@@ -1,13 +1,16 @@
 <script>
 	import { goto, invalidate } from "$app/navigation"
 	import { onMount } from "svelte"
-
-	import "../app.css"
-	import "$lib/styles/main.css"
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom"
+	import { storePopup } from "@skeletonlabs/skeleton"
 	import Nav from "$lib/components/Nav.svelte"
+	import "$lib/styles/main.css"
+	import "../app.css"
 
 	export let data
 	$: ({ session, supabase } = data)
+
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
