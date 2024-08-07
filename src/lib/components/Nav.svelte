@@ -19,7 +19,7 @@
 <nav class="bg-surface-100-800-token flex h-20 shadow-2xl">
 	<div class="mx-auto flex w-full max-w-[980px] items-center justify-between">
 		<a class="mr-8 text-lg font-bold" href="/">Learn KANA</a>
-		<div class="flex items-center space-x-4">
+		<div class="flex items-center space-x-2">
 			<a href="/learn/hiragana">
 				<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/learn')}">
 					Learn
@@ -32,14 +32,20 @@
 			</a>
 
 			{#if data.user}
-				<button use:popup={popupProfile}>
+				<a href="/contact">
+					<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/contact')}">
+						Contact
+					</div>
+				</a>
+
+				<div use:popup={popupProfile} class="cursor-pointer">
 					<Avatar
 						initials={getInitials(data.user)}
 						background="bg-primary-500 hover:bg-primary-400"
 						width="w-14"
 					/>
 					<ProfileModal {data} {popupProfile} />
-				</button>
+				</div>
 			{/if}
 		</div>
 		<!--		<ul class="flex space-x-4">-->
