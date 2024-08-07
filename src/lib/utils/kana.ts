@@ -13,3 +13,13 @@ export const getFirstRomaji = (romaji: string) => {
 export const getKanaOrder = (data: Kana[]): string[] => {
 	return Array.from(new Set(data.map((kana) => kana.groupName)))
 }
+
+export const getUserCompletedGroups = (data: any) => {
+	return data.map((item: any) => item.completedGroup)
+}
+
+export const getUserKanaLearnedCount = (userCompletedGroups: any, writing: any) => {
+	return userCompletedGroups.reduce((count: number, groupName: string) => {
+		return count + writing.filter((item: any) => item.groupName === groupName).length
+	}, 0)
+}

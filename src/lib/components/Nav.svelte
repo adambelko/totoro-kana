@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { Avatar, popup, type PopupSettings } from "@skeletonlabs/skeleton"
-	import { getInitials } from "$lib/utils/accountDetails"
+	import { getInitials } from "$lib/utils/profileDetails"
 	import ProfileModal from "$lib/components/ProfileModal.svelte"
 
 	export let data

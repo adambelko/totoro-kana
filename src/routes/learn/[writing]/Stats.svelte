@@ -1,23 +1,20 @@
 <script lang="ts">
 	import { ProgressRadial } from "@skeletonlabs/skeleton"
+	import { getUserCompletedGroups, getUserKanaLearnedCount } from "$lib/utils/kana"
 
 	export let writingData: Kana[]
 	export let writingProgressData: WritingProgress[]
 
-	const userCompletedGroups = writingProgressData.map((item) => item.completedGroup)
-
-	const learnedKana = userCompletedGroups.flatMap((groupName) =>
-		writingData.filter((item) => item.groupName === groupName)
-	)
-
-	$: progressRadialValue = (learnedKana.length / writingData.length) * 100
+	const userCompletedGroups = getUserCompletedGroups(writingProgressData)
+	const learnedKanaCount = getUserKanaLearnedCount(userCompletedGroups, writingData)
+	$: progressRadialValue = (learnedKanaCount / writingData.length) * 100
 </script>
 
 <div class="flex-1 bg-surface-200 p-4 rounded-container-token">
 	<h4 class="h4">Stats</h4>
 	<div class="mt-2 flex justify-between">
 		<div class="flex flex-col items-center">
-			<span>{learnedKana.length}/{writingData.length} kana learned</span>
+			<span>{learnedKanaCount}/{writingData.length} kana learned</span>
 			<ProgressRadial
 				value={progressRadialValue}
 				stroke={90}

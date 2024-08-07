@@ -2,7 +2,7 @@
 	import { goto } from "$app/navigation"
 	import { page } from "$app/stores"
 	import { AppBar, TabGroup, Tab } from "@skeletonlabs/skeleton"
-	import { getFullName } from "$lib/utils/accountDetails"
+	import { getFullName } from "$lib/utils/profileDetails"
 	import Dashboard from "./Dashboard.svelte"
 
 	export let data
@@ -16,8 +16,8 @@
 </script>
 
 <AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-	{#if data.user}
-		<p>Welcome back, {getFullName(data.user)}!</p>
+	{#if user}
+		<p>Welcome back, {getFullName(user)}!</p>
 	{:else}
 		<p>Please <a href="/login" class="anchor">Login</a> to continue!</p>
 	{/if}
@@ -42,14 +42,14 @@
 			{#if tabValue === "hiragana"}
 				<Dashboard
 					{tabValue}
-					userId={data?.user?.id}
+					userId={user?.id}
 					writingData={hiragana}
 					writingProgressData={hiraganaUserProgress}
 				/>
 			{:else}
 				<Dashboard
 					{tabValue}
-					userId={data?.user?.id}
+					userId={user?.id}
 					writingData={katakana}
 					writingProgressData={katakanaUserProgress}
 				/>

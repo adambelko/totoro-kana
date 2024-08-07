@@ -53,6 +53,7 @@
 	}
 
 	init()
+	submitProgress()
 </script>
 
 <AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">

@@ -2,7 +2,7 @@
 	import SelectKana from "./SelectKana.svelte"
 	import Practice from "./Practice.svelte"
 	import { AppBar } from "@skeletonlabs/skeleton"
-	import { getFullName } from "$lib/utils/accountDetails"
+	import { getFullName } from "$lib/utils/profileDetails"
 
 	export let data
 	const { user, hiragana, katakana } = data

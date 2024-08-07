@@ -47,7 +47,8 @@
 	}
 
 	const startQuiz = () => {
-		quiz = true
+		// quiz = true
+		console.log("hey")
 	}
 
 	init()

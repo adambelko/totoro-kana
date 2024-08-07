@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Avatar, type PopupSettings } from "@skeletonlabs/skeleton"
-	import { getFullName } from "$lib/utils/accountDetails"
+	import { getFullName } from "$lib/utils/profileDetails"
 
 	export let data
 	export let popupProfile: PopupSettings
