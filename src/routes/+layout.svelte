@@ -4,6 +4,7 @@
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom"
 	import { storePopup } from "@skeletonlabs/skeleton"
 	import Nav from "$lib/components/Nav.svelte"
+	import Footer from "$lib/components/Footer.svelte"
 	import "$lib/styles/main.css"
 	import "../app.css"
 
@@ -29,10 +30,15 @@
 	<slot />
 </main>
 
+<Footer />
+
 <style>
 	main {
-		max-width: 980px;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
 		width: 100%;
-		margin: auto;
+		max-width: 980px;
+		margin: 0 auto;
 	}
 </style>

@@ -6,3 +6,10 @@
     --theme-rounded-base: 20px;
     --theme-rounded-container: 8px;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
