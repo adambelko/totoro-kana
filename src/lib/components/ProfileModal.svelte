@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Avatar, type PopupSettings } from "@skeletonlabs/skeleton"
 	import { getFullName } from "$lib/utils/profileDetails"
+	import { goto } from "$app/navigation"
 
 	export let data
 	export let popupProfile: PopupSettings
@@ -8,6 +9,7 @@
 
 	const signOut = async () => {
 		await supabase.auth.signOut()
+		await goto("/")
 	}
 </script>
 
