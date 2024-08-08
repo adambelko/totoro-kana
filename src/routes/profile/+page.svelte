@@ -12,7 +12,7 @@
 </script>
 
 <div class="mb-6 mt-4 flex flex-col bg-white/30 p-6 rounded-container-token dark:bg-black/30">
-	<h3 class="h2">My Profile</h3>
+	<h2 class="h2">My Profile</h2>
 	<div class="mt-4 flex flex-col gap-2">
 		<h4 class="h4 mt-4">Profile Info</h4>
 		<div class="table-container">
