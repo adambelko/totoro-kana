@@ -21,12 +21,11 @@
 </script>
 
 {#if showPractice === false}
-	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-		{#if user}
+	{#if user}
+		<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
 			Welcome back, {getFullName(user)}!
-		{/if}
-		<p>Select at least one of the groups to start the practice.</p>
-	</AppBar>
+		</AppBar>
+	{/if}
 
 	<div class="mt-4 flex gap-4 bg-white/30 p-5 rounded-container-token dark:bg-black/30">
 		<div class="flex-1">

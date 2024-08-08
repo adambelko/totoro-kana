@@ -16,7 +16,7 @@
 	}
 </script>
 
-<nav class="bg-surface-100-800-token flex h-20 shadow-2xl">
+<nav class="bg-surface-100-800-token flex min-h-20 shadow-2xl">
 	<div class="mx-auto flex w-full max-w-[980px] items-center justify-between">
 		<a class="mr-8 text-lg font-bold" href="/">Learn KANA</a>
 		<div class="flex items-center space-x-2">

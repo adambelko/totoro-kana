@@ -11,7 +11,7 @@
 	const learnedKatakanaCount = getUserKanaLearnedCount(userKatakanaCompletedGroups, katakana)
 </script>
 
-<div class="mt-4 flex flex-col bg-white/30 p-6 rounded-container-token dark:bg-black/30">
+<div class="mb-6 mt-4 flex flex-col bg-white/30 p-6 rounded-container-token dark:bg-black/30">
 	<h3 class="h2">My Profile</h3>
 	<div class="mt-4 flex flex-col gap-2">
 		<h4 class="h4 mt-4">Profile Info</h4>

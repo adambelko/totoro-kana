@@ -23,7 +23,7 @@
 	{/if}
 </AppBar>
 
-<div class="mt-4 flex gap-4 bg-white/30 p-5 rounded-container-token dark:bg-black/30">
+<div class="mb-6 mt-4 flex gap-4 bg-white/30 p-5 rounded-container-token dark:bg-black/30">
 	<TabGroup justify="justify-center" class="w-full">
 		<Tab
 			bind:group={tabValue}

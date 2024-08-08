@@ -9,12 +9,15 @@
 				<li>
 					Open new issue or suggestion on <a
 						href="https://github.com/adambelko/learn-kana/issues"
+						target="_blank"
 						class="anchor">GitHub</a
 					>
 				</li>
 				<li>
-					Make a Pull Request for a contribution, please see the <a href="/" class="anchor"
-						>instructions</a
+					Make a Pull Request for a contribution, please see the <a
+						href="/"
+						target="_blank"
+						class="anchor">instructions</a
 					>
 				</li>
 				<li>Send me an email to <span class="font-bold">belkoadam@gmail.com</span></li>

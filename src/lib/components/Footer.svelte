@@ -1,6 +1,8 @@
 <footer class=" bg-surface-100 p-10">
 	<div class="mx-auto flex w-full max-w-[980px] justify-between text-center">
-		<span>Built by <a href="https://www.adambelko.com/" class="anchor">Adam</a></span>
+		<span
+			>Built by <a href="https://www.adambelko.com/" target="_blank" class="anchor">Adam</a></span
+		>
 		<div class="flex justify-center gap-4">
 			<a href="/contact">
 				<div class="flex items-center gap-1">
@@ -13,7 +15,7 @@
 					<span class="anchor">Contact</span>
 				</div>
 			</a>
-			<a href="https://github.com/adambelko/learn-kana">
+			<a href="https://github.com/adambelko/learn-kana" target="_blank">
 				<div class="flex items-center gap-1">
 					<svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24">
 						<path
