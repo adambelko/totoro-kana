@@ -1,9 +1,6 @@
-import { hiraganaProgress, katakanaProgress } from "$lib/db/schema"
-import { eq } from "drizzle-orm"
-import { db } from "$lib/db"
 import { redirect } from "@sveltejs/kit"
-
-type UserProgressTable = typeof hiraganaProgress | typeof katakanaProgress
+import { hiraganaProgress, katakanaProgress } from "$lib/db/schema"
+import { loadUserProgress } from "$lib/db/queries"
 
 export const load = async ({ locals }) => {
 	const { session } = await locals.safeGetSession()
@@ -14,8 +11,4 @@ export const load = async ({ locals }) => {
 	const katakanaUserProgress = await loadUserProgress(katakanaProgress, userId)
 
 	return { hiraganaUserProgress, katakanaUserProgress }
-}
-
-const loadUserProgress = (table: UserProgressTable, userId: string) => {
-	return db.select().from(table).where(eq(table.userId, userId))
 }
