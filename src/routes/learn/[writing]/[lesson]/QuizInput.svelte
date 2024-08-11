@@ -62,8 +62,10 @@
 	setNextKanaPair()
 </script>
 
-<div class="flex justify-center p-8 text-6xl">{currentJapaneseCharacter}</div>
-<input class="input h-8 pl-3 {inputErrorClass}" type="text" bind:value={userRomajiInput} />
+<div class="flex flex-col items-center justify-center gap-4">
+	<div class="text-6xl">{currentJapaneseCharacter}</div>
+	<input class="input h-8 w-1/2 pl-3 {inputErrorClass}" type="text" bind:value={userRomajiInput} />
+</div>
 <div class="flex justify-center gap-4">
 	<button class="variant-filled-tertiary btn" on:click={restudy}>Restudy</button>
 	<button class="variant-filled-primary btn" on:click={checkInputCharacter}>Next</button>

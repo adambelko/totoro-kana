@@ -1,11 +1,10 @@
-<script>
+<script lang="ts">
 	import { goto, invalidate } from "$app/navigation"
 	import { onMount } from "svelte"
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom"
 	import { storePopup } from "@skeletonlabs/skeleton"
 	import Nav from "$lib/components/Nav.svelte"
 	import Footer from "$lib/components/Footer.svelte"
-	import "$lib/styles/main.css"
 	import "../app.css"
 
 	export let data

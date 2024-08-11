@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from "$app/navigation"
 	import { page } from "$app/stores"
-	import { AppBar, TabGroup, Tab } from "@skeletonlabs/skeleton"
+	import { TabGroup, Tab, AppBar } from "@skeletonlabs/skeleton"
 	import { getFullName } from "$lib/utils/profileDetails"
 	import Dashboard from "./Dashboard.svelte"
 
@@ -15,15 +15,14 @@
 	}
 </script>
 
-<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-	{#if user}
-		<p>Welcome back, {getFullName(user)}!</p>
-	{:else}
-		<p>Please <a href="/login" class="anchor">Login</a> to continue!</p>
-	{/if}
-</AppBar>
-
-<div class="mb-6 mt-4 flex gap-4 bg-white/30 p-5 rounded-container-token dark:bg-black/30">
+<div class="mb-6 mt-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">
+	<AppBar class="p-5 rounded-container-token" background="variant-ghost">
+		{#if user}
+			<h4 class="h4">Welcome back, {getFullName(user)}!</h4>
+		{:else}
+			<h4 class="h4">Please <a href="/login" class="anchor">login</a> to continue.</h4>
+		{/if}
+	</AppBar>
 	<TabGroup justify="justify-center" class="w-full">
 		<Tab
 			bind:group={tabValue}

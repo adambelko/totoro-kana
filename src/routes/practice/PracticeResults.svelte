@@ -68,33 +68,34 @@
 </script>
 
 {#if showPractice === false}
-	<div class="mt-4 bg-white/30 p-12 rounded-container-token dark:bg-black/30">
-		<div class="flex flex-col items-center">
+	<div class="mt-4 bg-white/30 p-4 rounded-container-token">
+		<div class="mt-6 flex flex-col items-center">
 			<h2 class="h2">Your Results</h2>
 			<h4 class="h4 mt-8">
 				Total Correct Answers: {correctKanaCount}/{totalKanaCount} ({successPercentage}%)
 			</h4>
 		</div>
+		<div class="px-10">
+			<TabGroup justify="justify-center mt-8">
+				<Tab bind:group={tabValue} name="hiragana" value={"hiragana"}>Hiragana</Tab>
+				<Tab bind:group={tabValue} name="katakana" value={"katakana"}>Katakana</Tab>
 
-		<TabGroup justify="justify-center mt-8">
-			<Tab bind:group={tabValue} name="hiragana" value={"hiragana"}>Hiragana</Tab>
-			<Tab bind:group={tabValue} name="katakana" value={"katakana"}>Katakana</Tab>
-
-			<svelte:fragment slot="panel">
-				{#if tabValue === "hiragana"}
-					<DisplayKana {isCharacterSkipped} kanaGroups={categorisedHiragana} />
-				{:else}
-					<DisplayKana {isCharacterSkipped} kanaGroups={categorisedKatakana} />
-				{/if}
-			</svelte:fragment>
-		</TabGroup>
+				<svelte:fragment slot="panel">
+					{#if tabValue === "hiragana"}
+						<DisplayKana {isCharacterSkipped} kanaGroups={categorisedHiragana} />
+					{:else}
+						<DisplayKana {isCharacterSkipped} kanaGroups={categorisedKatakana} />
+					{/if}
+				</svelte:fragment>
+			</TabGroup>
+		</div>
+		<button
+			class="variant-filled-primary btn mx-auto mt-4 flex justify-center"
+			on:click={() => (showPractice = true)}
+		>
+			Repeat
+		</button>
 	</div>
-	<button
-		class="variant-filled-primary btn mx-auto mb-10 mt-4 block"
-		on:click={() => (showPractice = true)}
-	>
-		Repeat
-	</button>
 {:else}
 	<Practice {selectedKana} />
 {/if}

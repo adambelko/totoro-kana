@@ -2,7 +2,6 @@
 	import SelectKana from "./SelectKana.svelte"
 	import Practice from "./Practice.svelte"
 	import { AppBar } from "@skeletonlabs/skeleton"
-	import { getFullName } from "$lib/utils/profileDetails"
 
 	export let data
 	const { user, hiragana, katakana } = data
@@ -21,31 +20,30 @@
 </script>
 
 {#if showPractice === false}
-	{#if user}
-		<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-			Welcome back, {getFullName(user)}!
+	<div class="mt-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">
+		<AppBar class="p-5 rounded-container-token" background="variant-ghost">
+			Choose at least one group to start the practice.
 		</AppBar>
-	{/if}
-
-	<div class="mt-4 flex gap-4 bg-white/30 p-5 rounded-container-token dark:bg-black/30">
-		<div class="flex-1">
-			<SelectKana
-				title="Hiragana / ひらがな"
-				data={hiragana}
-				bind:selectedKana={hiraganaCharacters}
-			/>
+		<div class="mt-4 flex gap-4">
+			<div class="flex-1">
+				<SelectKana
+					title="Hiragana / ひらがな"
+					data={hiragana}
+					bind:selectedKana={hiraganaCharacters}
+				/>
+			</div>
+			<div class="flex-1">
+				<SelectKana
+					title="Katakana / カタカナ"
+					data={katakana}
+					bind:selectedKana={katakanaCharacters}
+				/>
+			</div>
 		</div>
-		<div class="flex-1">
-			<SelectKana
-				title="Katakana / カタカナ"
-				data={katakana}
-				bind:selectedKana={katakanaCharacters}
-			/>
-		</div>
+		<button class="variant-filled-primary btn mx-auto" on:click={togglePractice}>
+			Start practice
+		</button>
 	</div>
-	<button class="variant-filled-primary btn mx-auto mb-10 mt-4 block" on:click={togglePractice}>
-		Start practice
-	</button>
 {:else}
 	<Practice {selectedKana} hiraganaData={hiragana} katakanaData={katakana} />
 {/if}

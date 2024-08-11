@@ -107,19 +107,26 @@
 </script>
 
 {#if showResults === false}
-	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-		Enter the correct romaji and click "Next". If unsure, click "Skip" to move to the next character
-	</AppBar>
-	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
-		<div class="flex justify-center">
-			<div class="flex w-1/2 flex-col gap-4 p-20">
-				<div class="flex justify-center p-8 text-6xl">{currentJapaneseCharacter}</div>
-				<input class="input h-8 pl-3 {inputErrorClass}" type="text" bind:value={userRomajiInput} />
+	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token">
+		<AppBar class="ml-4 mr-4 mt-4 p-5 rounded-container-token" background="variant-ghost">
+			Enter the correct romaji and click "Next". Alternatively click "Skip" to move to the next
+			character.
+		</AppBar>
+		<div class="flex flex-col items-center justify-center">
+			<div class="mb-10 mt-20 flex w-1/2 flex-col items-center justify-between gap-4">
+				<div class="text-6xl">{currentJapaneseCharacter}</div>
+				<input
+					class="input h-8 w-1/2 pl-3 {inputErrorClass}"
+					type="text"
+					bind:value={userRomajiInput}
+				/>
 				<div class="flex justify-center gap-4">
 					<button class="variant-filled-tertiary btn" on:click={skipCharacter}>Skip</button>
 					<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
 				</div>
-				<div class="mt-8 flex justify-center">
+			</div>
+			<div class="mb-4 flex flex-col justify-center gap-2">
+				<div class="flex justify-center">
 					Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to submit the answer
 				</div>
 				<div class="mt-2 flex justify-center">

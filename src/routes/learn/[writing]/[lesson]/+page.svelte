@@ -54,13 +54,13 @@
 </script>
 
 {#if quiz === false}
-	<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-		Navigate in between characters and memorise them
-	</AppBar>
-	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
+	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token">
+		<AppBar class="ml-4 mr-4 mt-4 p-5 p-5 rounded-container-token" background="variant-ghost">
+			Navigate in between characters and memorise them.
+		</AppBar>
 		<DisplayGroup {selectedGroup} {groupName} {currentIndex} {setCurrentCharacters} {startQuiz} />
 		<div class="mt-4 flex justify-center gap-4 text-6xl">{currentJapaneseCharacter}</div>
-		<div class="mb-10 flex justify-center gap-4 p-6 text-4xl">{currentRomajiCharacter}</div>
+		<div class="mb-4 flex justify-center gap-4 p-6 text-4xl">{currentRomajiCharacter}</div>
 		<div class="flex flex-col gap-4">
 			<div class="flex justify-center">
 				Press<kbd class="kbd ml-1.5 mr-1.5">←</kbd> or
@@ -71,7 +71,7 @@
 			</div>
 		</div>
 		<div class="flex justify-center">
-			<button class="variant-filled-primary btn mb-4 mt-10" on:click={startQuiz}>Start Quiz</button>
+			<button class="variant-filled-primary btn mb-4 mt-6" on:click={startQuiz}>Start Quiz</button>
 		</div>
 	</div>
 {:else}

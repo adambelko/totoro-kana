@@ -76,7 +76,7 @@
 	init()
 </script>
 
-<div class="flex justify-center p-8 text-6xl">
+<div class="flex justify-center text-6xl">
 	{romajiToJapanese ? currentRomajiCharacter : currentJapaneseCharacter}
 </div>
 <div class="flex justify-center gap-4">

@@ -5,7 +5,7 @@
 	import ProfileModal from "$lib/components/ProfileModal.svelte"
 
 	export let data
-
+	;("")
 	$: classesActive = (href: string) =>
 		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : ""
 

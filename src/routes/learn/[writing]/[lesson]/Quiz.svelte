@@ -19,7 +19,7 @@
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
-	let quizStage = 4
+	let quizStage = 2
 	let currentIndex = 0
 	let correctKanaCount = 0
 	let incorrectKanaCount = 0
@@ -53,15 +53,16 @@
 	}
 
 	init()
-	submitProgress()
+	// submitProgress()
 </script>
 
-<AppBar class="mt-4 p-5 rounded-container-token" background="variant-ghost">
-	Correctly answer each syllable 3 times in order to pass the lesson
-</AppBar>
-<div class="mt-4 flex flex-col bg-white/30 rounded-container-token dark:bg-black/30">
+<div class="mt-4 flex flex-col bg-white/30 rounded-container-token">
+	<AppBar class="ml-4 mr-4 mt-4 flex p-5 rounded-container-token" background="variant-ghost">
+		<p class="mb-1">Correctly answer each syllable 3 times in order to pass the lesson.</p>
+		<p>You're allowed to make one mistake.</p>
+	</AppBar>
 	<div class="flex justify-center">
-		<div class="flex w-1/2 flex-col gap-4 p-20">
+		<div class="my-20 flex w-1/2 flex-col gap-4">
 			{#if quizStage === 1}
 				<QuizButton
 					romajiToJapanese={false}
