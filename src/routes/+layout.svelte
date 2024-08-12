@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto, invalidate } from "$app/navigation"
+	import { invalidate } from "$app/navigation"
 	import { onMount } from "svelte"
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom"
 	import { storePopup } from "@skeletonlabs/skeleton"

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount } from "svelte"
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import PracticeResults from "./PracticeResults.svelte"
+	import { useKeyDownHandler } from "$lib/utils/keydown"
 	import { shuffleArray } from "$lib/utils/kana"
 
 	interface SelectedKana {
@@ -25,19 +25,12 @@
 	$: progressBarValue = ((correctKanaCount + skippedKanaCount) / shuffledKanaList.length) * 100
 	let showResults = false
 
-	onMount(() => {
-		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.key === "Enter") {
-				checkCharacter()
-			} else if (event.key.toLowerCase() === "s" && event.shiftKey) {
-				event.preventDefault()
-				skipCharacter()
-			}
-		}
-		window.addEventListener("keydown", handleKeyDown)
-
-		return () => {
-			window.removeEventListener("keydown", handleKeyDown)
+	useKeyDownHandler((event) => {
+		if (event.key === "Enter") {
+			checkCharacter()
+		} else if (event.key.toLowerCase() === "s" && event.shiftKey) {
+			event.preventDefault()
+			skipCharacter()
 		}
 	})
 
@@ -116,6 +109,7 @@
 			<div class="mb-10 mt-20 flex w-1/2 flex-col items-center justify-between gap-4">
 				<div class="text-6xl">{currentJapaneseCharacter}</div>
 				<input
+					autofocus
 					class="input h-8 w-1/2 pl-3 {inputErrorClass}"
 					type="text"
 					bind:value={userRomajiInput}
@@ -125,13 +119,13 @@
 					<button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
 				</div>
 			</div>
-			<div class="mb-4 flex flex-col justify-center gap-2">
-				<div class="flex justify-center">
-					Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to submit the answer
-				</div>
+			<div class="mb-4 flex flex-col justify-center gap-4">
 				<div class="mt-2 flex justify-center">
 					Press<kbd class="kbd ml-1.5 mr-1.5">SHIFT</kbd>+<kbd class="kbd ml-1.5 mr-1.5">S</kbd> to skip
 					the answer
+				</div>
+				<div class="flex justify-center">
+					Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to submit the answer
 				</div>
 			</div>
 		</div>

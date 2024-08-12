@@ -20,7 +20,7 @@
 </script>
 
 {#if showPractice === false}
-	<div class="mt-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">
+	<div class="mb-6 mt-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">
 		<AppBar class="p-5 rounded-container-token" background="variant-ghost">
 			Choose at least one group to start the practice.
 		</AppBar>

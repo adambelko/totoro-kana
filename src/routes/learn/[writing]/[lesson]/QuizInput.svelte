@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { useKeyDownHandler } from "$lib/utils/keydown"
+
 	interface Kana {
 		japanese: string
 		romaji: string
@@ -15,6 +17,12 @@
 
 	let userRomajiInput = ""
 	let inputErrorClass = ""
+
+	useKeyDownHandler((event) => {
+		if (event.key === "Enter") {
+			checkInputCharacter()
+		}
+	})
 
 	const cleanupInput = () => {
 		userRomajiInput = ""
@@ -48,8 +56,7 @@
 			incorrectKanaCount++
 			inputErrorClass = "input-error"
 			setTimeout(() => {
-				inputErrorClass = ""
-				userRomajiInput = ""
+				cleanupInput()
 			}, 500)
 		}
 	}
@@ -64,9 +71,22 @@
 
 <div class="flex flex-col items-center justify-center gap-4">
 	<div class="text-6xl">{currentJapaneseCharacter}</div>
-	<input class="input h-8 w-1/2 pl-3 {inputErrorClass}" type="text" bind:value={userRomajiInput} />
+	<input
+		autofocus
+		class="input h-8 w-1/2 pl-3 {inputErrorClass}"
+		type="text"
+		bind:value={userRomajiInput}
+	/>
 </div>
 <div class="flex justify-center gap-4">
 	<button class="variant-filled-tertiary btn" on:click={restudy}>Restudy</button>
 	<button class="variant-filled-primary btn" on:click={checkInputCharacter}>Next</button>
+</div>
+<div class="mb-4 mt-10 flex flex-col gap-4">
+	<div class="flex justify-center">
+		Press<kbd class="kbd ml-1.5 mr-1.5">SHIFT</kbd>+<kbd class="kbd ml-1.5 mr-1.5">R</kbd> to restudy
+	</div>
+	<div class="flex justify-center">
+		Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to submit the answer
+	</div>
 </div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
+	import { useKeyDownHandler } from "$lib/utils/keydown"
 	import { shuffleArray } from "$lib/utils/kana"
 	import QuizInput from "./QuizInput.svelte"
 	import QuizButton from "./QuizButton.svelte"
@@ -19,12 +20,19 @@
 
 	let currentJapaneseCharacter = ""
 	let currentRomajiCharacter = ""
-	let quizStage = 2
+	let quizStage = 1
 	let currentIndex = 0
 	let correctKanaCount = 0
 	let incorrectKanaCount = 0
 	let shuffledKanaList: KanaList[] = []
 	$: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
+
+	useKeyDownHandler((event) => {
+		if (event.key.toLowerCase() === "r" && event.shiftKey) {
+			event.preventDefault()
+			handleRestudy()
+		}
+	})
 
 	const init = () => {
 		const kanaList = selectedGroup.map((kana) => ({
@@ -62,7 +70,7 @@
 		<p>You're allowed to make one mistake.</p>
 	</AppBar>
 	<div class="flex justify-center">
-		<div class="my-20 flex w-1/2 flex-col gap-4">
+		<div class="mt-20 flex w-1/2 flex-col gap-4">
 			{#if quizStage === 1}
 				<QuizButton
 					romajiToJapanese={false}
