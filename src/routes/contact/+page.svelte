@@ -8,7 +8,7 @@
 			<ul class="custom-list-style flex flex-col gap-2">
 				<li>
 					Open new issue or suggestion on <a
-						href="https://github.com/adambelko/learn-kana/issues"
+						href="https://github.com/adambelko/totoro-kana/issues"
 						target="_blank"
 						class="anchor">GitHub</a
 					>

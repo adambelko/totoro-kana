@@ -15,7 +15,7 @@
 					<span class="anchor">Contact</span>
 				</div>
 			</a>
-			<a href="https://github.com/adambelko/learn-kana" target="_blank">
+			<a href="https://github.com/adambelko/totoro-kana" target="_blank">
 				<div class="flex items-center gap-1">
 					<svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24">
 						<path
