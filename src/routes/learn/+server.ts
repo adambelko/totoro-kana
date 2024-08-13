@@ -14,7 +14,8 @@ export const POST = async ({ request }) => {
 			id: crypto.randomUUID(),
 			userId,
 			completedGroup: groupName,
-			completionDate
+			completionDate,
+			reviewInterval: 3
 		})
 		.returning()
 	return json(userProgress)

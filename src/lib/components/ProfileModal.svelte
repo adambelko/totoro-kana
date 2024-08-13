@@ -2,6 +2,7 @@
 	import { Avatar, type PopupSettings } from "@skeletonlabs/skeleton"
 	import { getFullName } from "$lib/utils/profileDetails"
 	import { goto } from "$app/navigation"
+	import avatar from "$lib/assets/totoroAvatar.webp"
 
 	export let data
 	export let popupProfile: PopupSettings
@@ -13,10 +14,10 @@
 	}
 </script>
 
-<div class="card cursor-default bg-surface-200 p-4" data-popup={popupProfile.target}>
-	<div class="arrow bg-surface-200" />
-	<div class="flex items-center gap-4">
-		<Avatar background="bg-primary-500" width="w-14" />
+<div class="card cursor-default bg-white p-4" data-popup={popupProfile.target}>
+	<div class="arrow bg-white" />
+	<div class="flex items-center">
+		<Avatar src={avatar} width="w-14" background="bg-white" />
 		<div>{getFullName(user)}</div>
 	</div>
 	<hr class="mb-2 mt-4" />

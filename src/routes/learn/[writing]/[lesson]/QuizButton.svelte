@@ -114,7 +114,7 @@
 <div class="flex justify-center gap-4">
 	<button class="variant-filled-tertiary btn" on:click={handleRestudy}>Restudy</button>
 </div>
-<div class="mb-4 mt-10 mt-10 flex flex-col gap-4">
+<div class="mb-4 mt-10 flex flex-col gap-4">
 	<div class="flex justify-center">
 		Press<kbd class="kbd ml-1.5 mr-1.5">NUMBER</kbd> to submit the answer
 	</div>

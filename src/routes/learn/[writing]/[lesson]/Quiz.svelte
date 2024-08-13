@@ -2,10 +2,10 @@
 	import { AppBar, ProgressBar } from "@skeletonlabs/skeleton"
 	import { useKeyDownHandler } from "$lib/utils/keydown"
 	import { shuffleArray } from "$lib/utils/kana"
+	import { post } from "$lib/utils/api"
 	import QuizInput from "./QuizInput.svelte"
 	import QuizButton from "./QuizButton.svelte"
 	import QuizResults from "./QuizResults.svelte"
-	import { post } from "$lib/utils/api"
 
 	interface KanaList {
 		japanese: string
@@ -64,7 +64,7 @@
 	// submitProgress()
 </script>
 
-<div class="mt-4 flex flex-col bg-white/30 rounded-container-token">
+<div class="mb-6 mt-4 flex flex-col bg-white/30 rounded-container-token">
 	<AppBar class="ml-4 mr-4 mt-4 flex p-5 rounded-container-token" background="variant-ghost">
 		<p class="mb-1">Correctly answer each syllable 3 times in order to pass the lesson.</p>
 		<p>You're allowed to make one mistake.</p>

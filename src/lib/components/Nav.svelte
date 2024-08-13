@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { Avatar, popup, type PopupSettings } from "@skeletonlabs/skeleton"
-	import { getInitials } from "$lib/utils/profileDetails"
 	import ProfileModal from "$lib/components/ProfileModal.svelte"
+	import totoroLogo from "$lib/assets/totoroLogo.webp"
+	import avatar from "$lib/assets/totoroAvatar.webp"
 
 	export let data
 	;("")
@@ -18,7 +19,9 @@
 
 <nav class="bg-surface-100-800-token flex min-h-20 shadow-2xl">
 	<div class="mx-auto flex w-full max-w-[980px] items-center justify-between">
-		<a class="mr-8 text-lg font-bold" href="/">Learn KANA</a>
+		<a class="mr-8 flex text-2xl font-bold" href="/"
+			>Totoro<img class="logoImage" src={totoroLogo} alt="totoro" />Kana</a
+		>
 		<div class="flex items-center space-x-2">
 			<a href="/learn/hiragana">
 				<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/learn')}">
@@ -39,11 +42,7 @@
 				</a>
 
 				<div use:popup={popupProfile} class="cursor-pointer">
-					<Avatar
-						initials={getInitials(data.user)}
-						background="bg-primary-500 hover:bg-primary-400"
-						width="w-14"
-					/>
+					<Avatar src={avatar} width="w-14" background="bg-white" />
 					<ProfileModal {data} {popupProfile} />
 				</div>
 			{/if}
@@ -54,3 +53,11 @@
 		<!--		</ul>-->
 	</div>
 </nav>
+
+<style>
+	.logoImage {
+		mix-blend-mode: multiply;
+		max-height: 30px;
+		margin: 0 0.3rem;
+	}
+</style>

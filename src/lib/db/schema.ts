@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, serial, date } from "drizzle-orm/pg-core"
+import { pgTable, uuid, varchar, serial, date, integer } from "drizzle-orm/pg-core"
 
 export const users = pgTable("users", {
 	id: uuid("id").primaryKey(),
@@ -19,6 +19,7 @@ export const hiraganaProgress = pgTable("hiragana_progress", {
 	userId: uuid("user_id").references(() => users.id),
 	completedGroup: varchar("completed_group").notNull(),
 	completionDate: date("completion_date").defaultNow().notNull()
+	// reviewInterval: integer("review_interval").notNull()
 })
 
 export const katakana = pgTable("katakana", {
@@ -34,4 +35,5 @@ export const katakanaProgress = pgTable("katakana_progress", {
 	userId: uuid("user_id").references(() => users.id),
 	completedGroup: varchar("completed_group").notNull(),
 	completionDate: date("completion_date").defaultNow().notNull()
+	// reviewInterval: integer("review_interval").notNull()
 })
