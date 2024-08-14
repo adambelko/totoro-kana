@@ -1,1 +1,59 @@
-<div>landing page</div>
+<script>
+	import {goto} from "$app/navigation"
+	import totoroLogo from "$lib/assets/totoroLogo.webp"
+	import {Avatar} from "@skeletonlabs/skeleton"
+</script>
+
+<section>
+    <div class="flex flex-col gap-4 mt-24">
+        <img class="max-w-60" src={totoroLogo} alt="totoroLogo"/>
+        <h1 class="h1 text-6xl">Learn Japanese <br/>Hiragana and Katakana.</h1>
+        <p class="max-w-[460px] text-xl">
+            Unlock the world of Japanese with Totoro Kana! Dive into our interactive platform to learn,
+            practice and truly remember Japanese characters.
+        </p>
+        <div>
+            <button class="variant-filled-primary btn flex gap-2" on:click={() => goto("/learn/hiragana")}>
+                Get Started
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 16 16">
+                    <path
+                            fill="#212121"
+                            fill-rule="evenodd"
+                            d="M10.159 10.72a.75.75 0 1 0 1.06 1.06l3.25-3.25L15 8l-.53-.53l-3.25-3.25a.75.75 0 0 0-1.061 1.06l1.97 1.97H1.75a.75.75 0 1 0 0 1.5h10.379z"
+                            clip-rule="evenodd"
+                    />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="variant-soft-secondary mt-24 mb-24 p-8 text-center text-xl rounded-container-token">
+        You can also try our <a href="/practice" class="anchor">practice</a> page without an account required.
+    </div>
+</section>
+<section>
+    <div class="flex justify-center gap-16 mt-24 mb-24">
+        <div class="flex items-center">
+            <a href="https://www.adambelko.com/">
+                <Avatar initials="AB" background="variant-soft-primary" width="h-48"/>
+            </a>
+        </div>
+        <div class="flex flex-col gap-4 text-left">
+            <h2 class="h2">Help Support Totoro Kana.</h2>
+            <p class="max-w-[480px]">Totoro Kana is an open source that survives through your support.
+                Please consider donating with <a class="anchor" href="https://ko-fi.com/totorokana">Ko-Fi</a>. The funds
+                will help to cover
+                standard costs, such as hosting and domain fees. Starring or contributing to the
+                <a class="anchor" href="https://github.com/adambelko/totoro-kana">GitHub</a> repository is also very
+                welcome!
+            </p>
+            <div class="flex gap-4">
+                <a href="https://ko-fi.com/totorokana">
+                    <button class="btn variant-filled">Ko-Fi</button>
+                </a>
+                <a href="https://github.com/adambelko/totoro-kana">
+                    <button class="btn variant-filled">GitHub</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

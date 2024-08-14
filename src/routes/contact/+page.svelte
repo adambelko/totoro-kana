@@ -1,4 +1,4 @@
-<div class="mt-4 flex flex-col bg-white/30 p-6 rounded-container-token dark:bg-black/30">
+<div class="mt-4 flex flex-col bg-white/30 p-6 rounded-container-token">
 	<div class="flex flex-col">
 		<h2 class="h2 mb-2">Contact</h2>
 		<div class="mt-4 flex flex-col gap-4">
