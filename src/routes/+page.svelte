@@ -1,7 +1,8 @@
 <script>
 	import {goto} from "$app/navigation"
-	import totoroLogo from "$lib/assets/totoroLogo.webp"
 	import {Avatar} from "@skeletonlabs/skeleton"
+	import Icon from "@iconify/svelte"
+	import totoroLogo from "$lib/assets/totoroLogo.webp"
 </script>
 
 <section>
@@ -15,14 +16,7 @@
         <div>
             <button class="variant-filled-primary btn flex gap-2" on:click={() => goto("/learn/hiragana")}>
                 Get Started
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 16 16">
-                    <path
-                            fill="#212121"
-                            fill-rule="evenodd"
-                            d="M10.159 10.72a.75.75 0 1 0 1.06 1.06l3.25-3.25L15 8l-.53-.53l-3.25-3.25a.75.75 0 0 0-1.061 1.06l1.97 1.97H1.75a.75.75 0 1 0 0 1.5h10.379z"
-                            clip-rule="evenodd"
-                    />
-                </svg>
+                <Icon icon="teenyicons:arrow-right-solid" width="1.3em" height="1.3em" style="color: black"/>
             </button>
         </div>
     </div>
@@ -35,21 +29,28 @@
         <h2 class="h2 text-center">Here are some of our features.</h2>
         <div class="grid grid-cols-3 gap-4">
             <div class="variant-glass p-6 shadow-lg space-y-4 text-center rounded-container-token">
-                <span class="btn-icon btn-icon-xl variant-soft-primary"></span>
+                <span class="btn-icon btn-icon-xl variant-soft-primary">
+                    <Icon icon="material-symbols:quiz-rounded" width="1.3em" height="1.3em" style="color: #119F6E"/>
+                </span>
                 <h3 class="h3">Interactive Quiz</h3>
                 <p>Put your memory to the test with interactive quizzes and challenge yourself with a variety of
                     question types, including multiple choices and typing.</p>
             </div>
             <div class="variant-glass p-6 shadow-lg space-y-4 text-center rounded-container-token">
-                <span class="btn-icon btn-icon-xl variant-soft-primary"></span>
+                <span class="btn-icon btn-icon-xl variant-soft-primary">
+                    <Icon icon="ri:numbers-fill" width="1.3em" height="1.3em" style="color: #119F6E"/>
+                </span>
                 <h3 class="h3">Statistics</h3>
                 <p>Stay motivated by tracking your learning statistics! We offer some insights into your learning
                     hiragana
                     and katakana such as how many kana you've mastered.</p>
             </div>
             <div class="variant-glass p-6 shadow-lg space-y-4 text-center rounded-container-token">
-                <span class="btn-icon btn-icon-xl variant-soft-primary"></span>
-                <h3 class="h3">Tracking Progress</h3>
+                <span class="btn-icon btn-icon-xl variant-soft-primary">
+                    <Icon icon="fluent-mdl2:issue-tracking-mirrored" width="1.3em" height="1.3em"
+                          style="color: #119F6E"/>
+                </span>
+                <h3 class="h3">Track Progress</h3>
                 <p>After each lesson that is successfully completed, your progress is automatically saved. Next time you
                     can continue your learning right where you left off!</p>
             </div>
