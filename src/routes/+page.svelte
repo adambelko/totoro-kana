@@ -27,7 +27,33 @@
         </div>
     </div>
     <div class="variant-soft-secondary mt-24 mb-24 p-8 text-center text-xl rounded-container-token">
-        You can also try our <a href="/practice" class="anchor">practice</a> page without an account required.
+        You can also try our <a href="/practice" class="anchor">practice</a> page without any account required.
+    </div>
+</section>
+<section>
+    <div class="flex flex-col gap-10 mt-24 mb-24">
+        <h2 class="h2 text-center">Here are some of our features.</h2>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="variant-glass p-6 shadow-lg space-y-4 text-center rounded-container-token">
+                <span class="btn-icon btn-icon-xl variant-soft-primary"></span>
+                <h3 class="h3">Interactive Quiz</h3>
+                <p>Put your memory to the test with interactive quizzes and challenge yourself with a variety of
+                    question types, including multiple choices and typing.</p>
+            </div>
+            <div class="variant-glass p-6 shadow-lg space-y-4 text-center rounded-container-token">
+                <span class="btn-icon btn-icon-xl variant-soft-primary"></span>
+                <h3 class="h3">Statistics</h3>
+                <p>Stay motivated by tracking your learning statistics! We offer some insights into your learning
+                    hiragana
+                    and katakana such as how many kana you've mastered.</p>
+            </div>
+            <div class="variant-glass p-6 shadow-lg space-y-4 text-center rounded-container-token">
+                <span class="btn-icon btn-icon-xl variant-soft-primary"></span>
+                <h3 class="h3">Tracking Progress</h3>
+                <p>After each lesson that is successfully completed, your progress is automatically saved. Next time you
+                    can continue your learning right where you left off!</p>
+            </div>
+        </div>
     </div>
 </section>
 <section>
@@ -38,11 +64,10 @@
             </a>
         </div>
         <div class="flex flex-col gap-4 text-left">
-            <h2 class="h2">Help Support Totoro Kana.</h2>
+            <h2 class="h2">Support the project.</h2>
             <p class="max-w-[480px]">Totoro Kana is an open source that survives through your support.
                 Please consider donating with <a class="anchor" href="https://ko-fi.com/totorokana">Ko-Fi</a>. The funds
-                will help to cover
-                standard costs, such as hosting and domain fees. Starring or contributing to the
+                will help to cover standard costs, such as hosting and domain services. Starring or contributing to the
                 <a class="anchor" href="https://github.com/adambelko/totoro-kana">GitHub</a> repository is also very
                 welcome!
             </p>
