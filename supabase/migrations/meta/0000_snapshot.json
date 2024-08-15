@@ -1,5 +1,5 @@
 {
-  "id": "b7b7c51a-f0cd-42bb-9661-cac1a98ceae4",
+  "id": "54b1fee5-70e0-407e-b180-0f31e23b26d4",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -72,6 +72,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "review_interval": {
+          "name": "review_interval",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
@@ -161,6 +167,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "review_interval": {
+          "name": "review_interval",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
@@ -197,6 +209,13 @@
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "join_date": {
+          "name": "join_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},

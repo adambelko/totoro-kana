@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS "hiragana_progress" (
 	"id" uuid PRIMARY KEY NOT NULL,
 	"user_id" uuid,
 	"completed_group" varchar NOT NULL,
-	"completion_date" date DEFAULT now() NOT NULL
+	"completion_date" date DEFAULT now() NOT NULL,
+	"review_interval" integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "katakana" (
@@ -25,12 +26,14 @@ CREATE TABLE IF NOT EXISTS "katakana_progress" (
 	"id" uuid PRIMARY KEY NOT NULL,
 	"user_id" uuid,
 	"completed_group" varchar NOT NULL,
-	"completion_date" date DEFAULT now() NOT NULL
+	"completion_date" date DEFAULT now() NOT NULL,
+	"review_interval" integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" uuid PRIMARY KEY NOT NULL,
 	"email" varchar NOT NULL,
+	"join_date" date DEFAULT now() NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint

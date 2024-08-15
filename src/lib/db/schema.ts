@@ -18,8 +18,8 @@ export const hiraganaProgress = pgTable("hiragana_progress", {
 	id: uuid("id").primaryKey(),
 	userId: uuid("user_id").references(() => users.id),
 	completedGroup: varchar("completed_group").notNull(),
-	completionDate: date("completion_date").defaultNow().notNull()
-	// reviewInterval: integer("review_interval").notNull()
+	completionDate: date("completion_date").defaultNow().notNull(),
+	reviewInterval: integer("review_interval").notNull()
 })
 
 export const katakana = pgTable("katakana", {
@@ -34,6 +34,6 @@ export const katakanaProgress = pgTable("katakana_progress", {
 	id: uuid("id").primaryKey(),
 	userId: uuid("user_id").references(() => users.id),
 	completedGroup: varchar("completed_group").notNull(),
-	completionDate: date("completion_date").defaultNow().notNull()
-	// reviewInterval: integer("review_interval").notNull()
+	completionDate: date("completion_date").defaultNow().notNull(),
+	reviewInterval: integer("review_interval").notNull()
 })
