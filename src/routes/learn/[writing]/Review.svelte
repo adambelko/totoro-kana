@@ -1,21 +1,8 @@
 <script lang="ts">
+  import {getGroupsToReview} from "$lib/utils/kana"
+
   export let writingProgressData: WritingProgress[]
-
-  console.log(writingProgressData)
-
-  const getGroupsToReview = (): WritingProgress[] => {
-    const today = new Date()
-    const groupsToReview = writingProgressData.filter((progress) => {
-      const completionDate = new Date(progress.completionDate)
-      const daysSinceCompletion = Math.floor(
-          (today.getTime() - completionDate.getTime()) / (1000 * 60 * 60 * 24)
-      )
-      return daysSinceCompletion >= progress.reviewInterval
-    })
-    return groupsToReview
-  }
-
-  const groupsToReview = getGroupsToReview()
+  const groupsToReview = getGroupsToReview(writingProgressData)
 </script>
 
 <div class="flex-1 variant-soft-surface p-4 rounded-container-token">
@@ -23,7 +10,7 @@
     <div class="flex flex-col gap-2">
         <p class="mt-2">You currently have {groupsToReview.length} groups to review</p>
         <div>
-            <button class="variant-filled-tertiary btn">Review all</button>
+            <button class="variant-filled-tertiary btn">Show review</button>
         </div>
     </div>
 </div>
