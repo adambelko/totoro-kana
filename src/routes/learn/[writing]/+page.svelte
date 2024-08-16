@@ -1,18 +1,18 @@
 <script lang="ts">
-  import {goto} from "$app/navigation"
-  import {page} from "$app/stores"
-  import {TabGroup, Tab, AppBar} from "@skeletonlabs/skeleton"
-  import {getFullName} from "$lib/utils/profileDetails"
-  import Dashboard from "./Dashboard.svelte"
+    import {goto} from "$app/navigation"
+    import {page} from "$app/stores"
+    import {TabGroup, Tab, AppBar} from "@skeletonlabs/skeleton"
+    import {getFullName} from "$lib/utils/profileDetails"
+    import Dashboard from "./Dashboard.svelte"
 
-  export let data
-  const {hiragana, katakana, hiraganaUserProgress = [], katakanaUserProgress = [], user} = data
-  let tabValue = $page.url.pathname.includes("hiragana") ? "hiragana" : "katakana"
+    export let data
+    const {hiragana, katakana, hiraganaUserProgress = [], katakanaUserProgress = [], user} = data
+    let tabValue = $page.url.pathname.includes("hiragana") ? "hiragana" : "katakana"
 
-  const handleTabClick = (tab: string) => {
-    tabValue = tab
-    goto(`/learn/${tab}`)
-  }
+    const handleTabClick = (tab: string) => {
+        tabValue = tab
+        goto(`/learn/${tab}`)
+    }
 </script>
 
 <div class="mb-6 mt-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">

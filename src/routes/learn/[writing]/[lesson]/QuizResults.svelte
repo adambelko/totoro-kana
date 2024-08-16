@@ -1,33 +1,33 @@
 <script lang="ts">
-  import {getKanaOrder} from "$lib/utils/kana"
+    import {getKanaOrder} from "$lib/utils/kana"
 
-  export let data
-  export let hiragana: boolean
-  export let incorrectKanaCount: number
-  export let groupName: string
-  export let handleRestudy: () => void
-  let lastLesson = false
+    export let data
+    export let hiragana: boolean
+    export let incorrectKanaCount: number
+    export let groupName: string
+    export let handleRestudy: () => void
+    let lastLesson = false
 
-  const kanaOrder = hiragana ? getKanaOrder(data.hiragana) : getKanaOrder(data.katakana)
-  const groupNameIndex = kanaOrder.findIndex((item) => item === groupName)
+    const kanaOrder = hiragana ? getKanaOrder(data.hiragana) : getKanaOrder(data.katakana)
+    const groupNameIndex = kanaOrder.findIndex((item) => item === groupName)
 
-  const navigate = (groupName: string) => {
-    const param = groupName.toLowerCase().split(" ").join("_")
-    window.location.href = hiragana ? `/learn/hiragana/${param}` : `/learn/katakana/${param}`
-  }
-
-  const startNextLesson = () => {
-    const nextLessonGroupName = kanaOrder[groupNameIndex + 1]
-    navigate(nextLessonGroupName)
-  }
-
-  const checkForLastLesson = () => {
-    if (groupNameIndex === kanaOrder.length - 1) {
-      lastLesson = true
+    const navigate = (groupName: string) => {
+        const param = groupName.toLowerCase().split(" ").join("_")
+        window.location.href = hiragana ? `/learn/hiragana/${param}` : `/learn/katakana/${param}`
     }
-  }
 
-  checkForLastLesson()
+    const startNextLesson = () => {
+        const nextLessonGroupName = kanaOrder[groupNameIndex + 1]
+        navigate(nextLessonGroupName)
+    }
+
+    const checkForLastLesson = () => {
+        if (groupNameIndex === kanaOrder.length - 1) {
+            lastLesson = true
+        }
+    }
+
+    checkForLastLesson()
 </script>
 
 <div class="flex justify-center gap-4">

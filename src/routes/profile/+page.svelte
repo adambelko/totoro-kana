@@ -1,14 +1,14 @@
 <script lang="ts">
-  import {formatTimestamp} from "$lib/utils/date"
-  import {getUserCompletedGroups, getUserKanaLearnedCount} from "$lib/utils/kana"
+    import {formatTimestamp} from "$lib/utils/date"
+    import {getUserCompletedGroups, getUserKanaLearnedCount} from "$lib/utils/kana"
 
-  export let data
-  const {user, hiragana, katakana, hiraganaUserProgress, katakanaUserProgress} = data
+    export let data
+    const {user, hiragana, katakana, hiraganaUserProgress, katakanaUserProgress} = data
 
-  const userHiraganaCompletedGroups = getUserCompletedGroups(hiraganaUserProgress)
-  const userKatakanaCompletedGroups = getUserCompletedGroups(katakanaUserProgress)
-  const learnedHiraganaCount = getUserKanaLearnedCount(userHiraganaCompletedGroups, hiragana)
-  const learnedKatakanaCount = getUserKanaLearnedCount(userKatakanaCompletedGroups, katakana)
+    const userHiraganaCompletedGroups = getUserCompletedGroups(hiraganaUserProgress)
+    const userKatakanaCompletedGroups = getUserCompletedGroups(katakanaUserProgress)
+    const learnedHiraganaCount = getUserKanaLearnedCount(userHiraganaCompletedGroups, hiragana)
+    const learnedKatakanaCount = getUserKanaLearnedCount(userKatakanaCompletedGroups, katakana)
 </script>
 
 <div class="mb-6 mt-4 flex flex-col bg-white/30 p-6 rounded-container-token">

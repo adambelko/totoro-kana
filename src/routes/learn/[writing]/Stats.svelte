@@ -1,13 +1,13 @@
 <script lang="ts">
-  import {ProgressBar} from "@skeletonlabs/skeleton"
-  import {getUserCompletedGroups, getUserKanaLearnedCount} from "$lib/utils/kana"
+    import {ProgressBar} from "@skeletonlabs/skeleton"
+    import {getUserCompletedGroups, getUserKanaLearnedCount} from "$lib/utils/kana"
 
-  export let writingData: Kana[]
-  export let writingProgressData: WritingProgress[]
+    export let writingData: Kana[]
+    export let writingProgressData: WritingProgress[]
 
-  const userCompletedGroups = getUserCompletedGroups(writingProgressData)
-  const learnedKanaCount = getUserKanaLearnedCount(userCompletedGroups, writingData)
-  $: progressBarValue = (learnedKanaCount / writingData.length) * 100
+    const userCompletedGroups = getUserCompletedGroups(writingProgressData)
+    const learnedKanaCount = getUserKanaLearnedCount(userCompletedGroups, writingData)
+    $: progressBarValue = (learnedKanaCount / writingData.length) * 100
 </script>
 
 <div class="flex-1 variant-soft-surface p-4 rounded-container-token">

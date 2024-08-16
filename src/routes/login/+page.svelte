@@ -1,12 +1,12 @@
 <script lang="ts">
-  import {goto} from "$app/navigation"
-  import {onMount} from "svelte"
+    import {goto} from "$app/navigation"
+    import {onMount} from "svelte"
 
-  export let data
+    export let data
 
-  onMount(() => {
-    if (data.user) goto("/")
-  })
+    onMount(() => {
+        if (data.user) goto("/")
+    })
 </script>
 
 <div class="mt-4 flex flex-col bg-white/30 p-6 rounded-container-token">

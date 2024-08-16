@@ -1,37 +1,37 @@
 <script lang="ts">
-  import {useKeyDownHandler} from "$lib/utils/keydown"
+    import {useKeyDownHandler} from "$lib/utils/keydown"
 
-  export let selectedGroup: Kana[]
-  export let groupName: string
-  export let currentIndex: number
-  export let setCurrentCharacters: (index: number) => void
-  export let startQuiz: () => void
+    export let selectedGroup: Kana[]
+    export let groupName: string
+    export let currentIndex: number
+    export let setCurrentCharacters: (index: number) => void
+    export let startQuiz: () => void
 
-  useKeyDownHandler((event) => {
-        if (event.key === "Enter") {
-          event.preventDefault()
-          startQuiz()
-        } else if (event.key === "ArrowLeft") {
-          event.preventDefault()
-          navigateLeft()
-        } else if (event.key === "ArrowRight") {
-          event.preventDefault()
-          navigateRight()
+    useKeyDownHandler((event) => {
+            if (event.key === "Enter") {
+                event.preventDefault()
+                startQuiz()
+            } else if (event.key === "ArrowLeft") {
+                event.preventDefault()
+                navigateLeft()
+            } else if (event.key === "ArrowRight") {
+                event.preventDefault()
+                navigateRight()
+            }
         }
-      }
-  )
+    )
 
-  const navigateLeft = () => {
-    if (currentIndex > 0) {
-      setCurrentCharacters(currentIndex - 1)
+    const navigateLeft = () => {
+        if (currentIndex > 0) {
+            setCurrentCharacters(currentIndex - 1)
+        }
     }
-  }
 
-  const navigateRight = () => {
-    if (currentIndex < selectedGroup.length - 1) {
-      setCurrentCharacters(currentIndex + 1)
+    const navigateRight = () => {
+        if (currentIndex < selectedGroup.length - 1) {
+            setCurrentCharacters(currentIndex + 1)
+        }
     }
-  }
 </script>
 
 <div class="flex justify-center gap-4 p-6">

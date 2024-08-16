@@ -1,8 +1,8 @@
 <script lang="ts">
-  import {getGroupsToReview} from "$lib/utils/kana"
+    import {getGroupsToReview} from "$lib/utils/kana"
 
-  export let writingProgressData: WritingProgress[]
-  const groupsToReview = getGroupsToReview(writingProgressData)
+    export let writingProgressData: WritingProgress[]
+    const groupsToReview = getGroupsToReview(writingProgressData)
 </script>
 
 <div class="flex-1 variant-soft-surface p-4 rounded-container-token">
