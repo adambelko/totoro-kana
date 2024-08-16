@@ -10,7 +10,7 @@
     <div class="flex flex-col gap-2">
         <p class="mt-2">You currently have {groupsToReview.length} groups to review</p>
         <div>
-            <button class="variant-filled-tertiary btn">Show review</button>
+            <button class="variant-filled-tertiary btn">Show groups</button>
         </div>
     </div>
 </div>

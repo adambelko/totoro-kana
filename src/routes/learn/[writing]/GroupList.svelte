@@ -1,36 +1,36 @@
 <script lang="ts">
-  import {goto} from "$app/navigation"
-  import {getFirstRomaji, getGroupsToReview, getKanaOrder} from "$lib/utils/kana.js"
+    import {goto} from "$app/navigation"
+    import {getFirstCharacter, getGroupsToReview, getKanaOrder} from "$lib/utils/kana.js"
 
-  export let user: string | undefined
-  export let tabValue: string
-  export let writingData: Kana[]
-  export let writingProgressData: WritingProgress[]
+    export let user: string | undefined
+    export let tabValue: string
+    export let writingData: Kana[]
+    export let writingProgressData: WritingProgress[]
 
-  const groupNames = getKanaOrder(writingData)
+    const groupNames = getKanaOrder(writingData)
 
-  const getGroupCharacters = (groupName: string) => {
-    return writingData.filter((kana) => kana.groupName === groupName)
-  }
+    const getGroupCharacters = (groupName: string) => {
+        return writingData.filter((kana) => kana.groupName === groupName)
+    }
 
-  const isCompleted = (groupName: string): boolean => {
-    return writingProgressData.some((progress) => progress.completedGroup === groupName)
-  }
+    const isCompleted = (groupName: string): boolean => {
+        return writingProgressData.some((progress) => progress.completedGroup === groupName)
+    }
 
-  const isReadyForReview = (groupName: string): boolean => {
-    const groupsToReview = getGroupsToReview(writingProgressData)
-    return groupsToReview.some((progress) => progress.completedGroup === groupName)
-  }
+    const isReadyForReview = (groupName: string): boolean => {
+        const groupsToReview = getGroupsToReview(writingProgressData)
+        return groupsToReview.some((progress) => progress.completedGroup === groupName)
+    }
 
-  const isNextToLearn = (groupName: string): boolean => {
-    const firstIncompleteGroup = groupNames.find((group) => !isCompleted(group))
-    return firstIncompleteGroup === groupName
-  }
+    const isNextToLearn = (groupName: string): boolean => {
+        const firstIncompleteGroup = groupNames.find((group) => !isCompleted(group))
+        return firstIncompleteGroup === groupName
+    }
 
-  const startLesson = (groupName: string) => {
-    const param = groupName.toLowerCase().split(" ").join("_")
-    goto(`/learn/${tabValue}/${param}`)
-  }
+    const startLesson = (groupName: string) => {
+        const param = groupName.toLowerCase().split(" ").join("_")
+        goto(`/learn/${tabValue}/${param}`)
+    }
 </script>
 
 <div class="flex-1 bg-surface-200 p-4 rounded-container-token">
@@ -42,8 +42,8 @@
                     <div class="flex justify-between">
                         <div class="flex flex-wrap gap-4">
                             {#each getGroupCharacters(groupName) as {japanese, romaji}}
-                                <div class="flex min-w-16 justify-center bg-surface-300 p-3 rounded-container-token">
-                                    {japanese} / {getFirstRomaji(romaji)}
+                                <div class="variant-ghost-surface cursor-default btn">
+                                    {japanese} / {getFirstCharacter(romaji)}
                                 </div>
                             {/each}
                         </div>

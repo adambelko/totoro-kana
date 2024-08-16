@@ -1,83 +1,83 @@
 <script lang="ts">
-  import {AppBar, ProgressBar} from "@skeletonlabs/skeleton"
-  import {useKeyDownHandler} from "$lib/utils/keydown"
-  import {shuffleArray} from "$lib/utils/kana"
-  import {get, post} from "$lib/utils/api"
-  import QuizInput from "./QuizInput.svelte"
-  import QuizButton from "./QuizButton.svelte"
-  import QuizResults from "./QuizResults.svelte"
+    import {AppBar, ProgressBar} from "@skeletonlabs/skeleton"
+    import {useKeyDownHandler} from "$lib/utils/keydown"
+    import {shuffleArray} from "$lib/utils/kana"
+    import {get, post} from "$lib/utils/api"
+    import QuizInput from "./QuizInput.svelte"
+    import QuizButton from "./QuizButton.svelte"
+    import QuizResults from "./QuizResults.svelte"
 
-  interface KanaList {
-    japanese: string
-    romaji: string
-  }
-
-  interface GroupCompletionResponse {
-    isGroupCompleted: boolean;
-    reviewInterval: number
-  }
-
-  export let data
-  export let quiz: boolean
-  export let hiragana: boolean
-  export let groupName: string
-  export let selectedGroup: Kana[]
-
-  let currentJapaneseCharacter = ""
-  let currentRomajiCharacter = ""
-  let quizStage = 4
-  let currentIndex = 0
-  let correctKanaCount = 0
-  let incorrectKanaCount = 0
-  let shuffledKanaList: KanaList[] = []
-  $: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
-
-  const checkGroupCompletion = async (): Promise<GroupCompletionResponse> => {
-    return await get(`/learn?userId=${data.user.id}&groupName=${groupName}&hiragana=${hiragana}`)
-  }
-
-  useKeyDownHandler((event) => {
-    if (event.key.toLowerCase() === "r" && event.shiftKey) {
-      event.preventDefault()
-      handleRestudy()
-    }
-  })
-
-  const init = () => {
-    const kanaList = selectedGroup.map((kana) => ({
-      japanese: kana.japanese,
-      romaji: kana.romaji
-    }))
-
-    shuffledKanaList = shuffleArray(kanaList)
-  }
-
-  const submitProgress = async () => {
-    const {isGroupCompleted, reviewInterval} = await checkGroupCompletion()
-    const requestData = {
-      userId: data.user.id,
-      groupName,
-      hiragana,
-      reviewInterval
+    interface KanaList {
+        japanese: string
+        romaji: string
     }
 
-    if (isGroupCompleted) {
-      post("/review", requestData)
-    } else {
-      post("/learn", requestData)
+    interface GroupCompletionResponse {
+        isGroupCompleted: boolean;
+        reviewInterval: number
     }
-  }
 
-  const saveUserProgress = () => {
-    quizStage <= 3 ? correctKanaCount++ : submitProgress()
-  }
+    export let data
+    export let quiz: boolean
+    export let hiragana: boolean
+    export let groupName: string
+    export let selectedGroup: Kana[]
 
-  const handleRestudy = () => {
-    quiz = false
-  }
+    let currentJapaneseCharacter = ""
+    let currentRomajiCharacter = ""
+    let quizStage = 1
+    let currentIndex = 0
+    let correctKanaCount = 0
+    let incorrectKanaCount = 0
+    let shuffledKanaList: KanaList[] = []
+    $: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
 
-  init()
-  submitProgress()
+    const checkGroupCompletion = async (): Promise<GroupCompletionResponse> => {
+        return await get(`/learn?userId=${data.user.id}&groupName=${groupName}&hiragana=${hiragana}`)
+    }
+
+    useKeyDownHandler((event) => {
+        if (event.key.toLowerCase() === "r" && event.shiftKey) {
+            event.preventDefault()
+            handleRestudy()
+        }
+    })
+
+    const init = () => {
+        const kanaList = selectedGroup.map((kana) => ({
+            japanese: kana.japanese,
+            romaji: kana.romaji
+        }))
+
+        shuffledKanaList = shuffleArray(kanaList)
+    }
+
+    const submitProgress = async () => {
+        const {isGroupCompleted, reviewInterval} = await checkGroupCompletion()
+        const requestData = {
+            userId: data.user.id,
+            groupName,
+            hiragana,
+            reviewInterval
+        }
+
+        if (isGroupCompleted) {
+            post("/review", requestData)
+        } else {
+            post("/learn", requestData)
+        }
+    }
+
+    const saveUserProgress = () => {
+        quizStage <= 3 ? correctKanaCount++ : submitProgress()
+    }
+
+    const handleRestudy = () => {
+        quiz = false
+    }
+
+    init()
+    submitProgress()
 </script>
 
 <div class="mb-6 mt-4 flex flex-col bg-white/30 rounded-container-token">
