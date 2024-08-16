@@ -8,6 +8,7 @@ declare global {
 			safeGetSession: () => Promise<{ session: Session | null; user: User | null }>
 			session: Session | null
 		}
+
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
@@ -34,6 +35,7 @@ declare global {
 		userId: string | null
 		completedGroup: string
 		completionDate: string
+		reviewInterval: number
 	}
 }
 

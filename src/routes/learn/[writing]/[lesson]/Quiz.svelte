@@ -25,13 +25,12 @@
 
   let currentJapaneseCharacter = ""
   let currentRomajiCharacter = ""
-  let quizStage = 3
+  let quizStage = 4
   let currentIndex = 0
   let correctKanaCount = 0
   let incorrectKanaCount = 0
   let shuffledKanaList: KanaList[] = []
   $: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
-
 
   const checkGroupCompletion = async (): Promise<GroupCompletionResponse> => {
     return await get(`/learn?userId=${data.user.id}&groupName=${groupName}&hiragana=${hiragana}`)
@@ -124,12 +123,12 @@
                         {saveUserProgress}
                 />
             {:else}
-                <QuizResults {data} {hiragana} {incorrectKanaCount} {groupName} {handleRestudy}/>
+                <QuizResults {data} {hiragana} {incorrectKanaCount} {groupName} {handleRestudy} />
             {/if}
         </div>
     </div>
     <span class="mb-1 flex justify-center">
 		{correctKanaCount}/{shuffledKanaList.length * 3}
 	</span>
-    <ProgressBar value={progressBarValue} max={100}/>
+    <ProgressBar value={progressBarValue} max={100} />
 </div>

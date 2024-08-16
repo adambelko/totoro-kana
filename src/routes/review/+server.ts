@@ -1,7 +1,7 @@
 import { hiraganaProgress, katakanaProgress } from "$lib/db/schema"
 import { json } from "@sveltejs/kit"
-import { db } from "$lib/db"
 import { and, eq } from "drizzle-orm"
+import { db } from "$lib/db"
 
 export const POST = async ({ request }) => {
 	const { userId, groupName, hiragana, reviewInterval } = await request.json()
