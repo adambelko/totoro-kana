@@ -26,11 +26,11 @@ Totoro Kana is built using:
 
 ## Contributing
 
-Please see the contributing guide.
+Please see the [contributing guide](./CONTRIBUTING.md).
 
 ## Supporting Totoro Kana
 
-Totoro Kana is an open-source project that also survives through your help. Best way to support me is by starring
+Totoro Kana is an open-source project that also survives through your help. Best way to support is by starring
 this GitHub repository.
 
 Alternatively, you can also support me through [Ko-Fi](https://ko-fi.com/totorokana). Your

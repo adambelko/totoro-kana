@@ -53,3 +53,9 @@
         </div>
     </div>
 </div>
+
+<style>
+    *:focus {
+        outline: 0 !important;
+    }
+</style>

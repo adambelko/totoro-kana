@@ -40,7 +40,7 @@
                 <h4 class="h4 mb-4">Lesson {index + 1} - {groupName}</h4>
                 <div class="flex flex-col gap-4 rounded-container-token">
                     <div class="flex justify-between">
-                        <div class="flex flex-wrap gap-4">
+                        <div class="flex flex-wrap gap-3">
                             {#each getGroupCharacters(groupName) as {japanese, romaji}}
                                 <div class="variant-ghost-surface cursor-default btn">
                                     {japanese} / {getFirstCharacter(romaji)}
