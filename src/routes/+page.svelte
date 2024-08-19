@@ -60,7 +60,7 @@
 <section>
     <div class="flex justify-center gap-16 mt-24 mb-24">
         <div class="flex items-center">
-            <a href="https://www.adambelko.com/">
+            <a href="https://www.adambelko.com/" target="_blank">
                 <Avatar initials="AB" background="variant-soft-primary" width="h-48" />
             </a>
         </div>
