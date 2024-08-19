@@ -1,6 +1,7 @@
 <script lang="ts">
     import {goto} from "$app/navigation"
-    import {getFirstCharacter, getGroupsToReview, getKanaOrder} from "$lib/utils/kana.js"
+    import {getGroupsToReview, getKanaOrder} from "$lib/utils/kana.js"
+    import GroupCard from "./GroupCard.svelte"
 
     export let user: string | undefined
     export let tabValue: string
@@ -9,10 +10,6 @@
 
     let isGroupListExpanded = false
     const groupNames = getKanaOrder(writingData)
-    
-    const getGroupCharacters = (groupName: string) => {
-        return writingData.filter((kana) => kana.groupName === groupName)
-    }
 
     const isCompleted = (groupName: string): boolean => {
         return writingProgressData.some((progress) => progress.completedGroup === groupName)
@@ -43,56 +40,19 @@
     <div class="flex flex-col gap-4">
         {#each groupNames as groupName, index}
             {#if !isGroupListExpanded && isNextToLearn(groupName)}
-                <div class="flex flex-col bg-surface-100 p-4 rounded-container-token">
-                    <h4 class="h4 mb-4">Lesson {index + 1} - {groupName}</h4>
-                    <div class="flex justify-between">
-                        <div class="flex flex-wrap gap-3">
-                            {#each getGroupCharacters(groupName) as {japanese, romaji}}
-                                <div class="variant-ghost-surface cursor-default btn">
-                                    {japanese} / {getFirstCharacter(romaji)}
-                                </div>
-                            {/each}
-                        </div>
-                        <div>
-                            <button
-                                    class="variant-filled-primary btn"
-                                    disabled={!user}
-                                    on:click={() => startLesson(groupName)}>Start lesson
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <GroupCard {groupName} {index} {startLesson} {writingData} />
                 <button class="anchor" on:click={() => isGroupListExpanded = true}>Show all lessons</button>
             {:else if isGroupListExpanded}
-                <div class="flex flex-col bg-surface-100 p-4 rounded-container-token">
-                    <h4 class="h4 mb-4">Lesson {index + 1} - {groupName}</h4>
-                    <div class="flex flex-col gap-4 rounded-container-token">
-                        <div class="flex justify-between">
-                            <div class="flex flex-wrap gap-3">
-                                {#each getGroupCharacters(groupName) as {japanese, romaji}}
-                                    <div class="variant-ghost-surface cursor-default btn">
-                                        {japanese} / {getFirstCharacter(romaji)}
-                                    </div>
-                                {/each}
-                            </div>
-                            <div>
-                                {#if isCompleted(groupName) && isReadyForReview(groupName)}
-                                    <button
-                                            class="variant-filled-tertiary btn"
-                                            disabled={!user}
-                                            on:click={() => startLesson(groupName)}>Review
-                                    </button>
-                                {:else if isNextToLearn(groupName)}
-                                    <button
-                                            class="variant-filled-primary btn"
-                                            disabled={!user}
-                                            on:click={() => startLesson(groupName)}>Start lesson
-                                    </button>
-                                {/if}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <GroupCard
+                        {groupName}
+                        {index}
+                        {user}
+                        {writingData}
+                        isCompleted={isCompleted(groupName)}
+                        isReadyForReview={isReadyForReview(groupName)}
+                        isNextToLearn={isNextToLearn(groupName)}
+                        {startLesson}
+                />
             {/if}
         {/each}
     </div>
