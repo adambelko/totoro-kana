@@ -12,7 +12,7 @@
 <div class="flex flex-col gap-4">
     <div class="flex gap-4">
         <Stats {writingData} {writingProgressData} />
-        <Review {writingProgressData} />
+        <Review {writingProgressData} {tabValue} />
     </div>
     <GroupList user={userId} {tabValue} {writingData} {writingProgressData} />
 </div>
