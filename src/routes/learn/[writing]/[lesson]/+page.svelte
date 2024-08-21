@@ -12,8 +12,9 @@
     let currentJapaneseCharacter: string
     let currentRomajiCharacter: string
     let selectedGroup: Kana[] = []
-    const hiragana = $page.url.pathname.includes("hiragana")
     const lastUrlParam = $page.url.pathname.split("/").pop()
+    const isHiragana = $page.url.pathname.includes("hiragana")
+    const isReview = $page.url.searchParams.get("review") === "true"
     let groupName = ""
 
     const formatParam = (param: string): string => {
@@ -24,9 +25,9 @@
     }
 
     const getSelectedGroup = (): Kana[] => {
-        if (hiragana && data?.hiragana) {
+        if (isHiragana && data?.hiragana) {
             return data.hiragana.filter((kana) => kana.groupName === groupName)
-        } else if (!hiragana && data?.katakana) {
+        } else if (!isHiragana && data?.katakana) {
             return data.katakana.filter((kana) => kana.groupName === groupName)
         }
 
@@ -63,8 +64,7 @@
         <div class="mb-4 flex justify-center gap-4 p-6 text-4xl">{currentRomajiCharacter}</div>
         <div class="flex flex-col gap-4">
             <div class="flex justify-center">
-                Press<kbd class="kbd ml-1.5 mr-1.5">←</kbd> or
-                <kbd class="kbd ml-1.5 mr-1.5">→</kbd> to navigate
+                Press<kbd class="kbd ml-1.5 mr-1.5">←</kbd>or<kbd class="kbd ml-1.5 mr-1.5">→</kbd> to navigate
             </div>
             <div class="flex justify-center">
                 Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to start the quiz
@@ -75,5 +75,5 @@
         </div>
     </div>
 {:else}
-    <Quiz {data} {selectedGroup} {groupName} {hiragana} bind:quiz />
+    <Quiz {data} {selectedGroup} {groupName} {isHiragana} {isReview} bind:quiz />
 {/if}

@@ -29,15 +29,13 @@
                 name="hiragana"
                 value={"hiragana"}
                 on:click={() => handleTabClick("hiragana")}>Hiragana
-        </Tab
-        >
+        </Tab>
         <Tab
                 bind:group={tabValue}
                 name="katakana"
                 value={"katakana"}
                 on:click={() => handleTabClick("katakana")}>Katakana
-        </Tab
-        >
+        </Tab>
 
         <svelte:fragment slot="panel">
             {#if tabValue === "hiragana"}

@@ -25,9 +25,9 @@
         return firstIncompleteGroup === groupName
     }
 
-    const startLesson = (groupName: string) => {
+    const startLesson = (groupName: string, review: boolean) => {
         const param = groupName.toLowerCase().split(" ").join("_")
-        goto(`/learn/${tabValue}/${param}`)
+        goto(`/learn/${tabValue}/${param}?review=${review}`)
     }
 </script>
 
@@ -40,7 +40,12 @@
     <div class="flex flex-col gap-4">
         {#each groupNames as groupName, index}
             {#if !isGroupListExpanded && isNextToLearn(groupName)}
-                <GroupCard {groupName} {index} {startLesson} {writingData} />
+                <GroupCard {groupName}
+                           {index}
+                           {user}
+                           {writingData}
+                           isNextToLearn={isNextToLearn(groupName)}
+                           {startLesson} />
                 <button class="anchor" on:click={() => isGroupListExpanded = true}>Show all lessons</button>
             {:else if isGroupListExpanded}
                 <GroupCard

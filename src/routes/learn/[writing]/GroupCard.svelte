@@ -8,7 +8,7 @@
     export let groupName: string
     export let index: number
     export let writingData: Kana[]
-    export let startLesson: (groupName: string) => void
+    export let startLesson: (groupName: string, review: boolean) => void
 
     const getGroupCharacters = (groupName: string) => {
         return writingData.filter((kana) => kana.groupName === groupName)
@@ -29,11 +29,12 @@
         </div>
         <div>
             {#if isCompleted && isReadyForReview}
-                <button class="variant-filled-tertiary btn" on:click={() => startLesson(groupName)}>
+                <button class="variant-filled-tertiary btn" on:click={() => startLesson(groupName, true)}>
                     Review
                 </button>
             {:else if isNextToLearn}
-                <button class="variant-filled-primary btn" disabled={!user} on:click={() => startLesson(groupName)}>
+                <button class="variant-filled-primary btn" disabled={!user}
+                        on:click={() => startLesson(groupName, false)}>
                     Start lesson
                 </button>
             {/if}

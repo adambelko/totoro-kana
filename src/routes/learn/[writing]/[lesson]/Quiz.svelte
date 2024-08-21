@@ -19,21 +19,24 @@
 
     export let data
     export let quiz: boolean
-    export let hiragana: boolean
+    export let isHiragana: boolean
+    export let isReview: boolean
     export let groupName: string
     export let selectedGroup: Kana[]
 
     let currentJapaneseCharacter = ""
     let currentRomajiCharacter = ""
-    let quizStage = 1
+    let quizStage = 4
     let currentIndex = 0
     let correctKanaCount = 0
     let incorrectKanaCount = 0
     let shuffledKanaList: KanaList[] = []
+    let userProgress: WritingProgress[]
+    let isReviewDataReady = false
     $: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
 
     const checkGroupCompletion = async (): Promise<GroupCompletionResponse> => {
-        return await get(`/learn?userId=${data.user.id}&groupName=${groupName}&hiragana=${hiragana}`)
+        return await get(`/learn?userId=${data.user.id}&groupName=${groupName}&hiragana=${isHiragana}`)
     }
 
     useKeyDownHandler((event) => {
@@ -57,14 +60,16 @@
         const requestData = {
             userId: data.user.id,
             groupName,
-            hiragana,
+            isHiragana,
             reviewInterval
         }
 
         if (isGroupCompleted) {
-            post("/review", requestData)
+            const {tableUserProgress} = await post("/review", requestData)
+            userProgress = tableUserProgress
+            isReviewDataReady = true
         } else {
-            post("/learn", requestData)
+            await post("/learn", requestData)
         }
     }
 
@@ -122,8 +127,16 @@
                         {handleRestudy}
                         {saveUserProgress}
                 />
-            {:else}
-                <QuizResults {data} {hiragana} {incorrectKanaCount} {groupName} {handleRestudy} />
+            {:else if isReviewDataReady}
+                <QuizResults
+                        {data}
+                        {isHiragana}
+                        {incorrectKanaCount}
+                        {isReview}
+                        {groupName}
+                        {handleRestudy}
+                        {userProgress}
+                />
             {/if}
         </div>
     </div>

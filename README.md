@@ -11,15 +11,13 @@ Totoro Kana is an open-source platform designed to help you learn and practice J
 Totoro Kana is built using:
 
 - [Svelte](https://svelte.dev/) & [SvelteKit](https://kit.svelte.dev/)
-    - Svelte offers reactive, component-based architecture, enabling smooth, dynamic interfaces with minimal overhead
-    - SvelteKit provides a full-stack solution, combining front-end and back-end capabilities in one framework
+    - Svelte offers reactive, component-based architecture, enabling dynamic interfaces with minimal overhead
+    - SvelteKit provides a full-stack solution, combining front-end and back-end in one framework
 - [Supabase Auth](https://supabase.com/auth) and [Supabase Database](https://supabase.com/database)
     - Supabase Auth takes care of secure and scalable authentication, while the Supabase database provides a fully
       managed, high-performance PostgreSQL
 - [Drizzle ORM](https://orm.drizzle.team/)
-    - A type-safe ORM (Object-Relational Mapper) that ensures compile-time validation of database queries, reducing
-      runtime errors
-    - Drizzle ORM’s migration support allows for easy schema evolution while maintaining data integrity
+    - A type-safe ORM that ensures compile-time validation of database queries, reducing runtime errors
 - [Skeleton](https://www.skeleton.dev/) and [Tailwind](https://tailwindui.com/)
     - Skeleton offers a minimalist design framework that complements Tailwind’s utility-first CSS approach, making it
       easier and quicker to create responsive and visually appealing interfaces
