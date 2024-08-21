@@ -5,7 +5,8 @@
     import {get, post} from "$lib/utils/api"
     import QuizInput from "./QuizInput.svelte"
     import QuizButton from "./QuizButton.svelte"
-    import QuizResults from "./QuizResults.svelte"
+    import QuizLessonResults from "./QuizLessonResults.svelte"
+    import QuizReviewResults from "./QuizReviewResults.svelte"
 
     interface KanaList {
         japanese: string
@@ -127,15 +128,23 @@
                         {handleRestudy}
                         {saveUserProgress}
                 />
-            {:else if isReviewDataReady}
-                <QuizResults
+            {:else if !isReview}
+                <QuizLessonResults
                         {data}
                         {isHiragana}
                         {incorrectKanaCount}
-                        {isReview}
                         {groupName}
                         {handleRestudy}
+                />
+            {:else if isReviewDataReady}
+                <QuizReviewResults
+                        {data}
+                        {isHiragana}
+                        {isReview}
+                        {incorrectKanaCount}
+                        {groupName}
                         {userProgress}
+                        {handleRestudy}
                 />
             {/if}
         </div>
