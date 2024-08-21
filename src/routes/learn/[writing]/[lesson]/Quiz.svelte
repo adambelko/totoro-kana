@@ -27,7 +27,7 @@
 
     let currentJapaneseCharacter = ""
     let currentRomajiCharacter = ""
-    let quizStage = 4
+    let quizStage = 1
     let currentIndex = 0
     let correctKanaCount = 0
     let incorrectKanaCount = 0
@@ -83,7 +83,6 @@
     }
 
     init()
-    submitProgress()
 </script>
 
 <div class="mb-6 mt-4 flex flex-col bg-white/30 rounded-container-token">

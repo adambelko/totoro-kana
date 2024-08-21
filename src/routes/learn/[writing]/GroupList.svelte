@@ -2,14 +2,18 @@
     import {goto} from "$app/navigation"
     import {getGroupsToReview, getKanaOrder} from "$lib/utils/kana.js"
     import GroupCard from "./GroupCard.svelte"
+    import {isGroupListExpanded} from "$lib/stores"
 
     export let user: string | undefined
     export let tabValue: string
     export let writingData: Kana[]
     export let writingProgressData: WritingProgress[]
 
-    let isGroupListExpanded = false
     const groupNames = getKanaOrder(writingData)
+
+    const toggleGroupList = () => {
+        isGroupListExpanded.update(state => !state)
+    }
 
     const isCompleted = (groupName: string): boolean => {
         return writingProgressData.some((progress) => progress.completedGroup === groupName)
@@ -32,22 +36,22 @@
 </script>
 
 <div class="flex-1 bg-surface-200 p-4 rounded-container-token">
-    {#if isGroupListExpanded}
+    {#if $isGroupListExpanded}
         <div class="flex justify-center">
-            <button class="pb-4 anchor" on:click={() => isGroupListExpanded = false}>Hide lessons</button>
+            <button class="pb-4 anchor" on:click={toggleGroupList}>Hide lessons</button>
         </div>
     {/if}
     <div class="flex flex-col gap-4">
         {#each groupNames as groupName, index}
-            {#if !isGroupListExpanded && isNextToLearn(groupName)}
+            {#if !$isGroupListExpanded && isNextToLearn(groupName)}
                 <GroupCard {groupName}
                            {index}
                            {user}
                            {writingData}
                            isNextToLearn={isNextToLearn(groupName)}
                            {startLesson} />
-                <button class="anchor" on:click={() => isGroupListExpanded = true}>Show all lessons</button>
-            {:else if isGroupListExpanded}
+                <button class="anchor" on:click={toggleGroupList}>Show all lessons</button>
+            {:else if $isGroupListExpanded}
                 <GroupCard
                         {groupName}
                         {index}
