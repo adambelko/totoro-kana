@@ -3,6 +3,7 @@
     import PracticeResults from "./PracticeResults.svelte"
     import {useKeyDownHandler} from "$lib/utils/keydown"
     import {shuffleArray} from "$lib/utils/kana"
+    import {onMount} from "svelte"
 
     interface SelectedKana {
         hiragana: KanaData[]
@@ -31,6 +32,14 @@
         } else if (event.key.toLowerCase() === "s" && event.shiftKey) {
             event.preventDefault()
             skipCharacter()
+        }
+    })
+
+    let inputElement: HTMLInputElement
+
+    onMount(() => {
+        if (inputElement) {
+            inputElement.focus()
         }
     })
 
@@ -108,10 +117,10 @@
             <div class="mb-10 mt-20 flex w-1/2 flex-col items-center justify-between gap-4">
                 <div class="text-6xl">{currentJapaneseCharacter}</div>
                 <input
-                        autofocus
                         class="input h-8 w-1/2 pl-3 {inputErrorClass}"
                         type="text"
                         bind:value={userRomajiInput}
+                        bind:this={inputElement}
                 />
                 <div class="flex justify-center gap-4">
                     <button class="variant-filled-tertiary btn" on:click={skipCharacter}>Skip</button>

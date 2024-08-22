@@ -1,7 +1,6 @@
 <script lang="ts">
     import {getGroupsToReview} from "$lib/utils/kana"
 
-    export let data
     export let isHiragana: boolean
     export let isReview: boolean
     export let incorrectKanaCount: number
