@@ -1,6 +1,7 @@
 <script lang="ts">
     import {goto} from "$app/navigation"
     import {onMount} from "svelte"
+    import Icon from "@iconify/svelte"
 
     export let data
 
@@ -9,14 +10,24 @@
     })
 </script>
 
-<div class="mt-4 flex flex-col bg-white/30 p-6 rounded-container-token">
-    <h2 class="h2 p-4 text-center">Sing in</h2>
-    <div class="flex flex-col gap-4 text-center">
+<div class="mt-4 flex flex-col bg-white/30 pt-6 pb-10 rounded-container-token">
+    <h2 class="h2 p-4 text-center">Log in</h2>
+    <div class="flex flex-col gap-4 items-center">
         <a href="/auth/login?provider=spotify">
-            <button class="bg-tertiary-400 btn">Continue with<span class="font-bold">&nbsp;Spotify</span></button>
+            <button class="bg-tertiary-400 btn">
+                <Icon icon="mdi:spotify" width="1.3em" height="1.3em" style="color: black" />
+                <div class="pr-2">
+                    Continue with &nbsp;<span class="font-bold">Spotify</span>
+                </div>
+            </button>
         </a>
         <a href="/auth/login?provider=github">
-            <button class="bg-tertiary-500 btn">Continue with<span class="font-bold">&nbsp;GitHub</span></button>
+            <button class="bg-tertiary-500 btn">
+                <Icon icon="mdi:github" width="1.3em" height="1.3em" style="color: black" />
+                <div class="pr-2">
+                    Continue with &nbsp;<span class="font-bold">GitHub</span>
+                </div>
+            </button>
         </a>
     </div>
 </div>

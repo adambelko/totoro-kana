@@ -20,7 +20,7 @@
         {#if user}
             <h4 class="h4">Welcome back, {getFullName(user)}!</h4>
         {:else}
-            <h4 class="h4">Please <a href="/login" class="anchor">login</a> to continue.</h4>
+            <h4 class="h4">Please <a href="/login" class="anchor">log in</a> to continue.</h4>
         {/if}
     </AppBar>
     <TabGroup justify="justify-center" class="w-full">
