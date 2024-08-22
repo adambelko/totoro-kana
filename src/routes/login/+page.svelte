@@ -14,7 +14,7 @@
     <h2 class="h2 p-4 text-center">Log in</h2>
     <div class="flex flex-col gap-4 items-center">
         <a href="/auth/login?provider=spotify">
-            <button class="bg-tertiary-400 btn">
+            <button class="bg-primary-400 btn">
                 <Icon icon="mdi:spotify" width="1.3em" height="1.3em" style="color: black" />
                 <div class="pr-2">
                     Continue with &nbsp;<span class="font-bold">Spotify</span>
@@ -22,8 +22,8 @@
             </button>
         </a>
         <a href="/auth/login?provider=github">
-            <button class="bg-tertiary-500 btn">
-                <Icon icon="mdi:github" width="1.3em" height="1.3em" style="color: black" />
+            <button class="variant-filled btn">
+                <Icon icon="mdi:github" width="1.3em" height="1.3em" style="color: white" />
                 <div class="pr-2">
                     Continue with &nbsp;<span class="font-bold">GitHub</span>
                 </div>
