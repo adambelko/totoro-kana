@@ -10,6 +10,10 @@
     })
 </script>
 
+<svelte:head>
+    <title>Log in</title>
+</svelte:head>
+
 <div class="mt-4 flex flex-col bg-white/30 pt-6 pb-10 rounded-container-token">
     <h2 class="h2 p-4 text-center">Log in</h2>
     <div class="flex flex-col gap-4 items-center">

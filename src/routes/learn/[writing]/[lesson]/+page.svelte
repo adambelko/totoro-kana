@@ -54,6 +54,10 @@
     init()
 </script>
 
+<svelte:head>
+    <title>{groupName}</title>
+</svelte:head>
+
 {#if quiz === false}
     <div class="mb-6 mt-4 flex flex-col bg-white/30 rounded-container-token">
         <AppBar class="ml-4 mr-4 mt-4 p-5 rounded-container-token" background="variant-ghost">

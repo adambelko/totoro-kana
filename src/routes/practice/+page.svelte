@@ -19,6 +19,11 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Practice Hiragana and Katakana</title>
+	<meta property="description" content="Test your Hiragana and Katakana skill with our interactive quiz" />
+</svelte:head>
+
 {#if showPractice === false}
 	<div class="mb-6 mt-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">
 		<AppBar class="p-5 rounded-container-token" background="variant-ghost">
