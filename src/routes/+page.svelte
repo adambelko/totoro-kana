@@ -1,6 +1,5 @@
 <script>
 	import { goto } from "$app/navigation"
-	import { Avatar } from "@skeletonlabs/skeleton"
 	import Icon from "@iconify/svelte"
 	import totoroLogo from "$lib/assets/totoroLogo.webp"
 </script>
@@ -8,7 +7,7 @@
 <svelte:head>
 	<title>Totoro Kana - Learn Japanese Hiragana and Katakana</title>
 	<meta
-		property="description"
+		name="description"
 		content="Unlock the world of Japanese with Totoro Kana! Dive into our interactive platform to learn, practice
 		 and truly remember Japanese characters."
 	/>
@@ -16,7 +15,7 @@
 
 <section>
 	<div class="mt-24 flex flex-col gap-4">
-		<img class="max-w-60" src={totoroLogo} alt="totoroLogo" />
+		<img class="w-60 h-auto max-w-60" src={totoroLogo} alt="Totoro Logo" />
 		<h1 class="h1 text-6xl">Learn Japanese <br />Hiragana and Katakana.</h1>
 		<p class="max-w-[460px] text-xl">
 			Unlock the world of Japanese with Totoro Kana! Dive into our interactive platform to learn,
@@ -92,7 +91,7 @@
 	<div class="mb-24 mt-24 flex justify-center gap-16">
 		<div class="flex items-center">
 			<a href="https://www.adambelko.com/" target="_blank">
-				<Avatar initials="AB" background="variant-soft-primary" width="h-48" />
+				<span class="variant-soft-primary btn-icon w-48 text-5xl font-bold">AB</span>
 			</a>
 		</div>
 		<div class="flex flex-col gap-4 text-left">

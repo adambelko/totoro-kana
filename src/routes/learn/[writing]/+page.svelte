@@ -17,7 +17,7 @@
 
 <svelte:head>
     <title>Learn {tabValue === "hiragana" ? "Hiragana" : "Katakana"}</title>
-    <meta property="description" content="Learn and memorise {tabValue} with our interactive platform" />
+    <meta name="description" content="Learn and memorise {tabValue} with our interactive platform" />
 </svelte:head>
 
 <div class="mb-6 mt-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">

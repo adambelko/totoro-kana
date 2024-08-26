@@ -19,7 +19,7 @@
 <nav class="bg-surface-100-800-token flex min-h-20 shadow-2xl">
     <div class="mx-auto flex w-full max-w-[980px] items-center justify-between">
         <a class="mr-8 flex text-2xl font-bold" href="/">
-            Totoro<img class="max-h-7 px-1" src={totoroLogo} alt="totoro" />Kana
+            Totoro<img class="h-7 max-h-7 w-auto px-1" src={totoroLogo} alt="totoro" />Kana
         </a>
         <div class="flex items-center space-x-2">
             <a href="/learn/hiragana">

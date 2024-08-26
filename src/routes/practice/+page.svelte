@@ -21,7 +21,7 @@
 
 <svelte:head>
 	<title>Practice Hiragana and Katakana</title>
-	<meta property="description" content="Test your Hiragana and Katakana skill with our interactive quiz" />
+	<meta name="description" content="Test your Hiragana and Katakana skill with our interactive quiz" />
 </svelte:head>
 
 {#if showPractice === false}
