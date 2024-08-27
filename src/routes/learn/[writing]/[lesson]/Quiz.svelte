@@ -137,7 +137,6 @@
                 />
             {:else if isReviewDataReady}
                 <QuizReviewResults
-                        {data}
                         {isHiragana}
                         {isReview}
                         {incorrectKanaCount}

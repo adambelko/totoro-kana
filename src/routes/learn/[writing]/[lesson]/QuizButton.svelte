@@ -95,16 +95,14 @@
     {romajiToJapanese ? getFirstCharacter(currentRomajiCharacter) : getFirstCharacter(currentJapaneseCharacter)}
 </div>
 <div class="flex justify-center gap-4">
-    {#each currentKanaButtonOptions as kana, index}
+    {#each currentKanaButtonOptions as kana}
         <button
                 on:click={() => checkButtonCharacter(romajiToJapanese ? kana.japanese : kana.romaji)}
                 class="flex min-w-16 variant-ghost-surface items-center justify-center text-2xl btn {kana.errorClass
 				? 'error-outline'
 				: ''}"
         >
-            <div class="text-center">
                 {romajiToJapanese ? getFirstCharacter(kana.japanese) : getFirstCharacter(kana.romaji)}
-            </div>
         </button>
     {/each}
 </div>
