@@ -15,13 +15,8 @@ export const load = async ({ locals }) => {
 	}
 
 	const userId = session.user.id
-	console.time("hiraganaUserProgress")
 	const hiraganaUserProgress = await loadUserProgress(hiraganaProgress, userId)
-	console.timeEnd("hiraganaUserProgress")
-
-	console.time("katakanaUserProgress")
 	const katakanaUserProgress = await loadUserProgress(katakanaProgress, userId)
-	console.timeEnd("katakanaUserProgress")
 
 	return { hiraganaUserProgress, katakanaUserProgress }
 }
