@@ -15,7 +15,7 @@
 
 <section>
 	<div class="mt-24 flex flex-col gap-4">
-		<img class="w-60 h-auto max-w-60" src={totoroLogo} alt="Totoro Logo" />
+		<img class="max-w-60" src={totoroLogo} alt="Totoro Logo" />
 		<h1 class="h1 text-6xl">Learn Japanese <br />Hiragana and Katakana.</h1>
 		<p class="max-w-[460px] text-xl">
 			Unlock the world of Japanese with Totoro Kana! Dive into our interactive platform to learn,

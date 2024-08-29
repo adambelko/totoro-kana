@@ -12,6 +12,7 @@
     export let currentRomajiCharacter: string
     export let currentJapaneseCharacter: string
     export let currentIndex: number
+    export let correctKanaCount: number = 0
     export let incorrectKanaCount: number
     export let quizStage: number
     export let shuffledKanaList: Kana[]
@@ -40,6 +41,7 @@
             setNextKanaPair()
         } else {
             quizStage++
+            correctKanaCount++
         }
     }
 
