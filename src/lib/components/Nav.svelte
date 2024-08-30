@@ -83,14 +83,14 @@
 			</a>
 		</li>
 		<li>
-			<a href="/contact" class="block">
+			<a href="/contribution" class="block">
 				<div
 					class="btn flex items-center justify-start text-left hover:variant-soft-primary {classesActive(
-						'/contact'
+						'/contribution'
 					)}"
 				>
-					<Icon icon="ic:outline-email" width="1.2em" height="1.2em" style="color: black" />
-					<span class="ml-2">Contact</span>
+					<Icon icon="tabler:star-filled" width="1.2em" height="1.2em"  style="color: black" />
+					<span class="ml-2">Contribution</span>
 				</div>
 			</a>
 		</li>

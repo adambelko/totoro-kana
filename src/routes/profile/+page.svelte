@@ -17,8 +17,8 @@
 
 <div class="mb-6 mt-4 flex flex-col bg-white/30 p-6 rounded-container-token">
     <h2 class="h2">My Profile</h2>
-    <div class="mt-4 flex flex-col gap-2">
-        <h4 class="h4 mt-4">Profile Info</h4>
+    <div class="flex flex-col gap-2">
+        <h3 class="h3 mt-6">Profile info</h3>
         <div class="table-container">
             <table class="table table-hover">
                 <tbody>
@@ -41,7 +41,7 @@
                 </tbody>
             </table>
         </div>
-        <h4 class="h4 mt-4">Kana Progress</h4>
+        <h3 class="h3 mt-6">Kana progress</h3>
         <div class="table-container">
             <table class="table table-hover">
                 <tbody>

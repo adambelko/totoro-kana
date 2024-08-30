@@ -7,13 +7,7 @@
 		<span>
 			Built by <a href="https://www.adambelko.com/" target="_blank" class="anchor">Adam</a>
 		</span>
-        <div class="flex justify-center gap-4">
-            <a href="/contact">
-                <div class="flex items-center gap-1">
-                    <Icon icon="ic:outline-email" width="1.3em" height="1.3em" style="color: black"/>
-                    <span class="anchor">Contact</span>
-                </div>
-            </a>
+        <div class="flex justify-center">
             <a href="https://github.com/adambelko/totoro-kana" target="_blank">
                 <div class="flex items-center gap-1">
                     <Icon icon="mdi:github" width="1.3em" height="1.3em" style="color: black"/>
