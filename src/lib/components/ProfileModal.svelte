@@ -1,39 +1,51 @@
 <script lang="ts">
-    import {Avatar, type PopupSettings} from "@skeletonlabs/skeleton"
-    import {getFullName} from "$lib/utils/profileDetails"
-    import {goto} from "$app/navigation"
-    import avatar from "$lib/assets/totoroAvatar.webp"
+	import { page } from "$app/stores"
+	import { type PopupSettings } from "@skeletonlabs/skeleton"
+	import Icon from "@iconify/svelte"
+	import { getFullName } from "$lib/utils/profileDetails"
+	import { goto } from "$app/navigation"
 
-    export let data
-    export let popupProfile: PopupSettings
-    const {supabase, user} = data
+	export let data
+	export let popupProfile: PopupSettings
+	const { supabase, user } = data
 
-    const signOut = async () => {
-        await supabase.auth.signOut()
-        await goto("/")
-    }
+	$: classesActive = (href: string) =>
+		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : ""
+
+	const signOut = async () => {
+		await supabase.auth.signOut()
+		await goto("/")
+	}
 </script>
 
-<div class="card cursor-default bg-white p-4" data-popup={popupProfile.target}>
-    <div class="arrow bg-white" />
-    <div class="flex items-center">
-        <Avatar src={avatar} width="w-14" background="bg-white" />
-        <div>{getFullName(user)}</div>
-    </div>
-    <hr class="mb-2 mt-4" />
-    <ul class="list-none text-left">
-        <li class="pt-2">
-            <a href="/profile"
-               class="block w-full p-2 text-left text-inherit no-underline rounded-container-token hover:bg-surface-100"
-            >Profile</a>
-        </li>
-        <li class="pt-2">
-            <button
-                    on:click={signOut}
-                    class="w-full p-2 text-left rounded-container-token hover:bg-surface-100"
-            >
-                Log Out
-            </button>
-        </li>
-    </ul>
+<div class="card min-w-52 cursor-default bg-surface-100 p-4 shadow-xl" data-popup={popupProfile.target}>
+	<div class="flex justify-center">{getFullName(user)}</div>
+	<hr class="mb-4 mt-4" />
+	<ul class="space-y-1">
+		<li>
+			<a href="/profile" class="block">
+				<div
+					class="btn flex items-center justify-start text-left hover:variant-soft-primary {classesActive(
+						'/profile'
+					)}"
+				>
+					<Icon
+						icon="iconamoon:profile-duotone"
+						width="1.2em"
+						height="1.2em"
+						style="color: black"
+					/>
+					<span>Profile</span>
+				</div>
+			</a>
+		</li>
+		<li>
+			<button on:click={signOut} class="block w-full">
+				<div class="btn flex items-center justify-start text-left hover:variant-soft-primary">
+					<Icon icon="material-symbols:logout" width="1.2em" height="1.2em" style="color: black" />
+					<span>Log Out</span>
+				</div>
+			</button>
+		</li>
+	</ul>
 </div>
