@@ -4,7 +4,7 @@
 	import { AppBar } from "@skeletonlabs/skeleton"
 
 	export let data
-	const { user, hiragana, katakana } = data
+	const { hiragana, katakana } = data
 
 	let hiraganaCharacters: KanaData[] = []
 	let katakanaCharacters: KanaData[] = []
