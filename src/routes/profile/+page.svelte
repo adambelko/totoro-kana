@@ -2,7 +2,7 @@
     import {formatTimestamp} from "$lib/utils/date"
     import {getUserCompletedGroups, getUserKanaLearnedCount} from "$lib/utils/kana"
 
-    export let data
+    let { data } = $props();
     const {user, hiragana, katakana, hiraganaUserProgress, katakanaUserProgress} = data
 
     const userHiraganaCompletedGroups = getUserCompletedGroups(hiraganaUserProgress)

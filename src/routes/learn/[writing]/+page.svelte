@@ -5,9 +5,9 @@
     import {getFullName} from "$lib/utils/profileDetails"
     import Dashboard from "./Dashboard.svelte"
 
-    export let data
+    let { data } = $props();
     const {hiragana, katakana, hiraganaUserProgress = [], katakanaUserProgress = [], user} = data
-    let tabValue = $page.url.pathname.includes("hiragana") ? "hiragana" : "katakana"
+    let tabValue = $state($page.url.pathname.includes("hiragana") ? "hiragana" : "katakana")
 
     const handleTabClick = (tab: string) => {
         tabValue = tab
@@ -42,22 +42,24 @@
                 on:click={() => handleTabClick("katakana")}>Katakana
         </Tab>
 
-        <svelte:fragment slot="panel">
-            {#if tabValue === "hiragana"}
-                <Dashboard
-                        {tabValue}
-                        userId={user?.id}
-                        writingData={hiragana}
-                        writingProgressData={hiraganaUserProgress}
-                />
-            {:else}
-                <Dashboard
-                        {tabValue}
-                        userId={user?.id}
-                        writingData={katakana}
-                        writingProgressData={katakanaUserProgress}
-                />
-            {/if}
-        </svelte:fragment>
+        {#snippet panel()}
+            
+                {#if tabValue === "hiragana"}
+                    <Dashboard
+                            {tabValue}
+                            userId={user?.id}
+                            writingData={hiragana}
+                            writingProgressData={hiraganaUserProgress}
+                    />
+                {:else}
+                    <Dashboard
+                            {tabValue}
+                            userId={user?.id}
+                            writingData={katakana}
+                            writingProgressData={katakanaUserProgress}
+                    />
+                {/if}
+            
+            {/snippet}
     </TabGroup>
 </div>

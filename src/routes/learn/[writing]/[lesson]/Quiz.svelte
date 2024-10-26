@@ -18,23 +18,34 @@
 		reviewInterval: number
 	}
 
-	export let data
-	export let quiz: boolean
-	export let isHiragana: boolean
-	export let isReview: boolean
-	export let groupName: string
-	export let selectedGroup: Kana[]
+	interface Props {
+		data: any;
+		quiz: boolean;
+		isHiragana: boolean;
+		isReview: boolean;
+		groupName: string;
+		selectedGroup: Kana[];
+	}
 
-	let currentJapaneseCharacter = ""
-	let currentRomajiCharacter = ""
-	let quizStage = 1
+	let {
+		data,
+		quiz = $bindable(),
+		isHiragana,
+		isReview,
+		groupName,
+		selectedGroup
+	}: Props = $props();
+
+	let currentJapaneseCharacter = $state("")
+	let currentRomajiCharacter = $state("")
+	let quizStage = $state(1)
 	let currentIndex = 0
-	let correctKanaCount = 0
-	let incorrectKanaCount = 0
-	let shuffledKanaList: KanaList[] = []
-	let userProgress: WritingProgress[]
-	let isReviewDataReady = false
-	$: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
+	let correctKanaCount = $state(0)
+	let incorrectKanaCount = $state(0)
+	let shuffledKanaList: KanaList[] = $state([])
+	let userProgress: WritingProgress[] = $state()
+	let isReviewDataReady = $state(false)
+	let progressBarValue = $derived((correctKanaCount / (shuffledKanaList.length * 3)) * 100)
 
 	const checkGroupCompletion = async (): Promise<GroupCompletionResponse> => {
 		return await get(`/learn?userId=${data.user.id}&groupName=${groupName}&hiragana=${isHiragana}`)

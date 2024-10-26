@@ -24,7 +24,7 @@
 		<div>
 			<button
 				class="variant-filled-primary btn flex gap-2"
-				on:click={() => goto("/learn/hiragana")}
+				onclick={() => goto("/learn/hiragana")}
 			>
 				Get Started
 				<Icon

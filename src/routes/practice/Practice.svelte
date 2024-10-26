@@ -10,21 +10,25 @@
         katakana: KanaData[]
     }
 
-    export let hiraganaData: Kana[] = []
-    export let katakanaData: Kana[] = []
-    export let selectedKana: SelectedKana
+    interface Props {
+        hiraganaData?: Kana[];
+        katakanaData?: Kana[];
+        selectedKana: SelectedKana;
+    }
 
-    let currentJapaneseCharacter = ""
+    let { hiraganaData = [], katakanaData = [], selectedKana }: Props = $props();
+
+    let currentJapaneseCharacter = $state("")
     let currentRomajiCharacter: string[] = []
     let currentIndex = 0
-    let correctKanaCount = 0
-    let skippedKanaCount = 0
-    let userRomajiInput = ""
-    let inputErrorClass = ""
+    let correctKanaCount = $state(0)
+    let skippedKanaCount = $state(0)
+    let userRomajiInput = $state("")
+    let inputErrorClass = $state("")
     const skippedKanaList: string[][] = []
-    let shuffledKanaList: [string, string[]][] = []
-    $: progressBarValue = ((correctKanaCount + skippedKanaCount) / shuffledKanaList.length) * 100
-    let showResults = false
+    let shuffledKanaList: [string, string[]][] = $state([])
+    let progressBarValue = $derived(((correctKanaCount + skippedKanaCount) / shuffledKanaList.length) * 100)
+    let showResults = $state(false)
 
     useKeyDownHandler((event) => {
         if (event.key === "Enter") {
@@ -35,7 +39,7 @@
         }
     })
 
-    let inputElement: HTMLInputElement
+    let inputElement: HTMLInputElement = $state()
 
     onMount(() => {
         if (inputElement) {
@@ -123,8 +127,8 @@
                         bind:this={inputElement}
                 />
                 <div class="flex justify-center gap-4">
-                    <button class="variant-filled-tertiary btn" on:click={skipCharacter}>Skip</button>
-                    <button class="variant-filled-primary btn" on:click={checkCharacter}>Next</button>
+                    <button class="variant-filled-tertiary btn" onclick={skipCharacter}>Skip</button>
+                    <button class="variant-filled-primary btn" onclick={checkCharacter}>Next</button>
                 </div>
             </div>
             <div class="mb-4 flex flex-col justify-center gap-4">

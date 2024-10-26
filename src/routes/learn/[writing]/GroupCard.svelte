@@ -1,14 +1,27 @@
 <script lang="ts">
     import {getFirstCharacter} from "$lib/utils/kana"
 
-    export let user: string | undefined = undefined
-    export let isCompleted: boolean = false
-    export let isReadyForReview: boolean = false
-    export let isNextToLearn: boolean = false
-    export let groupName: string
-    export let index: number
-    export let writingData: Kana[]
-    export let startLesson: (groupName: string, review: boolean) => void
+    interface Props {
+        user?: string | undefined;
+        isCompleted?: boolean;
+        isReadyForReview?: boolean;
+        isNextToLearn?: boolean;
+        groupName: string;
+        index: number;
+        writingData: Kana[];
+        startLesson: (groupName: string, review: boolean) => void;
+    }
+
+    let {
+        user = undefined,
+        isCompleted = false,
+        isReadyForReview = false,
+        isNextToLearn = false,
+        groupName,
+        index,
+        writingData,
+        startLesson
+    }: Props = $props();
 
     const getGroupCharacters = (groupName: string) => {
         return writingData.filter((kana) => kana.groupName === groupName)
@@ -29,12 +42,12 @@
         </div>
         <div>
             {#if isCompleted && isReadyForReview}
-                <button class="variant-filled-tertiary btn" on:click={() => startLesson(groupName, true)}>
+                <button class="variant-filled-tertiary btn" onclick={() => startLesson(groupName, true)}>
                     Review
                 </button>
             {:else if isNextToLearn}
                 <button class="variant-filled-primary btn" disabled={!user}
-                        on:click={() => startLesson(groupName, false)}>
+                        onclick={() => startLesson(groupName, false)}>
                     Start lesson
                 </button>
             {/if}

@@ -3,7 +3,7 @@
 	import { goto } from "$app/navigation"
 	import { onMount } from "svelte"
 
-	export let data
+	let { data } = $props();
 	const { session } = data
 
 	onMount(() => {

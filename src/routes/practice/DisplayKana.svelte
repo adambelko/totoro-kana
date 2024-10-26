@@ -1,10 +1,14 @@
 <script lang="ts">
-	export let isCharacterSkipped: (japanese: string, romaji: string[]) => boolean
-	export let kanaGroups: {
+	interface Props {
+		isCharacterSkipped: (japanese: string, romaji: string[]) => boolean;
+		kanaGroups: {
 		main: KanaData[]
 		dakuten: KanaData[]
 		combination: KanaData[]
+	};
 	}
+
+	let { isCharacterSkipped, kanaGroups }: Props = $props();
 </script>
 
 {#if kanaGroups.main.length > 0}

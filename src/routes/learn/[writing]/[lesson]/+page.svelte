@@ -5,17 +5,17 @@
     import DisplayGroup from "./DisplayGroup.svelte"
     import Quiz from "./Quiz.svelte"
 
-    export let data
+    let { data } = $props();
 
-    let quiz = false
-    let currentIndex = 0
-    let currentJapaneseCharacter: string
-    let currentRomajiCharacter: string
-    let selectedGroup: Kana[] = []
+    let quiz = $state(false)
+    let currentIndex = $state(0)
+    let currentJapaneseCharacter: string = $state()
+    let currentRomajiCharacter: string = $state()
+    let selectedGroup: Kana[] = $state([])
     const lastUrlParam = $page.url.pathname.split("/").pop()
     const isHiragana = $page.url.pathname.includes("hiragana")
     const isReview = $page.url.searchParams.get("review") === "true"
-    let groupName = ""
+    let groupName = $state("")
 
     const formatParam = (param: string): string => {
         return param
@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="flex justify-center">
-            <button class="variant-filled-primary btn mb-4 mt-6" on:click={startQuiz}>Start Quiz</button>
+            <button class="variant-filled-primary btn mb-4 mt-6" onclick={startQuiz}>Start Quiz</button>
         </div>
     </div>
 {:else}

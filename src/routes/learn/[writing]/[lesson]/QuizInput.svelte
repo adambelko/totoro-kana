@@ -8,17 +8,30 @@
 		romaji: string
 	}
 
-	export let currentJapaneseCharacter: string
-	export let currentRomajiCharacter: string
-	export let currentIndex: number
-	export let incorrectKanaCount: number
-	export let quizStage: number
-	export let shuffledKanaList: Kana[]
-	export let handleRestudy: () => void
-	export let saveUserProgress: () => void
+	interface Props {
+		currentJapaneseCharacter: string;
+		currentRomajiCharacter: string;
+		currentIndex: number;
+		incorrectKanaCount: number;
+		quizStage: number;
+		shuffledKanaList: Kana[];
+		handleRestudy: () => void;
+		saveUserProgress: () => void;
+	}
 
-	let userRomajiInput = ""
-	let inputErrorClass = ""
+	let {
+		currentJapaneseCharacter = $bindable(),
+		currentRomajiCharacter = $bindable(),
+		currentIndex = $bindable(),
+		incorrectKanaCount = $bindable(),
+		quizStage = $bindable(),
+		shuffledKanaList = $bindable(),
+		handleRestudy,
+		saveUserProgress
+	}: Props = $props();
+
+	let userRomajiInput = $state("")
+	let inputErrorClass = $state("")
 
 	useKeyDownHandler((event) => {
 		if (event.key === "Enter") {
@@ -26,7 +39,7 @@
 		}
 	})
 
-	let inputElement: HTMLInputElement
+	let inputElement: HTMLInputElement = $state()
 
 	onMount(() => {
 		if (inputElement) {
@@ -94,8 +107,8 @@
 	/>
 </div>
 <div class="flex justify-center gap-4">
-	<button class="variant-filled-tertiary btn" on:click={restudy}>Restudy</button>
-	<button class="variant-filled-primary btn" on:click={checkInputCharacter}>Next</button>
+	<button class="variant-filled-tertiary btn" onclick={restudy}>Restudy</button>
+	<button class="variant-filled-primary btn" onclick={checkInputCharacter}>Next</button>
 </div>
 <div class="mb-4 mt-10 flex flex-col gap-4">
 	<div class="flex justify-center">

@@ -4,10 +4,19 @@
     import GroupCard from "./GroupCard.svelte"
     import {isGroupListExpanded} from "$lib/stores"
 
-    export let user: string | undefined
-    export let tabValue: string
-    export let writingData: Kana[]
-    export let writingProgressData: WritingProgress[]
+    interface Props {
+        user: string | undefined;
+        tabValue: string;
+        writingData: Kana[];
+        writingProgressData: WritingProgress[];
+    }
+
+    let {
+        user,
+        tabValue,
+        writingData,
+        writingProgressData
+    }: Props = $props();
 
     const groupNames = getKanaOrder(writingData)
 
@@ -38,7 +47,7 @@
 <div class="flex-1 bg-surface-200 p-4 rounded-container-token">
     {#if $isGroupListExpanded}
         <div class="flex justify-center">
-            <button class="pb-4 anchor" on:click={toggleGroupList}>Hide lessons</button>
+            <button class="pb-4 anchor" onclick={toggleGroupList}>Hide lessons</button>
         </div>
     {/if}
     <div class="flex flex-col gap-4">
@@ -50,7 +59,7 @@
                            {writingData}
                            isNextToLearn={isNextToLearn(groupName)}
                            {startLesson} />
-                <button class="anchor" on:click={toggleGroupList}>Show all lessons</button>
+                <button class="anchor" onclick={toggleGroupList}>Show all lessons</button>
             {:else if $isGroupListExpanded}
                 <GroupCard
                         {groupName}

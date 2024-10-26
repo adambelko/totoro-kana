@@ -3,7 +3,7 @@
     import {onMount} from "svelte"
     import Icon from "@iconify/svelte"
 
-    export let data
+    let { data } = $props();
 
     onMount(() => {
         if (data.user) goto("/")

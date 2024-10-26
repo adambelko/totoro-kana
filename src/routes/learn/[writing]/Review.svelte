@@ -1,9 +1,13 @@
 <script lang="ts">
     import {getGroupsToReview} from "$lib/utils/kana"
 
-    export let writingProgressData: WritingProgress[]
-    export let userId: string | undefined
-    export let tabValue: string
+    interface Props {
+        writingProgressData: WritingProgress[];
+        userId: string | undefined;
+        tabValue: string;
+    }
+
+    let { writingProgressData, userId, tabValue }: Props = $props();
 
     const groupsToReview = getGroupsToReview(writingProgressData)
     const buttonStatus = !!userId
@@ -30,7 +34,7 @@
     <div class="flex flex-col gap-2">
         <p class="mt-2">You currently have {groupsToReview.length} groups to review</p>
         <div>
-            <button class="variant-filled-tertiary btn" disabled={!buttonStatus} on:click={startReview}>
+            <button class="variant-filled-tertiary btn" disabled={!buttonStatus} onclick={startReview}>
                 Start reviews
             </button>
         </div>

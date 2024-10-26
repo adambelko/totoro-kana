@@ -5,12 +5,16 @@
 	import { getFullName } from "$lib/utils/profileDetails"
 	import { goto } from "$app/navigation"
 
-	export let data
-	export let popupProfile: PopupSettings
+	interface Props {
+		data: any;
+		popupProfile: PopupSettings;
+	}
+
+	let { data, popupProfile }: Props = $props();
 	const { supabase, user } = data
 
-	$: classesActive = (href: string) =>
-		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : ""
+	let classesActive = $derived((href: string) =>
+		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : "")
 
 	const signOut = async () => {
 		await supabase.auth.signOut()
@@ -40,7 +44,7 @@
 			</a>
 		</li>
 		<li>
-			<button on:click={signOut} class="block w-full">
+			<button onclick={signOut} class="block w-full">
 				<div class="btn flex items-center justify-start text-left hover:variant-soft-primary">
 					<Icon icon="material-symbols:logout" width="1.2em" height="1.2em" style="color: black" />
 					<span>Log Out</span>

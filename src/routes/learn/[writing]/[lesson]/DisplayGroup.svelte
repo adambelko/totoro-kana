@@ -1,11 +1,21 @@
 <script lang="ts">
     import {useKeyDownHandler} from "$lib/utils/keydown"
 
-    export let selectedGroup: Kana[]
-    export let groupName: string
-    export let currentIndex: number
-    export let setCurrentCharacters: (index: number) => void
-    export let startQuiz: () => void
+    interface Props {
+        selectedGroup: Kana[];
+        groupName: string;
+        currentIndex: number;
+        setCurrentCharacters: (index: number) => void;
+        startQuiz: () => void;
+    }
+
+    let {
+        selectedGroup,
+        groupName,
+        currentIndex,
+        setCurrentCharacters,
+        startQuiz
+    }: Props = $props();
 
     useKeyDownHandler((event) => {
             if (event.key === "Enter") {
@@ -43,7 +53,7 @@
 					index
 						? 'variant-ghost-secondary'
 						: 'variant-ghost-surface'}"
-                        on:click={() => {
+                        onclick={() => {
 						setCurrentCharacters(index)
 					}}
                 >

@@ -1,11 +1,21 @@
 <script lang="ts">
     import {getKanaOrder} from "$lib/utils/kana"
 
-    export let data
-    export let isHiragana: boolean
-    export let incorrectKanaCount: number
-    export let groupName: string
-    export let handleRestudy: () => void
+    interface Props {
+        data: any;
+        isHiragana: boolean;
+        incorrectKanaCount: number;
+        groupName: string;
+        handleRestudy: () => void;
+    }
+
+    let {
+        data,
+        isHiragana,
+        incorrectKanaCount,
+        groupName,
+        handleRestudy
+    }: Props = $props();
 
     const kanaOrder = isHiragana ? getKanaOrder(data.hiragana) : getKanaOrder(data.katakana)
     const groupNameIndex = kanaOrder.findIndex((item) => item === groupName)
@@ -41,13 +51,13 @@
             <p class="text-4xl font-bold">Well done!</p>
             <p class="text-2xl font-bold mb-4">You passed the lesson.</p>
             <div class="mb-4">
-                <button class="variant-filled-tertiary btn" on:click={startNextLesson}>Next lesson</button>
+                <button class="variant-filled-tertiary btn" onclick={startNextLesson}>Next lesson</button>
             </div>
         {:else}
             <p class="text-4xl font-bold">Lesson not passed...</p>
             <p class="text-2xl font-bold mb-4">You've made {incorrectKanaCount} mistakes.</p>
             <div class="mb-4">
-                <button class="variant-filled-tertiary btn mb-4" on:click={handleRestudy}>Restudy</button>
+                <button class="variant-filled-tertiary btn mb-4" onclick={handleRestudy}>Restudy</button>
             </div>
         {/if}
     </div>

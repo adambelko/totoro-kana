@@ -6,9 +6,9 @@
 	import totoroLogo from "$lib/assets/totoroLogo.webp"
 	import totoroAvatar from "$lib/assets/totoroAvatar.webp"
 
-	export let data
-	$: classesActive = (href: string) =>
-		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : ""
+	let { data } = $props();
+	let classesActive = $derived((href: string) =>
+		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : "")
 
 	const popupProfile: PopupSettings = {
 		event: "click",

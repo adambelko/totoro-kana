@@ -1,12 +1,23 @@
 <script lang="ts">
     import {getGroupsToReview} from "$lib/utils/kana"
 
-    export let isHiragana: boolean
-    export let isReview: boolean
-    export let incorrectKanaCount: number
-    export let groupName: string
-    export let userProgress: WritingProgress[]
-    export let handleRestudy: () => void
+    interface Props {
+        isHiragana: boolean;
+        isReview: boolean;
+        incorrectKanaCount: number;
+        groupName: string;
+        userProgress: WritingProgress[];
+        handleRestudy: () => void;
+    }
+
+    let {
+        isHiragana,
+        isReview,
+        incorrectKanaCount,
+        groupName,
+        userProgress,
+        handleRestudy
+    }: Props = $props();
 
     const navigate = (groupName: string) => {
         const param = groupName.toLowerCase().split(" ").join("_")
@@ -40,13 +51,13 @@
             <p class="text-4xl font-bold">Good job!</p>
             <p class="text-2xl font-bold mb-4">You passed the review.</p>
             <div class="mb-4">
-                <button class="variant-filled-tertiary btn" on:click={startNextReview}>Next review</button>
+                <button class="variant-filled-tertiary btn" onclick={startNextReview}>Next review</button>
             </div>
         {:else}
             <p class="text-4xl font-bold">Review not passed...</p>
             <p class="text-2xl font-bold mb-4">You've made {incorrectKanaCount} mistakes.</p>
             <div class="mb-4">
-                <button class="variant-filled-tertiary btn mb-4" on:click={handleRestudy}>Restudy</button>
+                <button class="variant-filled-tertiary btn mb-4" onclick={handleRestudy}>Restudy</button>
             </div>
         {/if}
     </div>

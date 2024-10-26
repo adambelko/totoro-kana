@@ -7,8 +7,8 @@
 	import Footer from "$lib/components/Footer.svelte"
 	import "../app.css"
 
-	export let data
-	$: ({ session, supabase } = data)
+	let { data, children } = $props();
+	let { session, supabase } = $derived(data)
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
@@ -26,7 +26,7 @@
 <Nav {data} />
 
 <main>
-	<slot />
+	{@render children?.()}
 </main>
 
 <Footer />

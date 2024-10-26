@@ -8,18 +8,33 @@
         errorClass?: boolean
     }
 
-    export let romajiToJapanese: boolean
-    export let currentRomajiCharacter: string
-    export let currentJapaneseCharacter: string
-    export let currentIndex: number
-    export let correctKanaCount: number = 0
-    export let incorrectKanaCount: number
-    export let quizStage: number
-    export let shuffledKanaList: Kana[]
-    export let handleRestudy: () => void
-    export let saveUserProgress: () => void
+    interface Props {
+        romajiToJapanese: boolean;
+        currentRomajiCharacter: string;
+        currentJapaneseCharacter: string;
+        currentIndex: number;
+        correctKanaCount?: number;
+        incorrectKanaCount: number;
+        quizStage: number;
+        shuffledKanaList: Kana[];
+        handleRestudy: () => void;
+        saveUserProgress: () => void;
+    }
 
-    let currentKanaButtonOptions: Kana[] = []
+    let {
+        romajiToJapanese,
+        currentRomajiCharacter = $bindable(),
+        currentJapaneseCharacter = $bindable(),
+        currentIndex = $bindable(),
+        correctKanaCount = $bindable(0),
+        incorrectKanaCount = $bindable(),
+        quizStage = $bindable(),
+        shuffledKanaList = $bindable(),
+        handleRestudy,
+        saveUserProgress
+    }: Props = $props();
+
+    let currentKanaButtonOptions: Kana[] = $state([])
 
     useKeyDownHandler((event) => {
         if (!isNaN(parseInt(event.key))) {
@@ -99,7 +114,7 @@
 <div class="flex justify-center gap-4">
     {#each currentKanaButtonOptions as kana}
         <button
-                on:click={() => checkButtonCharacter(romajiToJapanese ? kana.japanese : kana.romaji)}
+                onclick={() => checkButtonCharacter(romajiToJapanese ? kana.japanese : kana.romaji)}
                 class="flex min-w-16 variant-ghost-surface items-center justify-center text-2xl btn {kana.errorClass
 				? 'error-outline'
 				: ''}"
@@ -109,7 +124,7 @@
     {/each}
 </div>
 <div class="flex justify-center gap-4">
-    <button class="variant-filled-tertiary btn" on:click={handleRestudy}>Restudy</button>
+    <button class="variant-filled-tertiary btn" onclick={handleRestudy}>Restudy</button>
 </div>
 <div class="mb-4 mt-10 flex flex-col gap-4">
     <div class="flex justify-center">
