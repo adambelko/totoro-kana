@@ -3,14 +3,14 @@
 	import Practice from "./Practice.svelte"
 	import { AppBar } from "@skeletonlabs/skeleton"
 
-	export let data
+	let { data } = $props()
 	const { hiragana, katakana } = data
 
-	let hiraganaCharacters: KanaData[] = []
-	let katakanaCharacters: KanaData[] = []
-	$: selectedKana = { hiragana: hiraganaCharacters, katakana: katakanaCharacters }
+	let hiraganaCharacters: KanaData[] = $state([])
+	let katakanaCharacters: KanaData[] = $state([])
+	let selectedKana = $derived({ hiragana: hiraganaCharacters, katakana: katakanaCharacters })
 
-	let showPractice = false
+	let showPractice = $state(false)
 
 	const togglePractice = () => {
 		if (selectedKana.hiragana.length || selectedKana.katakana.length) {
@@ -21,7 +21,10 @@
 
 <svelte:head>
 	<title>Practice Hiragana and Katakana</title>
-	<meta name="description" content="Test your Hiragana and Katakana skill with our interactive quiz" />
+	<meta
+		name="description"
+		content="Test your Hiragana and Katakana skill with our interactive quiz"
+	/>
 </svelte:head>
 
 {#if showPractice === false}
@@ -45,7 +48,7 @@
 				/>
 			</div>
 		</div>
-		<button class="variant-filled-primary btn mx-auto" on:click={togglePractice}>
+		<button class="variant-filled-primary btn mx-auto" onclick={togglePractice}>
 			Start practice
 		</button>
 	</div>

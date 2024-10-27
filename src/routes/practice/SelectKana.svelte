@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem } from "@skeletonlabs/skeleton"
 
-	export let selectedKana: KanaData[]
-	export let title: string
-	export let data: Kana[]
+	interface Props {
+		selectedKana: KanaData[]
+		title: string
+		data: Kana[]
+	}
+
+	let { selectedKana = $bindable(), title, data }: Props = $props()
 
 	interface KanaDataGroup {
 		romaji: string[]
@@ -58,10 +62,10 @@
 
 	const listBoxData = formatKana(data)
 
-	let allChecked = false
-	let mainChecked = false
-	let dakutenChecked = false
-	let combinationChecked = false
+	let allChecked = $state(false)
+	let mainChecked = $state(false)
+	let dakutenChecked = $state(false)
+	let combinationChecked = $state(false)
 
 	const handleAllChecked = () => {
 		if (allChecked) {
@@ -132,12 +136,7 @@
 
 <div class="mt-2 flex justify-center gap-4">
 	<label class="flex items-center space-x-2">
-		<input
-			class="checkbox"
-			type="checkbox"
-			bind:checked={allChecked}
-			on:change={handleAllChecked}
-		/>
+		<input class="checkbox" type="checkbox" bind:checked={allChecked} onchange={handleAllChecked} />
 		<span>All</span>
 	</label>
 	<label class="flex items-center space-x-2">
@@ -145,7 +144,7 @@
 			class="checkbox"
 			type="checkbox"
 			bind:checked={mainChecked}
-			on:change={handleMainChecked}
+			onchange={handleMainChecked}
 		/>
 		<span>Main</span>
 	</label>
@@ -154,7 +153,7 @@
 			class="checkbox"
 			type="checkbox"
 			bind:checked={dakutenChecked}
-			on:change={handleDakutenChecked}
+			onchange={handleDakutenChecked}
 		/>
 		<span>Dakuten</span>
 	</label>
@@ -163,7 +162,7 @@
 			class="checkbox"
 			type="checkbox"
 			bind:checked={combinationChecked}
-			on:change={handleCombinationChecked}
+			onchange={handleCombinationChecked}
 		/>
 		<span>Combination</span>
 	</label>

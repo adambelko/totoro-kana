@@ -9,17 +9,28 @@
 		katakana: KanaData[]
 	}
 
-	export let hiraganaData: Kana[]
-	export let katakanaData: Kana[]
-	export let correctKanaCount: number
-	export let skippedKanaCount: number
-	export let skippedKanaList: string[][]
-	export let selectedKana: SelectedKana
+	interface Props {
+		hiraganaData: Kana[]
+		katakanaData: Kana[]
+		correctKanaCount: number
+		skippedKanaCount: number
+		skippedKanaList: string[][]
+		selectedKana: SelectedKana
+	}
+
+	let {
+		hiraganaData,
+		katakanaData,
+		correctKanaCount,
+		skippedKanaCount,
+		skippedKanaList,
+		selectedKana
+	}: Props = $props()
 
 	const totalKanaCount = correctKanaCount + skippedKanaCount
 	const successPercentage = ((correctKanaCount / totalKanaCount) * 100).toFixed(2)
-	let tabValue = selectedKana.hiragana.length ? "hiragana" : "katakana"
-	let showPractice = false
+	let tabValue = $state(selectedKana.hiragana.length ? "hiragana" : "katakana")
+	let showPractice = $state(false)
 
 	const isCharacterSkipped = (japanese: string, romaji: string[]): boolean => {
 		return skippedKanaList.some(([skipJapanese, skipRomaji]) => {
@@ -91,7 +102,7 @@
 		</div>
 		<button
 			class="variant-filled-primary btn mx-auto mt-4 flex justify-center"
-			on:click={() => (showPractice = true)}
+			onclick={() => (showPractice = true)}
 		>
 			Repeat
 		</button>

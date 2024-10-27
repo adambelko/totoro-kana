@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { invalidate } from "$app/navigation"
 	import { onMount } from "svelte"
-	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom"
+	import { storePopup } from "@skeletonlabs/skeleton"
 	import Nav from "$lib/components/Nav.svelte"
 	import Footer from "$lib/components/Footer.svelte"
 	import "../app.css"
 
-	export let data
-	$: ({ session, supabase } = data)
+	let { data, children } = $props()
+	let { session, user, supabase } = $derived(data)
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
@@ -23,10 +23,10 @@
 	})
 </script>
 
-<Nav {data} />
+<Nav {supabase} {user} />
 
 <main>
-	<slot />
+	{@render children?.()}
 </main>
 
 <Footer />

@@ -22,10 +22,7 @@
 			practice and truly remember Japanese characters.
 		</p>
 		<div>
-			<button
-				class="variant-filled-primary btn flex gap-2"
-				on:click={() => goto("/learn/hiragana")}
-			>
+			<button class="variant-filled-primary btn flex gap-2" onclick={() => goto("/learn/hiragana")}>
 				Get Started
 				<Icon
 					icon="teenyicons:arrow-right-solid"

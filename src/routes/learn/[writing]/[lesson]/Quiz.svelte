@@ -18,23 +18,27 @@
 		reviewInterval: number
 	}
 
-	export let data
-	export let quiz: boolean
-	export let isHiragana: boolean
-	export let isReview: boolean
-	export let groupName: string
-	export let selectedGroup: Kana[]
+	interface Props {
+		data: any
+		quiz: boolean
+		isHiragana: boolean
+		isReview: boolean
+		groupName: string
+		selectedGroup: Kana[]
+	}
 
-	let currentJapaneseCharacter = ""
-	let currentRomajiCharacter = ""
-	let quizStage = 1
-	let currentIndex = 0
-	let correctKanaCount = 0
-	let incorrectKanaCount = 0
-	let shuffledKanaList: KanaList[] = []
-	let userProgress: WritingProgress[]
-	let isReviewDataReady = false
-	$: progressBarValue = (correctKanaCount / (shuffledKanaList.length * 3)) * 100
+	let { data, quiz = $bindable(), isHiragana, isReview, groupName, selectedGroup }: Props = $props()
+
+	let currentJapaneseCharacter = $state("")
+	let currentRomajiCharacter = $state("")
+	let quizStage = $state(1)
+	let currentIndex = $state(0)
+	let correctKanaCount = $state(0)
+	let incorrectKanaCount = $state(0)
+	let shuffledKanaList: KanaList[] = $state([])
+	let userProgress: WritingProgress[] | undefined = $state()
+	let isReviewDataReady = $state(false)
+	let progressBarValue = $derived((correctKanaCount / (shuffledKanaList.length * 3)) * 100)
 
 	const checkGroupCompletion = async (): Promise<GroupCompletionResponse> => {
 		return await get(`/learn?userId=${data.user.id}&groupName=${groupName}&hiragana=${isHiragana}`)
@@ -75,8 +79,9 @@
 	}
 
 	const saveUserProgress = () => {
-		quizStage <= 3 ? correctKanaCount++ : submitProgress()
+		correctKanaCount < shuffledKanaList.length * 3 ? correctKanaCount++ : submitProgress()
 	}
+
 
 	const handleRestudy = () => {
 		quiz = false
@@ -85,7 +90,9 @@
 	init()
 </script>
 
-<div class="mb-6 mt-4 flex min-h-[580px] flex-col bg-white/30 rounded-container-token justify-between">
+<div
+	class="mb-6 mt-4 flex min-h-[580px] flex-col justify-between bg-white/30 rounded-container-token"
+>
 	<div>
 		<AppBar class="ml-4 mr-4 mt-4 flex p-5 rounded-container-token" background="variant-ghost">
 			<p class="mb-1">Correctly answer each syllable 3 times in order to pass the lesson.</p>
@@ -122,7 +129,6 @@
 						{currentJapaneseCharacter}
 						bind:currentRomajiCharacter
 						{currentIndex}
-						bind:correctKanaCount
 						bind:incorrectKanaCount
 						bind:quizStage
 						{shuffledKanaList}
@@ -131,7 +137,7 @@
 					/>
 				{:else if !isReview}
 					<QuizLessonResults {data} {isHiragana} {incorrectKanaCount} {groupName} {handleRestudy} />
-				{:else if isReviewDataReady}
+				{:else if isReviewDataReady && userProgress}
 					<QuizReviewResults
 						{isHiragana}
 						{isReview}
