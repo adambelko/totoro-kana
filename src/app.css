@@ -2,12 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-:root [data-theme='skeleton'] {
+:root [data-theme="skeleton"] {
     --theme-rounded-base: 20px;
     --theme-rounded-container: 8px;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     display: flex;

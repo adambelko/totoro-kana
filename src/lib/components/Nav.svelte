@@ -1,14 +1,22 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { Avatar, popup, type PopupSettings } from "@skeletonlabs/skeleton"
+	import type {SupabaseClient, User} from "@supabase/supabase-js"
 	import Icon from "@iconify/svelte"
 	import ProfileModal from "$lib/components/ProfileModal.svelte"
 	import totoroLogo from "$lib/assets/totoroLogo.webp"
 	import totoroAvatar from "$lib/assets/totoroAvatar.webp"
 
-	let { data } = $props();
+	interface Props {
+		supabase: SupabaseClient
+		user: User | null
+	}
+
+	let { supabase, user }: Props = $props()
+
 	let classesActive = $derived((href: string) =>
-		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : "")
+		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : ""
+	)
 
 	const popupProfile: PopupSettings = {
 		event: "click",
@@ -52,10 +60,10 @@
 					class="opacity-50"
 				/>
 			</div>
-			{#if data.user}
+			{#if user}
 				<div use:popup={popupProfile} class="cursor-pointer">
 					<Avatar src={totoroAvatar} width="w-14" background="bg-white" />
-					<ProfileModal {data} {popupProfile} />
+					<ProfileModal {supabase} {user} {popupProfile} />
 				</div>
 			{:else}
 				<a href="/login">
@@ -89,7 +97,7 @@
 						'/contribution'
 					)}"
 				>
-					<Icon icon="tabler:star-filled" width="1.2em" height="1.2em"  style="color: black" />
+					<Icon icon="tabler:star-filled" width="1.2em" height="1.2em" style="color: black" />
 					<span class="ml-2">Contribution</span>
 				</div>
 			</a>

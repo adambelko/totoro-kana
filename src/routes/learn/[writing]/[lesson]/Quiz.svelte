@@ -19,31 +19,24 @@
 	}
 
 	interface Props {
-		data: any;
-		quiz: boolean;
-		isHiragana: boolean;
-		isReview: boolean;
-		groupName: string;
-		selectedGroup: Kana[];
+		data: any
+		quiz: boolean
+		isHiragana: boolean
+		isReview: boolean
+		groupName: string
+		selectedGroup: Kana[]
 	}
 
-	let {
-		data,
-		quiz = $bindable(),
-		isHiragana,
-		isReview,
-		groupName,
-		selectedGroup
-	}: Props = $props();
+	let { data, quiz = $bindable(), isHiragana, isReview, groupName, selectedGroup }: Props = $props()
 
 	let currentJapaneseCharacter = $state("")
 	let currentRomajiCharacter = $state("")
 	let quizStage = $state(1)
-	let currentIndex = 0
+	let currentIndex = $state(0)
 	let correctKanaCount = $state(0)
 	let incorrectKanaCount = $state(0)
 	let shuffledKanaList: KanaList[] = $state([])
-	let userProgress: WritingProgress[] = $state()
+	let userProgress: WritingProgress[] | undefined = $state()
 	let isReviewDataReady = $state(false)
 	let progressBarValue = $derived((correctKanaCount / (shuffledKanaList.length * 3)) * 100)
 
@@ -86,8 +79,9 @@
 	}
 
 	const saveUserProgress = () => {
-		quizStage <= 3 ? correctKanaCount++ : submitProgress()
+		correctKanaCount < shuffledKanaList.length * 3 ? correctKanaCount++ : submitProgress()
 	}
+
 
 	const handleRestudy = () => {
 		quiz = false
@@ -96,7 +90,9 @@
 	init()
 </script>
 
-<div class="mb-6 mt-4 flex min-h-[580px] flex-col bg-white/30 rounded-container-token justify-between">
+<div
+	class="mb-6 mt-4 flex min-h-[580px] flex-col justify-between bg-white/30 rounded-container-token"
+>
 	<div>
 		<AppBar class="ml-4 mr-4 mt-4 flex p-5 rounded-container-token" background="variant-ghost">
 			<p class="mb-1">Correctly answer each syllable 3 times in order to pass the lesson.</p>
@@ -133,7 +129,6 @@
 						{currentJapaneseCharacter}
 						bind:currentRomajiCharacter
 						{currentIndex}
-						bind:correctKanaCount
 						bind:incorrectKanaCount
 						bind:quizStage
 						{shuffledKanaList}
@@ -142,7 +137,7 @@
 					/>
 				{:else if !isReview}
 					<QuizLessonResults {data} {isHiragana} {incorrectKanaCount} {groupName} {handleRestudy} />
-				{:else if isReviewDataReady}
+				{:else if isReviewDataReady && userProgress}
 					<QuizReviewResults
 						{isHiragana}
 						{isReview}

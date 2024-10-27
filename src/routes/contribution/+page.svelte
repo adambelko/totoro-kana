@@ -7,8 +7,8 @@
 		<h2 class="h2 mb-2">Contribution</h2>
 		<div class="mt-4 flex flex-col gap-4">
 			<p>
-				Totoro Kana is an open-source project that’s always evolving, and I welcome any ideas for
-				an improvement.
+				Totoro Kana is an open-source project that’s always evolving, and I welcome any ideas for an
+				improvement.
 			</p>
 			<p>Any feedback is greatly appreciated and helps make this website better!</p>
 
@@ -42,11 +42,13 @@
 				</li>
 				<li>Send me an email to <span class="font-bold">belkoadam@gmail.com</span></li>
 			</ul>
-			<p>Please see the <a
-				href="https://github.com/adambelko/totoro-kana/blob/main/CONTRIBUTING.md"
-				target="_blank"
-				class="anchor">contribution guide</a
-			> for more details.</p>
+			<p>
+				Please see the <a
+					href="https://github.com/adambelko/totoro-kana/blob/main/CONTRIBUTING.md"
+					target="_blank"
+					class="anchor">contribution guide</a
+				> for more details.
+			</p>
 		</div>
 	</div>
 </div>

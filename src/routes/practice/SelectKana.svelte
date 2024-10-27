@@ -2,12 +2,12 @@
 	import { ListBox, ListBoxItem } from "@skeletonlabs/skeleton"
 
 	interface Props {
-		selectedKana: KanaData[];
-		title: string;
-		data: Kana[];
+		selectedKana: KanaData[]
+		title: string
+		data: Kana[]
 	}
 
-	let { selectedKana = $bindable(), title, data }: Props = $props();
+	let { selectedKana = $bindable(), title, data }: Props = $props()
 
 	interface KanaDataGroup {
 		romaji: string[]
@@ -136,12 +136,7 @@
 
 <div class="mt-2 flex justify-center gap-4">
 	<label class="flex items-center space-x-2">
-		<input
-			class="checkbox"
-			type="checkbox"
-			bind:checked={allChecked}
-			onchange={handleAllChecked}
-		/>
+		<input class="checkbox" type="checkbox" bind:checked={allChecked} onchange={handleAllChecked} />
 		<span>All</span>
 	</label>
 	<label class="flex items-center space-x-2">

@@ -9,26 +9,26 @@
 	}
 
 	interface Props {
-		currentJapaneseCharacter: string;
-		currentRomajiCharacter: string;
-		currentIndex: number;
-		incorrectKanaCount: number;
-		quizStage: number;
-		shuffledKanaList: Kana[];
-		handleRestudy: () => void;
-		saveUserProgress: () => void;
+		currentJapaneseCharacter: string
+		currentRomajiCharacter: string
+		currentIndex: number
+		incorrectKanaCount: number
+		quizStage: number
+		shuffledKanaList: Kana[]
+		handleRestudy: () => void
+		saveUserProgress: () => void
 	}
 
 	let {
 		currentJapaneseCharacter = $bindable(),
-		currentRomajiCharacter = $bindable(),
-		currentIndex = $bindable(),
+		currentRomajiCharacter,
+		currentIndex,
 		incorrectKanaCount = $bindable(),
 		quizStage = $bindable(),
-		shuffledKanaList = $bindable(),
+		shuffledKanaList,
 		handleRestudy,
 		saveUserProgress
-	}: Props = $props();
+	}: Props = $props()
 
 	let userRomajiInput = $state("")
 	let inputErrorClass = $state("")
@@ -39,7 +39,7 @@
 		}
 	})
 
-	let inputElement: HTMLInputElement = $state()
+	let inputElement: HTMLInputElement | undefined = $state()
 
 	onMount(() => {
 		if (inputElement) {

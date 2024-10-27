@@ -10,12 +10,12 @@
 	}
 
 	interface Props {
-		hiraganaData: Kana[];
-		katakanaData: Kana[];
-		correctKanaCount: number;
-		skippedKanaCount: number;
-		skippedKanaList: string[][];
-		selectedKana: SelectedKana;
+		hiraganaData: Kana[]
+		katakanaData: Kana[]
+		correctKanaCount: number
+		skippedKanaCount: number
+		skippedKanaList: string[][]
+		selectedKana: SelectedKana
 	}
 
 	let {
@@ -25,7 +25,7 @@
 		skippedKanaCount,
 		skippedKanaList,
 		selectedKana
-	}: Props = $props();
+	}: Props = $props()
 
 	const totalKanaCount = correctKanaCount + skippedKanaCount
 	const successPercentage = ((correctKanaCount / totalKanaCount) * 100).toFixed(2)
@@ -91,15 +91,13 @@
 				<Tab bind:group={tabValue} name="hiragana" value={"hiragana"}>Hiragana</Tab>
 				<Tab bind:group={tabValue} name="katakana" value={"katakana"}>Katakana</Tab>
 
-				{#snippet panel()}
-							
-						{#if tabValue === "hiragana"}
-							<DisplayKana {isCharacterSkipped} kanaGroups={categorisedHiragana} />
-						{:else}
-							<DisplayKana {isCharacterSkipped} kanaGroups={categorisedKatakana} />
-						{/if}
-					
-							{/snippet}
+				<svelte:fragment slot="panel">
+					{#if tabValue === "hiragana"}
+						<DisplayKana {isCharacterSkipped} kanaGroups={categorisedHiragana} />
+					{:else}
+						<DisplayKana {isCharacterSkipped} kanaGroups={categorisedKatakana} />
+					{/if}
+				</svelte:fragment>
 			</TabGroup>
 		</div>
 		<button

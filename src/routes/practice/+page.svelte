@@ -3,7 +3,7 @@
 	import Practice from "./Practice.svelte"
 	import { AppBar } from "@skeletonlabs/skeleton"
 
-	let { data } = $props();
+	let { data } = $props()
 	const { hiragana, katakana } = data
 
 	let hiraganaCharacters: KanaData[] = $state([])
@@ -21,7 +21,10 @@
 
 <svelte:head>
 	<title>Practice Hiragana and Katakana</title>
-	<meta name="description" content="Test your Hiragana and Katakana skill with our interactive quiz" />
+	<meta
+		name="description"
+		content="Test your Hiragana and Katakana skill with our interactive quiz"
+	/>
 </svelte:head>
 
 {#if showPractice === false}
