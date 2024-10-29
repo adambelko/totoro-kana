@@ -3,6 +3,7 @@
 	import { onMount } from "svelte"
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom"
 	import { storePopup } from "@skeletonlabs/skeleton"
+	import Analytics from "$lib/components/Analytics.svelte"
 	import Nav from "$lib/components/Nav.svelte"
 	import Footer from "$lib/components/Footer.svelte"
 	import "../app.css"
@@ -22,6 +23,8 @@
 		return () => data.subscription.unsubscribe()
 	})
 </script>
+
+<Analytics />
 
 <Nav {supabase} {user} />
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import { Avatar, popup, type PopupSettings } from "@skeletonlabs/skeleton"
-	import type {SupabaseClient, User} from "@supabase/supabase-js"
+	import type { SupabaseClient, User } from "@supabase/supabase-js"
 	import Icon from "@iconify/svelte"
 	import ProfileModal from "$lib/components/ProfileModal.svelte"
 	import totoroLogo from "$lib/assets/totoroLogo.webp"
