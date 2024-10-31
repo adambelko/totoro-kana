@@ -1,16 +1,17 @@
 <script lang="ts">
+	import type { User } from "@supabase/supabase-js"
 	import { getGroupsToReview } from "$lib/utils/kana"
 
 	interface Props {
+		user: User | null
 		writingProgressData: WritingProgress[]
-		userId: string | undefined
 		tabValue: string
 	}
 
-	let { writingProgressData, userId, tabValue }: Props = $props()
+	let { user, writingProgressData, tabValue }: Props = $props()
 
 	const groupsToReview = getGroupsToReview(writingProgressData)
-	const buttonStatus = !!userId
+	const buttonStatus = !!user
 	const reviewKanaOrder = groupsToReview.map((progress) => progress.completedGroup)
 
 	const navigate = (groupName: string) => {
@@ -32,7 +33,19 @@
 <div class="variant-soft-surface flex-1 p-4 rounded-container-token">
 	<h4 class="h4">Review</h4>
 	<div class="flex flex-col gap-2">
-		<p class="mt-2">You currently have {groupsToReview.length} groups to review</p>
+		{#if !user}
+			<div class="space-y-4 p-4">
+				<div class="grid w-3/4 grid-cols-4 gap-2">
+					<div class="placeholder"></div>
+					<div class="placeholder"></div>
+					<div class="placeholder"></div>
+					<div class="placeholder"></div>
+				</div>
+				<div class="placeholder"></div>
+			</div>
+		{:else}
+			<p class="mt-2">You currently have {groupsToReview.length} groups to review</p>
+		{/if}
 		<div>
 			<button class="variant-filled-tertiary btn" disabled={!buttonStatus} onclick={startReview}>
 				Start reviews

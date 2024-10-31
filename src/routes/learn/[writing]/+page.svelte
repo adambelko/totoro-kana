@@ -48,14 +48,14 @@
 			{#if tabValue === "hiragana"}
 				<Dashboard
 					{tabValue}
-					userId={user?.id}
+					{user}
 					writingData={hiragana}
 					writingProgressData={hiraganaUserProgress}
 				/>
 			{:else}
 				<Dashboard
 					{tabValue}
-					userId={user?.id}
+					{user}
 					writingData={katakana}
 					writingProgressData={katakanaUserProgress}
 				/>

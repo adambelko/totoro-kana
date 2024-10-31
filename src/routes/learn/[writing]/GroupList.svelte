@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { goto } from "$app/navigation"
+	import type {User} from "@supabase/supabase-js"
 	import { getGroupsToReview, getKanaOrder } from "$lib/utils/kana.js"
 	import GroupCard from "./GroupCard.svelte"
 	import { isGroupListExpanded } from "$lib/stores"
 
 	interface Props {
-		user: string | undefined
+		user: User | null
 		tabValue: string
 		writingData: Kana[]
 		writingProgressData: WritingProgress[]

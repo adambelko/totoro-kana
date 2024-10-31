@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { getFirstCharacter } from "$lib/utils/kana"
+	import type {User} from "@supabase/supabase-js"
 
 	interface Props {
-		user?: string | undefined
+		user: User | null
 		isCompleted?: boolean
 		isReadyForReview?: boolean
 		isNextToLearn?: boolean
@@ -13,7 +14,7 @@
 	}
 
 	let {
-		user = undefined,
+		user,
 		isCompleted = false,
 		isReadyForReview = false,
 		isNextToLearn = false,

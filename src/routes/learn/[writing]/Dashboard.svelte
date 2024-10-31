@@ -1,22 +1,23 @@
 <script lang="ts">
+	import type {User} from "@supabase/supabase-js"
 	import Stats from "./Stats.svelte"
 	import GroupList from "./GroupList.svelte"
 	import Review from "./Review.svelte"
 
 	interface Props {
+		user: User | null
 		tabValue: string
-		userId: string | undefined
 		writingData: Kana[]
 		writingProgressData: WritingProgress[]
 	}
 
-	let { tabValue, userId, writingData, writingProgressData }: Props = $props()
+	let { user, tabValue, writingData, writingProgressData }: Props = $props()
 </script>
 
 <div class="flex flex-col gap-4">
 	<div class="flex gap-4">
-		<Stats {writingData} {writingProgressData} />
-		<Review {writingProgressData} {tabValue} {userId} />
+		<Stats {user} {writingData} {writingProgressData} />
+		<Review {user} {writingProgressData} {tabValue} />
 	</div>
-	<GroupList user={userId} {tabValue} {writingData} {writingProgressData} />
+	<GroupList {user} {tabValue} {writingData} {writingProgressData} />
 </div>
