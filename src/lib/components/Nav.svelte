@@ -32,11 +32,14 @@
 </script>
 
 <nav class="flex min-h-20 bg-surface-100 shadow-2xl">
-	<div class="mx-auto flex w-full max-w-[980px] items-center justify-between">
-		<a class="mr-8 flex text-2xl font-bold" href="/">
-			Totoro<img class="h-7 max-h-7 w-auto px-1" src={totoroLogo} alt="totoro" />Kana
+	<div class="mx-auto flex w-full max-w-[980px] items-center justify-between p-4">
+		<a class="flex items-center text-2xl font-bold" href="/">
+			<span class="hidden md:inline">Totoro</span>
+			<img class="h-7 max-h-7 w-auto min-w-[88px] px-1" src={totoroLogo} alt="totoro" />
+			<span class="hidden md:inline">Kana</span>
 		</a>
-		<div class="flex items-center space-x-2">
+
+		<div class="hidden items-center md:flex md:space-x-2">
 			<a href="/learn/hiragana">
 				<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/learn')}">
 					Learn
