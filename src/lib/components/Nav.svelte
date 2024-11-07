@@ -6,6 +6,8 @@
 	import ProfileModal from "$lib/components/ProfileModal.svelte"
 	import totoroLogo from "$lib/assets/totoroLogo.webp"
 	import totoroAvatar from "$lib/assets/totoroAvatar.webp"
+	import MobileSidebar from "$lib/components/MobileSidebar.svelte"
+	import {goto} from "$app/navigation"
 
 	interface Props {
 		supabase: SupabaseClient
@@ -17,6 +19,17 @@
 	let classesActive = $derived((href: string) =>
 		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : ""
 	)
+
+	let sidebarOpen = $state(false)
+
+	const toggleSidebar = () => {
+		sidebarOpen = !sidebarOpen
+	}
+
+	const signOut = async () => {
+		await supabase.auth.signOut()
+		await goto("/")
+	}
 
 	const popupProfile: PopupSettings = {
 		event: "click",
@@ -39,6 +52,21 @@
 			<span class="hidden md:inline">Kana</span>
 		</a>
 
+		<!-- Hamburger icon with sidebar for smaller devices -->
+		<Icon
+			icon="quill:hamburger"
+			width="2.1em"
+			height="2.1em"
+			style="color: black"
+			class="md:hidden"
+			onclick={toggleSidebar}
+		/>
+
+		{#if sidebarOpen}
+			<MobileSidebar {user} {supabase} {signOut} {classesActive} />
+		{/if}
+
+		<!-- Standard menu -->
 		<div class="hidden items-center md:flex md:space-x-2">
 			<a href="/learn/hiragana">
 				<div class="btn cursor-pointer hover:variant-soft-primary {classesActive('/learn')}">
@@ -66,7 +94,7 @@
 			{#if user}
 				<div use:popup={popupProfile} class="cursor-pointer">
 					<Avatar src={totoroAvatar} width="w-14" background="bg-white" />
-					<ProfileModal {supabase} {user} {popupProfile} />
+					<ProfileModal {user} {popupProfile} {signOut} {classesActive} />
 				</div>
 			{:else}
 				<a href="/login">

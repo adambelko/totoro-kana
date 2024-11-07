@@ -1,27 +1,17 @@
 <script lang="ts">
-	import { page } from "$app/stores"
 	import { type PopupSettings } from "@skeletonlabs/skeleton"
-	import type {SupabaseClient, User} from "@supabase/supabase-js"
+	import type { User} from "@supabase/supabase-js"
 	import Icon from "@iconify/svelte"
 	import { getFullName } from "$lib/utils/profileDetails"
-	import { goto } from "$app/navigation"
 
 	interface Props {
-		supabase: SupabaseClient
 		user: User | null
 		popupProfile: PopupSettings
+		signOut: () => void
+		classesActive: (href:string) => "!variant-filled-primary" | ""
 	}
 
-	let { supabase, user, popupProfile }: Props = $props()
-
-	let classesActive = $derived((href: string) =>
-		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : ""
-	)
-
-	const signOut = async () => {
-		await supabase.auth.signOut()
-		await goto("/")
-	}
+	let { user, popupProfile,  signOut, classesActive }: Props = $props()
 </script>
 
 <div
