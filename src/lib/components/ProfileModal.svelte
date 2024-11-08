@@ -8,7 +8,7 @@
 		user: User | null
 		popupProfile: PopupSettings
 		signOut: () => void
-		classesActive: (href:string) => "!variant-filled-primary" | ""
+		classesActive: (href:string) => "bg-primary-active-token" | ""
 	}
 
 	let { user, popupProfile,  signOut, classesActive }: Props = $props()

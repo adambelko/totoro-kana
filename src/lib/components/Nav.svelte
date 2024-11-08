@@ -1,29 +1,29 @@
 <script lang="ts">
 	import { page } from "$app/stores"
-	import { Avatar, popup, type PopupSettings } from "@skeletonlabs/skeleton"
+	import {goto} from "$app/navigation"
+	import {Avatar, type DrawerSettings, popup, type PopupSettings} from "@skeletonlabs/skeleton"
 	import type { SupabaseClient, User } from "@supabase/supabase-js"
 	import Icon from "@iconify/svelte"
 	import ProfileModal from "$lib/components/ProfileModal.svelte"
 	import totoroLogo from "$lib/assets/totoroLogo.webp"
 	import totoroAvatar from "$lib/assets/totoroAvatar.webp"
-	import MobileSidebar from "$lib/components/MobileSidebar.svelte"
-	import {goto} from "$app/navigation"
+	import { getDrawerStore } from "@skeletonlabs/skeleton"
 
 	interface Props {
 		supabase: SupabaseClient
 		user: User | null
 	}
 
+	const drawerStore = getDrawerStore()
+
 	let { supabase, user }: Props = $props()
 
 	let classesActive = $derived((href: string) =>
-		$page.url.pathname.startsWith(href) ? "!variant-filled-primary" : ""
+		$page.url.pathname.startsWith(href) ? "bg-primary-active-token" : ""
 	)
 
-	let sidebarOpen = $state(false)
-
-	const toggleSidebar = () => {
-		sidebarOpen = !sidebarOpen
+	const openSidebar = () => {
+		drawerStore.open(drawerSettings)
 	}
 
 	const signOut = async () => {
@@ -42,6 +42,12 @@
 		target: "popupMore",
 		placement: "bottom"
 	}
+
+	const drawerSettings: DrawerSettings = {
+		id: "mobile-drawer",
+		position: "right",
+		width: "w-[85%]",
+	}
 </script>
 
 <nav class="flex min-h-20 bg-surface-100 shadow-2xl">
@@ -52,19 +58,15 @@
 			<span class="hidden md:inline">Kana</span>
 		</a>
 
-		<!-- Hamburger icon with sidebar for smaller devices -->
+		<!-- Smaller devices hamburger icon -->
 		<Icon
 			icon="quill:hamburger"
 			width="2.1em"
 			height="2.1em"
 			style="color: black"
 			class="md:hidden"
-			onclick={toggleSidebar}
+			onclick={openSidebar}
 		/>
-
-		{#if sidebarOpen}
-			<MobileSidebar {user} {supabase} {signOut} {classesActive} />
-		{/if}
 
 		<!-- Standard menu -->
 		<div class="hidden items-center md:flex md:space-x-2">
