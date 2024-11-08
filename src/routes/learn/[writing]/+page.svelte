@@ -7,6 +7,7 @@
 
 	let { data } = $props()
 	const { hiragana, katakana, hiraganaUserProgress = [], katakanaUserProgress = [], user } = data
+
 	let tabValue = $state($page.url.pathname.includes("hiragana") ? "hiragana" : "katakana")
 
 	const handleTabClick = (tab: string) => {
@@ -20,7 +21,7 @@
 	<meta name="description" content="Learn and memorise {tabValue} with our interactive platform" />
 </svelte:head>
 
-<div class="mb-6 mt-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">
+<div class="m-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">
 	<AppBar class="p-5 rounded-container-token" background="variant-ghost">
 		{#if user}
 			<h4 class="h4">Welcome back, {getFullName(user)}!</h4>
