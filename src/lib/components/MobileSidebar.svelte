@@ -14,12 +14,13 @@
 
 	const drawerStore = getDrawerStore()
 
-	let classesActive = $derived((href: string) =>
+	let listItemActive = $derived((href: string) =>
 		$page.url.pathname.startsWith(href) ? "bg-primary-active-token" : ""
 	)
 
 	const signOut = async () => {
 		await supabase.auth.signOut()
+		closeSidebar()
 		await goto("/")
 	}
 
@@ -33,23 +34,25 @@
 	<nav>
 		<ul class="space-y-1 p-2">
 			<li>
-				<a href="/learn/hiragana" class="block">
+				<a href="/learn/hiragana" class="block" onclick={closeSidebar}>
 					<div
-						class="btn flex items-center justify-start text-left hover:variant-soft-primary {classesActive(
+						class="btn flex items-center justify-start text-left hover:variant-soft-primary {listItemActive(
 							'/learn/hiragana'
 						)}"
 					>
+						<Icon icon="iconoir:learning" width="1.2em" height="1.2em"  style="color: black" />
 						<span>Learn</span>
 					</div>
 				</a>
 			</li>
 			<li>
-				<a href="/practice" class="block">
+				<a href="/practice" class="block" onclick={closeSidebar}>
 					<div
-						class="btn flex items-center justify-start text-left hover:variant-soft-primary {classesActive(
+						class="btn flex items-center justify-start text-left hover:variant-soft-primary {listItemActive(
 							'/practice'
 						)}"
 					>
+						<Icon icon="ic:twotone-refresh" width="1.2em" height="1.2em"  style="color: black" />
 						<span>Practice</span>
 					</div>
 				</a>
@@ -64,21 +67,23 @@
 			<li>
 				<a href="/about" class="block" onclick={closeSidebar}>
 					<div
-						class="btn flex items-center justify-start text-left hover:variant-soft-primary {classesActive(
+						class="btn flex items-center justify-start text-left hover:variant-soft-primary {listItemActive(
 							'/about'
 						)}"
 					>
+						<Icon icon="gridicons:info-outline" width="1.2em" height="1.2em"  style="color: black" />
 						<span>About</span>
 					</div>
 				</a>
 			</li>
 			<li>
-				<a href="/contribution" class="block">
+				<a href="/contribution" class="block" onclick={closeSidebar}>
 					<div
-						class="btn flex items-center justify-start text-left hover:variant-soft-primary {classesActive(
+						class="btn flex items-center justify-start text-left hover:variant-soft-primary {listItemActive(
 							'/contribution'
 						)}"
 					>
+						<Icon icon="icon-park-twotone:star" width="1.2em" height="1.2em"  style="color: black" />
 						<span>Contribution</span>
 					</div>
 				</a>
@@ -92,9 +97,9 @@
 		<nav>
 			<ul class="space-y-1 p-2">
 				<li>
-					<a href="/profile" class="block">
+					<a href="/profile" class="block" onclick={closeSidebar}>
 						<div
-							class="btn flex items-center justify-start text-left hover:variant-soft-primary {classesActive(
+							class="btn flex items-center justify-start text-left hover:variant-soft-primary {listItemActive(
 								'/profile'
 							)}"
 						>

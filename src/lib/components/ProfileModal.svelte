@@ -8,10 +8,10 @@
 		user: User | null
 		popupProfile: PopupSettings
 		signOut: () => void
-		classesActive: (href:string) => "bg-primary-active-token" | ""
+		listItemActive: (href:string) => "bg-primary-active-token" | ""
 	}
 
-	let { user, popupProfile,  signOut, classesActive }: Props = $props()
+	let { user, popupProfile,  signOut, listItemActive }: Props = $props()
 </script>
 
 <div
@@ -24,7 +24,7 @@
 		<li>
 			<a href="/profile" class="block">
 				<div
-					class="btn flex items-center justify-start text-left hover:variant-soft-primary {classesActive(
+					class="btn flex items-center justify-start text-left hover:variant-soft-primary {listItemActive(
 						'/profile'
 					)}"
 				>
