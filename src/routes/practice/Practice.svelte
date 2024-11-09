@@ -115,7 +115,7 @@
 </script>
 
 {#if showResults === false}
-	<div class="mt-4 flex flex-col bg-white/30 rounded-container-token">
+	<div class="m-4 flex flex-col bg-white/30 rounded-container-token">
 		<AppBar class="ml-4 mr-4 mt-4 p-5 rounded-container-token" background="variant-ghost">
 			Enter the correct romaji and press "Next". Alternatively "Skip" to the next character.
 		</AppBar>
@@ -123,7 +123,7 @@
 			<div class="mb-10 mt-20 flex w-1/2 flex-col items-center justify-between gap-4">
 				<div class="text-6xl">{currentJapaneseCharacter}</div>
 				<input
-					class="input h-8 w-1/2 pl-3 {inputErrorClass}"
+					class="input h-8 w-[145px] text-center {inputErrorClass}"
 					type="text"
 					bind:value={userRomajiInput}
 					bind:this={inputElement}
@@ -133,7 +133,7 @@
 					<button class="variant-filled-primary btn" onclick={checkCharacter}>Next</button>
 				</div>
 			</div>
-			<div class="mb-4 flex flex-col justify-center gap-4">
+			<div class="hidden md:flex flex-col mb-4 justify-center gap-4">
 				<div class="mt-2 flex justify-center">
 					Press<kbd class="kbd ml-1.5 mr-1.5">SHIFT</kbd>+<kbd class="kbd ml-1.5 mr-1.5">S</kbd> to skip
 					the answer

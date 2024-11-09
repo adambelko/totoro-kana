@@ -28,11 +28,11 @@
 </svelte:head>
 
 {#if showPractice === false}
-	<div class="mb-6 mt-4 flex flex-col gap-4 bg-white/30 p-5 rounded-container-token">
+	<div class="m-2 sm:m-4 flex flex-col gap-4 bg-white/30 p-4 sm:p-5 rounded-container-token">
 		<AppBar class="p-5 rounded-container-token" background="variant-ghost">
 			Choose at least one group to start the practice.
 		</AppBar>
-		<div class="mt-4 flex gap-4">
+		<div class="flex flex-col gap-6 md:flex-row mt-4 md:gap-4">
 			<div class="flex-1">
 				<SelectKana
 					title="Hiragana / ひらがな"

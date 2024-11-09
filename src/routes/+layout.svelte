@@ -3,13 +3,17 @@
 	import { onMount } from "svelte"
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom"
 	import { storePopup } from "@skeletonlabs/skeleton"
+	import { initializeStores, Drawer } from "@skeletonlabs/skeleton"
 	import Analytics from "$lib/components/Analytics.svelte"
 	import Nav from "$lib/components/Nav.svelte"
+	import MobileSidebar from "$lib/components/MobileSidebar.svelte"
 	import Footer from "$lib/components/Footer.svelte"
 	import "../app.css"
 
 	let { data, children } = $props()
 	let { session, user, supabase } = $derived(data)
+
+	initializeStores()
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
@@ -25,6 +29,10 @@
 </script>
 
 <Analytics />
+
+<Drawer>
+	<MobileSidebar {user} {supabase} />
+</Drawer>
 
 <Nav {supabase} {user} />
 

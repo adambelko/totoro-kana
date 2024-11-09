@@ -79,7 +79,7 @@
 </script>
 
 {#if showPractice === false}
-	<div class="mb-6 mt-4 bg-white/30 p-4 rounded-container-token">
+	<div class="m-4 bg-white/30 p-4 rounded-container-token">
 		<div class="mt-6 flex flex-col items-center">
 			<h2 class="h2">Your Results</h2>
 			<h4 class="h4 mt-8">

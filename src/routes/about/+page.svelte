@@ -2,7 +2,7 @@
 	<title>About</title>
 </svelte:head>
 
-<div class="mb-6 mt-4 flex flex-col bg-white/30 p-6 rounded-container-token">
+<div class="m-4 flex flex-col bg-white/30 p-6 rounded-container-token">
 	<h2 class="h2">About</h2>
 	<section>
 		<h3 class="h3 mt-6">So why Totoro Kana?</h3>

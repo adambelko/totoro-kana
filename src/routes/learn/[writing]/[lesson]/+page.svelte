@@ -59,19 +59,21 @@
 </svelte:head>
 
 {#if quiz === false}
-	<div class="mb-6 mt-4 flex min-h-[580px] flex-col bg-white/30 rounded-container-token">
-		<AppBar class="ml-4 mr-4 mt-4 p-5 rounded-container-token" background="variant-ghost">
-			Navigate in between characters and memorise them.
-		</AppBar>
-		<DisplayGroup {selectedGroup} {groupName} {currentIndex} {setCurrentCharacters} {startQuiz} />
-		<div class="mt-4 flex justify-center gap-4 text-6xl">{currentJapaneseCharacter}</div>
-		<div class="mb-4 flex justify-center gap-4 p-6 text-4xl">{currentRomajiCharacter}</div>
-		<div class="flex flex-col gap-4">
-			<div class="flex justify-center">
-				Press<kbd class="kbd ml-1.5 mr-1.5">←</kbd>or<kbd class="kbd ml-1.5 mr-1.5">→</kbd> to navigate
-			</div>
-			<div class="flex justify-center">
-				Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to start the quiz
+	<div class="m-4 flex min-h-[580px] flex-col bg-white/30 rounded-container-token justify-between">
+		<div>
+			<AppBar class="ml-4 mr-4 mt-4 p-5 rounded-container-token" background="variant-ghost">
+				Navigate in between characters and memorise them.
+			</AppBar>
+			<DisplayGroup {selectedGroup} {groupName} {currentIndex} {setCurrentCharacters} {startQuiz} />
+			<div class="mt-4 flex justify-center gap-4 text-6xl">{currentJapaneseCharacter}</div>
+			<div class="mb-4 flex justify-center gap-4 p-6 text-4xl">{currentRomajiCharacter}</div>
+			<div class="hidden flex-col gap-4 md:flex">
+				<div class="flex justify-center">
+					Press<kbd class="kbd ml-1.5 mr-1.5">←</kbd>or<kbd class="kbd ml-1.5 mr-1.5">→</kbd> to navigate
+				</div>
+				<div class="flex justify-center">
+					Press<kbd class="kbd ml-1.5 mr-1.5">ENTER</kbd> to start the quiz
+				</div>
 			</div>
 		</div>
 		<div class="flex justify-center">

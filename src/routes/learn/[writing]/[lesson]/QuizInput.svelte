@@ -100,7 +100,7 @@
 <div class="flex flex-col items-center justify-center gap-4">
 	<div class="text-6xl">{currentJapaneseCharacter}</div>
 	<input
-		class="input h-8 w-1/2 pl-3 {inputErrorClass}"
+		class="input h-8 w-[170px] text-center {inputErrorClass}"
 		type="text"
 		bind:value={userRomajiInput}
 		bind:this={inputElement}
@@ -110,7 +110,7 @@
 	<button class="variant-filled-tertiary btn" onclick={restudy}>Restudy</button>
 	<button class="variant-filled-primary btn" onclick={checkInputCharacter}>Next</button>
 </div>
-<div class="mb-4 mt-10 flex flex-col gap-4">
+<div class="hidden md:flex mb-4 mt-10 flex-col gap-4">
 	<div class="flex justify-center">
 		Press<kbd class="kbd ml-1.5 mr-1.5">SHIFT</kbd>+<kbd class="kbd ml-1.5 mr-1.5">R</kbd> to restudy
 	</div>

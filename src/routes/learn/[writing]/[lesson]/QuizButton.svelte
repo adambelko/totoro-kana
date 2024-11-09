@@ -111,11 +111,11 @@
 		? getFirstCharacter(currentRomajiCharacter)
 		: getFirstCharacter(currentJapaneseCharacter)}
 </div>
-<div class="flex justify-center gap-4">
+<div class="flex justify-center gap-3 flex-wrap w-full">
 	{#each currentKanaButtonOptions as kana}
 		<button
 			onclick={() => checkButtonCharacter(romajiToJapanese ? kana.japanese : kana.romaji)}
-			class="variant-ghost-surface btn flex min-w-16 items-center justify-center text-2xl {kana.errorClass
+			class="variant-ghost-surface btn flex min-w-16 items-center justify-center text-xl sm:text-2xl {kana.errorClass
 				? 'error-outline'
 				: ''}"
 		>
@@ -126,7 +126,7 @@
 <div class="flex justify-center gap-4">
 	<button class="variant-filled-tertiary btn" onclick={handleRestudy}>Restudy</button>
 </div>
-<div class="mb-4 mt-10 flex flex-col gap-4">
+<div class="hidden md:flex mb-4 mt-10 flex-col gap-4">
 	<div class="flex justify-center">
 		Press<kbd class="kbd ml-1.5 mr-1.5">NUMBER</kbd> to submit the answer
 	</div>

@@ -31,7 +31,7 @@
 
 	let currentJapaneseCharacter = $state("")
 	let currentRomajiCharacter = $state("")
-	let quizStage = $state(1)
+	let quizStage = $state(2)
 	let currentIndex = $state(0)
 	let correctKanaCount = $state(0)
 	let incorrectKanaCount = $state(0)
@@ -91,7 +91,7 @@
 </script>
 
 <div
-	class="mb-6 mt-4 flex min-h-[580px] flex-col justify-between bg-white/30 rounded-container-token"
+	class="m-4 flex min-h-[580px] flex-col justify-between bg-white/30 rounded-container-token"
 >
 	<div>
 		<AppBar class="ml-4 mr-4 mt-4 flex p-5 rounded-container-token" background="variant-ghost">
@@ -99,7 +99,7 @@
 			<p>You're allowed to make one mistake.</p>
 		</AppBar>
 		<div class="flex justify-center">
-			<div class="mt-20 flex w-1/2 flex-col gap-4">
+			<div class="mt-20 flex flex-col gap-4 pr-4 pl-4">
 				{#if quizStage === 1}
 					<QuizButton
 						romajiToJapanese={false}

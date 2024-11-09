@@ -39,8 +39,8 @@
 
 <div class="flex justify-center gap-4 p-6">
 	<div class="flex flex-col gap-6">
-		<div class="text-center text-4xl font-bold">{groupName}</div>
-		<div class="flex gap-4">
+		<div class="text-center text-3xl md:text-4xl font-bold">{groupName}</div>
+		<div class="flex gap-2 flex-wrap justify-center md:gap-4">
 			{#each selectedGroup as groupItem, index}
 				<button
 					class="btn text-2xl {currentIndex === index

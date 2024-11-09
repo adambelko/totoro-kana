@@ -15,7 +15,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<div class="flex gap-4">
+	<div class="flex flex-col gap-4 sm:flex-row">
 		<Stats {user} {writingData} {writingProgressData} />
 		<Review {user} {writingProgressData} {tabValue} />
 	</div>
