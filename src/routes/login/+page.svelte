@@ -14,7 +14,7 @@
 	<title>Log in</title>
 </svelte:head>
 
-<div class="mt-4 flex flex-col bg-white/30 pb-10 pt-6 rounded-container-token">
+<div class="m-4 flex flex-col bg-white/30 pb-10 pt-6 rounded-container-token">
 	<h2 class="h2 p-4 text-center">Log in</h2>
 	<div class="flex flex-col items-center gap-4">
 		<a href="/auth/login?provider=google">
