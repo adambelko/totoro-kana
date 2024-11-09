@@ -127,14 +127,14 @@
 		class="flex-1 bg-surface-200"
 	>
 		{#each listBoxData as kana}
-			<ListBoxItem bind:group={selectedKana} name="medium" value={kana}>
+			<ListBoxItem bind:group={selectedKana} name="Kana Group" value={kana}>
 				{kana.japanese} / {kana.romaji}
 			</ListBoxItem>
 		{/each}
 	</ListBox>
 </div>
 
-<div class="mt-2 flex justify-center gap-4">
+<div class="mt-2 flex justify-center gap-4 flex-wrap">
 	<label class="flex items-center space-x-2">
 		<input class="checkbox" type="checkbox" bind:checked={allChecked} onchange={handleAllChecked} />
 		<span>All</span>
@@ -172,6 +172,6 @@
 	.scrollable {
 		max-height: 50vh;
 		border-radius: 20px;
-		overflow-y: scroll;
+		overflow-y: auto;
 	}
 </style>
