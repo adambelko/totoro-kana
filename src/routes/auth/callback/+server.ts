@@ -7,7 +7,7 @@ export const GET = async (event) => {
 	} = event
 
 	const code = url.searchParams.get("code") as string
-	const next = url.searchParams.get("next") ?? "/learn/hiragana"
+	const next = url.searchParams.get("next") as string
 
 	if (code) {
 		const { error } = await supabase.auth.exchangeCodeForSession(code)

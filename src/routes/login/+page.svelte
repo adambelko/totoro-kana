@@ -10,7 +10,7 @@
 		if (data.user) goto("/")
 	})
 
-	const next = $page.url.searchParams.get("next") ?? "/"
+	const next = $page.url.searchParams.get("next") ?? "/learn/hiragana"
 	console.log(next)
 </script>
 
