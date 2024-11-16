@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { goto } from "$app/navigation"
 	import { page } from "$app/stores"
+	import type { User } from "@supabase/supabase-js"
 	import { TabGroup, Tab, AppBar } from "@skeletonlabs/skeleton"
 	import { getFullName } from "$lib/utils/profileDetails"
 	import Dashboard from "./Dashboard.svelte"
-	import type { User } from "@supabase/supabase-js"
 
 	interface Props {
 		hiragana: Kana[]
