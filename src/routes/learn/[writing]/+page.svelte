@@ -4,9 +4,18 @@
 	import { TabGroup, Tab, AppBar } from "@skeletonlabs/skeleton"
 	import { getFullName } from "$lib/utils/profileDetails"
 	import Dashboard from "./Dashboard.svelte"
+	import type { User } from "@supabase/supabase-js"
 
-	let { data } = $props()
-	const { hiragana, katakana, hiraganaUserProgress = [], katakanaUserProgress = [], user } = data
+	interface Props {
+		hiragana: Kana[]
+		katakana: Kana[]
+		hiraganaUserProgress: WritingProgress[]
+		katakanaUserProgress: WritingProgress[]
+		user: User | null
+	}
+
+	let { data }: { data: Props } = $props()
+	let { hiragana, katakana, hiraganaUserProgress = [], katakanaUserProgress = [], user } = data
 
 	let tabValue = $state($page.url.pathname.includes("hiragana") ? "hiragana" : "katakana")
 
@@ -26,7 +35,7 @@
 		{#if user}
 			<h4 class="h4">Welcome back, {getFullName(user)}!</h4>
 		{:else}
-			<h4 class="h4">Please <a href="/login" class="anchor">log in</a> to continue.</h4>
+			<h4 class="h5">Let's learn something new today!</h4>
 		{/if}
 	</AppBar>
 	<TabGroup justify="justify-center" class="w-full">

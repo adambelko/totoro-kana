@@ -3,7 +3,6 @@
 	import type { User } from "@supabase/supabase-js"
 
 	interface Props {
-		user: User | null
 		isCompleted?: boolean
 		isReadyForReview?: boolean
 		isNextToLearn?: boolean
@@ -14,7 +13,6 @@
 	}
 
 	let {
-		user,
 		isCompleted = false,
 		isReadyForReview = false,
 		isNextToLearn = false,
@@ -49,7 +47,6 @@
 			{:else if isNextToLearn}
 				<button
 					class="variant-filled-primary btn"
-					disabled={!user}
 					onclick={() => startLesson(groupName, false)}
 				>
 					Start lesson

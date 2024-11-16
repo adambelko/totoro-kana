@@ -6,13 +6,12 @@
 	import { isGroupListExpanded } from "$lib/stores"
 
 	interface Props {
-		user: User | null
 		tabValue: string
 		writingData: Kana[]
 		writingProgressData: WritingProgress[]
 	}
 
-	let { user, tabValue, writingData, writingProgressData }: Props = $props()
+	let { tabValue, writingData, writingProgressData }: Props = $props()
 
 	const groupNames = getKanaOrder(writingData)
 
@@ -52,7 +51,6 @@
 				<GroupCard
 					{groupName}
 					{index}
-					{user}
 					{writingData}
 					isNextToLearn={isNextToLearn(groupName)}
 					{startLesson}
@@ -62,7 +60,6 @@
 				<GroupCard
 					{groupName}
 					{index}
-					{user}
 					{writingData}
 					isCompleted={isCompleted(groupName)}
 					isReadyForReview={isReadyForReview(groupName)}
