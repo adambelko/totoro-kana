@@ -11,7 +11,6 @@
 	let { user, writingProgressData, tabValue }: Props = $props()
 
 	const groupsToReview = getGroupsToReview(writingProgressData)
-	const buttonStatus = !!user
 	const reviewKanaOrder = groupsToReview.map((progress) => progress.completedGroup)
 
 	const navigate = (groupName: string) => {
@@ -33,21 +32,9 @@
 <div class="variant-soft-surface flex-1 p-4 rounded-container-token">
 	<h4 class="h4">Review</h4>
 	<div class="flex flex-col gap-2">
-		{#if !user}
-			<div class="space-y-4 p-4">
-				<div class="grid w-3/4 grid-cols-4 gap-2">
-					<div class="placeholder"></div>
-					<div class="placeholder"></div>
-					<div class="placeholder"></div>
-					<div class="placeholder"></div>
-				</div>
-				<div class="placeholder"></div>
-			</div>
-		{:else}
-			<p class="mt-2">You currently have {groupsToReview.length} groups to review</p>
-		{/if}
+		<p class="mt-2">You currently have {groupsToReview.length} groups to review</p>
 		<div>
-			<button class="variant-filled-tertiary btn" disabled={!buttonStatus} onclick={startReview}>
+			<button class="variant-filled-tertiary btn" disabled="{!user}" onclick={startReview}>
 				Start reviews
 			</button>
 		</div>
